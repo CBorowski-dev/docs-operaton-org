@@ -1,13 +1,11 @@
-# The Camunda 7 Documentation Sources
+# The Operaton Documentation Sources
 
-This repository contains the sources of the Camunda 7 documentation.
+This repository contains the sources of the Operaton documentation.
 
-**Important:** _do NOT change the content of `themes/camunda` directory directly!_
-Instead, change the [theme](//github.com/camunda/camunda-docs-theme).
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/camunda/camunda-bpm-platform/blob/master/CONTRIBUTING.md) for our general contribution guidelines. See the following sections for how to work with the docs.
+Have a look at our [contribution guide](https://github.com/operaton/operaton/blob/main/CONTRIBUTING.md) for our general contribution guidelines. See the following sections for how to work with the docs.
 
 ## Installing Hugo
 
@@ -73,7 +71,7 @@ Use the `note` shorthand:
 ```html
 {{< note title="Heads Up!" class="info" >}}
 The content of the note.
-        
+
 * full
 * markdown is supported
 {{< /note >}}

@@ -1,30 +1,21 @@
 ---
-baseURL: "/manual/develop/"
+baseURL: "/"
 languageCode: "en-us"
-title: "Camunda 7 documentation"
-theme: "camunda"
+title: "Operaton documentation"
+theme: "operaton"
 
 blackfriday:
   plainIDAnchors: true
 
 params:
-  canonicalBasePath: "https://docs.camunda.org"
+  canonicalBasePath: "https://docs.operaton.org"
   sections:
     - id: "get-started"
       name: "Get Started"
       url: "/get-started"
     - id: "manual"
-      name: "Camunda 7"
+      name: "Operaton"
       url: "/manual"
-    - id: "optimize"
-      name: "Optimize"
-      url: "/optimize"
-    - id: 'cawemo'
-      name: 'Cawemo'
-      url: '/cawemo'
-    - id: "enterprise"
-      name: "Enterprise"
-      url: "/enterprise"
     - id: "security"
       name: "Security"
       url: "/security"
@@ -59,7 +50,7 @@ params:
       - "7.0"
       - "develop"
   github:
-    repositoryName: "camunda/camunda-docs-manual"
+    repositoryName: "operaton/docs-operaton-org"
     branch: "master"
 
 outputs:
@@ -71,5 +62,4 @@ outputs:
 
 disableKinds:
 - taxonomy
-- taxonomyTerm
 ...
