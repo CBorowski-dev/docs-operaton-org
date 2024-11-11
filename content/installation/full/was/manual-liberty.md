@@ -12,36 +12,36 @@ menu:
 
 ---
 
-This section will describe how you can install Camunda 7 and its components on an [IBM WebSphere
-Application Server Liberty][liberty]. To perform the Camunda 7 installation on WebSphere Liberty
+This section will describe how you can install Operatonand its components on an [IBM WebSphere
+Application Server Liberty][liberty]. To perform the Operatoninstallation on WebSphere Liberty
 you will need the following:
 
 * The `camunda-ee-ibm-was-{{< minor-version >}}.0-ee` `.tar.gz` or `.zip` archive available from
   [the enterprise downloads page][ee-downloads].
 * A basic understanding on [how to create a WebSphere Liberty server][liberty-server-create].
-* A basic understanding on [how to deploy applications in Websphere Liberty][liberty-app-deploy]. 
+* A basic understanding on [how to deploy applications in Websphere Liberty][liberty-app-deploy].
 * You should also consider the [WebSphere Liberty Java support documentation][liberty-java].
 
 {{< note title="Reading this Guide" class="info" >}}
-This section provides examples for Camunda 7 `{{< minor-version >}}.0-ee`. If you are installing a patch version
+This section provides examples for Operaton`{{< minor-version >}}.0-ee`. If you are installing a patch version
 please replace the version numbers in the examples with the patch version you are using.
 
 Throughout this section we will use a number of variables to denote common path names and constants.
 You don't have to create these variables in your environment. They are just used in this guide to make it more readable.
 
-* `$WAS_DISTRIBUTION` represents the downloaded Camunda 7 distribution for the IBM WebSphere Application Server, e.g., `camunda-ee-ibm-was-{{< minor-version >}}.0-ee.zip`.
+* `$WAS_DISTRIBUTION` represents the downloaded Operatondistribution for the IBM WebSphere Application Server, e.g., `camunda-ee-ibm-was-{{< minor-version >}}.0-ee.zip`.
 * `$SERVER_CONFIG_DIR` points to the IBM WebSphere Liberty server configuration directory like `wlp/usr/servers/camundaServer`.
 
-The distribution is available at the [Camunda enterprise release page](https://downloads.camunda.cloud/enterprise-release/camunda-bpm/ibm-was-liberty).
+The distribution is available at the [Operaton enterprise release page](https://downloads.camunda.cloud/enterprise-release/camunda-bpm/ibm-was-liberty).
 You will be asked to enter the credentials you received during the trial or subscription process.
 {{< /note >}}
 
-To fully install Camunda 7 on WebSphere Liberty, you need to configure the following components:
+To fully install Operatonon WebSphere Liberty, you need to configure the following components:
 
-1. Camunda EAR and shared libraries
+1. Operaton EAR and shared libraries
 2. Datasource
 3. Work Manager
-4. Optional components: Camunda web apps, REST API, etc.
+4. Optional components: Operaton web apps, REST API, etc.
 
 # Server configuration
 
@@ -50,18 +50,18 @@ A Liberty server configuration is centralized in a single `server.xml` file that
 folder.
 
 {{< note title="WebSphere Liberty vs Open Liberty" class="info" >}}
-Camunda 7 requires certain Liberty features that are only available in the WebSphere Liberty edition. As a
-result, Open Liberty is not supported by Camunda 7.
+Operatonrequires certain Liberty features that are only available in the WebSphere Liberty edition. As a
+result, Open Liberty is not supported by Operaton.
 {{< /note >}}
 
 {{< note title="Java EE Liberty features support" class="info" >}}
 Liberty supports multiple Java/Jakarta EE versions through features with multiple versions (ex. `cdi-1.0`, `cdi-1.2`,
 `cdi-2.0`, etc.).
 
-Camunda 7 doesn't support Java EE 6, Java EE 7, or Jakarta EE 9+ features since they don't provide all the APIs 
-required to run Camunda 7 correctly.
+Operatondoesn't support Java EE 6, Java EE 7, or Jakarta EE 9+ features since they don't provide all the APIs
+required to run Operatoncorrectly.
 
-We recommend using Java EE 8 Liberty features to run Camunda 7 on WebSphere Liberty.
+We recommend using Java EE 8 Liberty features to run Operatonon WebSphere Liberty.
 
 If you decide to mix Liberty features from different Java EE versions, check the
 <a href="https://www.ibm.com/docs/en/was-liberty/base?topic=architecture-supported-java-ee-7-8-feature-combinations" >Java EE feature combinations page</a>
@@ -69,7 +69,7 @@ to ensure that the all the features are inter-compatible.
 {{< /note >}}
 
 This guide will show you what to place in the `$SERVER_CONFIG_DIR` folder, and what to add in the `server.xml` file
-to successfully install Camunda 7 on WebSphere Liberty.
+to successfully install Operatonon WebSphere Liberty.
 
 At the end of the installation, your Liberty server folder should have the following structure:
 
@@ -89,12 +89,12 @@ wlp/usr/servers/
       |-- server.xml <-- configuration file
 ```
 
-Furthermore, when your Liberty server is fully configured for Camunda 7, the `server.xml` file should have the
+Furthermore, when your Liberty server is fully configured for Operaton, the `server.xml` file should have the
 following content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<server description="camunda server">
+<server description="operaton server">
 
   <!-- Enable features -->
   <featureManager>
@@ -125,15 +125,15 @@ following content:
       <fileset dir="${server.config.dir}/lib" includes="db2jcc-*.jar" />
   </library>
 
-  <!-- Camunda libraries definition -->
-  <library id="Camunda">
+  <!-- Operaton libraries definition -->
+  <library id="Operaton">
     <fileset dir="${server.config.dir}/lib" includes="*.jar" />
   </library>
-  <bell libraryRef="Camunda"/> <!-- used to enable SPI detection -->
+  <bell libraryRef="Operaton"/> <!-- used to enable SPI detection -->
 
   <!-- Datasource Configuration -->
   <dataSource
-      id="CamundaBpmDataSource"
+      id="OperatonBpmDataSource"
       jndiName="jdbc/ProcessEngine"
       type="javax.sql.DataSource"
       isolationLevel="TRANSACTION_READ_COMMITTED" >
@@ -170,7 +170,7 @@ following content:
   <enterpriseApplication id="camundaBpmPlatform"
                          name="camunda-bpm-platform"
                          location="${server.config.dir}/apps/camunda-ibm-websphere-ear-{{< minor-version >}}.0-ee.ear" >
-    <classloader commonLibraryRef="Camunda"/>
+    <classloader commonLibraryRef="Operaton"/>
   </enterpriseApplication>
 
 </server>
@@ -184,29 +184,29 @@ The sections below provide more details for each configuration section of the `s
 
 # Required components
 
-To correctly install Camunda 7 process engine, you need to perform the following steps:
+To correctly install Operatonprocess engine, you need to perform the following steps:
 
-1. Configure the Camunda shared library.
-2. Configure the Camunda EAR deployment.
+1. Configure the Operaton shared library.
+2. Configure the Operaton EAR deployment.
 3. Configure a datasource.
 4. Configure the work manager.
 
-## Camunda shared library
+## Operaton shared library
 
-The Camunda shared library is used by all the Camunda EAR and WAR-packaged applications, as well as any process
-applications you may deploy. As such, it's one of the core components of the Camunda 7 installation, and it is
+The Operaton shared library is used by all the Operaton EAR and WAR-packaged applications, as well as any process
+applications you may deploy. As such, it's one of the core components of the Operatoninstallation, and it is
 important to configure it correctly.
 
-To configure the Camunda shared library, you need to perform the following steps:
+To configure the Operaton shared library, you need to perform the following steps:
 
 1. Add the `.jar` artifacts from the `$WAS_DISTRIBUTION/server/lib/` folder to the
    `$SERVER_CONFIG_DIR/lib` folder.
 2. Add the `bells-1.0` feature to the `server.xml`.
 3. Define a `library` element in the `server.xml`.
-* The `library#id` attribute should be set to `Camunda`.
+* The `library#id` attribute should be set to `Operaton`.
 * All the `.jar` artifacts should be included. See the [Liberty shared lib][liberty-lib-conf] page for more details.
 4. Define a `bell` element in the `server.xml`.
-* The `bell#libraryRef` attribute should be set to the value of the `library#id` attribute, i.e. `Camunda`.
+* The `bell#libraryRef` attribute should be set to the value of the `library#id` attribute, i.e. `Operaton`.
 
 Once you perform all the steps, the `server.xml` should have the following content:
 
@@ -218,26 +218,26 @@ Once you perform all the steps, the `server.xml` should have the following conte
     <feature>bells-1.0</feature> <!-- used to enable SPI  -->
   </featureManager>
 
-  <!-- Camunda libraries definition -->
-  <library id="Camunda">
+  <!-- Operaton libraries definition -->
+  <library id="Operaton">
     <fileset dir="${server.config.dir}/lib" includes="*.jar" />
   </library>
-  <bell libraryRef="Camunda"/>
+  <bell libraryRef="Operaton"/>
 
 </server>
 ```
 
 {{< note title="WebSphere Liberty SPI discovery" class="info" >}}
-WebSphere Liberty doesn't perform SPI discovery by default. Since Camunda 7 uses SPI for certain features,
+WebSphere Liberty doesn't perform SPI discovery by default. Since Operatonuses SPI for certain features,
 you need to enable SPI discovery by adding the `bells-1.0` Liberty feature, and use the `bell` element in the
 `server.xml` to specify any shared libraries that rely on SPI.
 {{< /note >}}
 
-## Camunda EAR
+## Operaton EAR
 
-The camunda-ibm-websphere-ear is a Java EE application enterprise archive (EAR) providing the Camunda services.
+The camunda-ibm-websphere-ear is a Java EE application enterprise archive (EAR) providing the Operaton services.
 It contains an embedded rar module. This camunda-ibm-websphere-rar module is a JCA Resource Adapter providing the
-`jobexecutor` service to Camunda.
+`jobexecutor` service to Operaton.
 
 You need to perform the following steps to install the EAR archive on WebSphere Liberty:
 
@@ -245,8 +245,8 @@ You need to perform the following steps to install the EAR archive on WebSphere 
    the `$SERVER_CONFIG_DIR/apps` folder.
 2. Add the `servlet-4.0` Liberty feature to the `server.xml`.
 3. Define an `enterpriseApplication` element in the `server.xml`.
-4. Reference the Camunda shared library in the `enterpriseApplication` inside the `server.xml`.
-* The Camunda shared library is referenced by adding a `classloader` element.
+4. Reference the Operaton shared library in the `enterpriseApplication` inside the `server.xml`.
+* The Operaton shared library is referenced by adding a `classloader` element.
 5. (optional) [Configure location of the `bpm-platform.xml` file][bpm-platform-xml-config].
 
 After performing the steps above, the `server.xml` should contain the following:
@@ -263,7 +263,7 @@ After performing the steps above, the `server.xml` should contain the following:
   <enterpriseApplication id="camundaBpmPlatform"
                          name="camunda-bpm-platform"
                          location="${server.config.dir}/apps/camunda-ibm-websphere-ear-{{< minor-version >}}.0-ee.ear" >
-    <classloader commonLibraryRef="Camunda"/>
+    <classloader commonLibraryRef="Operaton"/>
   </enterpriseApplication>
 
 </server>
@@ -277,7 +277,7 @@ application deployment.
 
 ## Datasource
 
-Camunda 7 requires a datasource that will be used by the process engine. To provide a datasource in
+Operatonrequires a datasource that will be used by the process engine. To provide a datasource in
 WebSphere Liberty, the following steps need to be performed:
 
 1. Create the database schema and tables
@@ -285,23 +285,23 @@ WebSphere Liberty, the following steps need to be performed:
 
 ### Create the database schema and tables
 
-In the default Camunda 7 configuration, the database schema and all required tables are automatically
+In the default Operatonconfiguration, the database schema and all required tables are automatically
 created when the engine starts up for the first time. If you do not want the database schema and tables to be
 automatically created, you have to perform the following:
 
-1. Create a database schema for Camunda yourself.
+1. Create a database schema for Operaton yourself.
 2. Install the database schema to create all required tables and default indices using our
   [database schema installation guide][db-schema-install].
 
 When you create the tables manually, you have to configure the engine to **not** create tables at startup by
 setting the `databaseSchemaUpdate` property to `false` (or, in case you are using Oracle, to `noop`). In WebSphere
 Liberty, this is done in the `bpm-platform.xml`, located in the
-`$WAS_DISTRIBUTION/server/apps/camunda-ibm-websphere-ear-{{< minor-version >}}.0-ee.ear/camunda-ibm-websphere-service.jar/META-INF/` 
+`$WAS_DISTRIBUTION/server/apps/camunda-ibm-websphere-ear-{{< minor-version >}}.0-ee.ear/camunda-ibm-websphere-service.jar/META-INF/`
 folder.
 
 ### Configure a datasource
 
-Camunda uses one or multiple process engines which must be connected to a datasource. To configure a
+Operaton uses one or multiple process engines which must be connected to a datasource. To configure a
 datasource in WebSphere Liberty, you need to perform the following:
 
 1. Add a JDBC driver library to the `$SERVER_CONFIG_DIR/lib` folder.
@@ -329,7 +329,7 @@ For example, to use an DB2 database as the datasource, you should first place th
 
   <!-- Configure datasource -->
   <dataSource
-      id="CamundaBpmDataSource"
+      id="OperatonBpmDataSource"
       jndiName="jdbc/ProcessEngine"
       type="javax.sql.DataSource"
       isolationLevel="TRANSACTION_READ_COMMITTED" >
@@ -361,10 +361,10 @@ configured in the `bpm-platform.xml` file.
 
 ## Work manager
 
-Camunda uses a Job Executor to support asynchronous execution. To integrate the Camunda Job Executor
-with WebSphere Liberty, Camunda relies on the `CommonJ Work manager`.
+Operaton uses a Job Executor to support asynchronous execution. To integrate the Operaton Job Executor
+with WebSphere Liberty, Operaton relies on the `CommonJ Work manager`.
 
-The Camunda Job Executor integration with Liberty requires the following Liberty features:
+The Operaton Job Executor integration with Liberty requires the following Liberty features:
 
 * `concurrent-1.0`
 * `heritageAPIs-1.1`
@@ -373,7 +373,7 @@ The Camunda Job Executor integration with Liberty requires the following Liberty
 * `ejbRemote-3.2`
 * `jndi-1.0`
 
-To correctly configure the Camunda 7 Job Executor in WebSphere Liberty, you need to define the following
+To correctly configure the OperatonJob Executor in WebSphere Liberty, you need to define the following
 elements in the `server.xml` file:
 
 * `managedExecutorService` - used to configure the thread pool.
@@ -430,16 +430,16 @@ You can use the following attributes of the `concurrencyPolicy` element to confi
     <tr>
       <td>maxQueueSize</td>
       <td>5</td>
-      <td>Specifies the size of the work request queue. The work request queue is a buffer that holds scheduled work 
-          objects and may be a value of 1 or greater. The thread pool pulls work from this queue. If you do not specify a 
-          value or the value is 0, the queue size is managed automatically. Large values can consume significant system 
+      <td>Specifies the size of the work request queue. The work request queue is a buffer that holds scheduled work
+          objects and may be a value of 1 or greater. The thread pool pulls work from this queue. If you do not specify a
+          value or the value is 0, the queue size is managed automatically. Large values can consume significant system
           resources.
       </td>
     </tr>
     <tr>
       <td>runIfQueueFull</td>
       <td>false</td>
-      <td>Specifies the action that is taken when the thread pool is exhausted, and the work request queue is full. This 
+      <td>Specifies the action that is taken when the thread pool is exhausted, and the work request queue is full. This
           action starts when you submit non-daemon work to the work manager. The value should be set to <code>false</code>.
       </td>
     </tr>
@@ -484,7 +484,7 @@ following empty XML sub-element:
 ```
 
 In the code snippet above, the `camunda-bpm-platform` segment of the `properties` element is defined by the `name`
-attribute of the [Camunda 7 EAR application](#camunda-platform-ear), while the `camunda-ibm-websphere-rar` is
+attribute of the [OperatonEAR application](#camunda-platform-ear), while the `camunda-ibm-websphere-rar` is
 the name of the EAR JCA Resource Adapter camunda-ibm-websphere-rar module, and shouldn't be changed.
 
 # Optional components
@@ -493,7 +493,7 @@ This section describes how to install optional components. None of these are req
 
 ## Cockpit, Tasklist, and Admin
 
-The web application archive that contains Camunda Cockpit, Camunda Admin, and Camunda Tasklist resides under
+The web application archive that contains Operaton Cockpit, Operaton Admin, and Operaton Tasklist resides under
 `$WAS_DISTRIBUTION/server/apps/camunda-webapp-ee-was-{{< minor-version >}}.0-ee.war` in the IBM WebSphere Application Server
 distribution archive.
 
@@ -503,8 +503,8 @@ You need to perform the following steps to install the WAR archive on WebSphere 
    the `$SERVER_CONFIG_DIR/apps` folder
 2. Add the `jaxrs-2.1` Liberty feature to the `server.xml`
 3. Define a `webApplication` element in the `server.xml`
-4. Reference the Camunda shared library in the `webApplication` inside the `server.xml`
-* The Camunda shared library is referenced by adding a `classloader` element.
+4. Reference the Operaton shared library in the `webApplication` inside the `server.xml`
+* The Operaton shared library is referenced by adding a `classloader` element.
 
 After performing the steps above, the `server.xml` should contain the following:
 
@@ -521,7 +521,7 @@ After performing the steps above, the `server.xml` should contain the following:
                   name="camunda"
                   startAfterRef="camundaBpmPlatform"
                   location="${server.config.dir}/apps/camunda-webapp-ee-was-{{< minor-version >}}.0-ee.war" >
-    <classloader commonLibraryRef="Camunda"/>
+    <classloader commonLibraryRef="Operaton"/>
   </webApplication>
 
 </server>
@@ -535,7 +535,7 @@ application deployment.
 
 ## REST API
 
-The Camunda REST API WAR file resides under `$WAS_DISTRIBUTION/server/apps/camunda-engine-rest-{{< minor-version >}}.0-ee-was.war`
+The Operaton REST API WAR file resides under `$WAS_DISTRIBUTION/server/apps/camunda-engine-rest-{{< minor-version >}}.0-ee-was.war`
 in the IBM WebSphere Application Server distribution archive.
 
 You need to perform the following steps to install the WAR archive on WebSphere Liberty:
@@ -544,8 +544,8 @@ You need to perform the following steps to install the WAR archive on WebSphere 
    the `$SERVER_CONFIG_DIR/apps` folder.
 2. Add the `jaxrs-2.1` and `beanValidation-2.0` Liberty features to the `server.xml`.
 3. Define a `webApplication` element in the `server.xml`.
-4. Reference the Camunda shared library in the `webApplication` inside the `server.xml`.
-* The Camunda shared library is referenced by adding a `classloader` element.
+4. Reference the Operaton shared library in the `webApplication` inside the `server.xml`.
+* The Operaton shared library is referenced by adding a `classloader` element.
 
 After performing the steps above, the `server.xml` should contain the following:
 
@@ -563,7 +563,7 @@ After performing the steps above, the `server.xml` should contain the following:
                   name="engine-rest"
                   startAfterRef="camundaBpmPlatform"
                   location="${server.config.dir}/apps/camunda-engine-rest-{{< minor-version >}}.0-ee-was.war" >
-    <classloader commonLibraryRef="Camunda"/>
+    <classloader commonLibraryRef="Operaton"/>
   </webApplication>
 
 </server>
@@ -572,15 +572,15 @@ After performing the steps above, the `server.xml` should contain the following:
 You can check the [Liberty `webApplication` docs][liberty-webapp] for more details on how to configure a WAR
 application deployment.
 
-## Camunda Connect plugin
+## Operaton Connect plugin
 
 Add the following artifacts (if not existing) from the folder `$WAS_DISTRIBUTION/server/lib` to the
 `$SERVER_CONFIG_DIR/lib` folder:
 
 * `camunda-commons-utils-$PLATFORM_VERSION.jar`
 
-In order to activate Camunda Connect functionality for a process engine, you need to register a process engine plugin
-in the Camunda configuration as follows:
+In order to activate Operaton Connect functionality for a process engine, you need to register a process engine plugin
+in the Operaton configuration as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -601,7 +601,7 @@ in the Camunda configuration as follows:
 
 Note that this requires a custom `bpm-platform.xml` file.
 
-## Camunda Spin
+## Operaton Spin
 
 Add the following artifacts (if not existing) from the folder `$WAS_DISTRIBUTION/server/lib/` to the
 `$SERVER_CONFIG_DIR/lib` folder:
@@ -609,8 +609,8 @@ Add the following artifacts (if not existing) from the folder `$WAS_DISTRIBUTION
 * `camunda-spin-core-$PLATFORM_VERSION.jar`
 * `camunda-commons-utils-$PLATFORM_VERSION.jar`
 
-In order to activate Camunda Spin functionality for a process engine, you need to register a process engine plugin
-in the Camunda configuration as follows:
+In order to activate Operaton Spin functionality for a process engine, you need to register a process engine plugin
+in the Operaton configuration as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -621,7 +621,7 @@ in the Camunda configuration as follows:
     <plugins>
       ... existing plugins ...
       <plugin>
-        <class>org.camunda.spin.plugin.impl.SpinProcessEnginePlugin</class>
+        <class>org.operaton.spin.plugin.impl.SpinProcessEnginePlugin</class>
       </plugin>
     </plugins>
     ...
@@ -660,7 +660,7 @@ Add the following artifacts (if not existing) from the folder `$WAS_DISTRIBUTION
 # Process Applications
 
 After installing a Process Application (PA) in your IBM WebSphere Liberty Server, which **does not** include the
-Camunda dependencies, you must reference the previously created [**"Camunda"** shared library](#camunda-shared-library)
+Operaton dependencies, you must reference the previously created [**"Operaton"** shared library](#camunda-shared-library)
 with the Process Application deployment.
 
 Your Process Application deployment in the `server.xml` file should look like the following example:
@@ -674,7 +674,7 @@ Your Process Application deployment in the `server.xml` file should look like th
                name="camunda-process-application"
                startAfterRef="camundaBpmPlatform"
                location="${server.config.dir}/apps/camunda-process-application.ear" >
-    <classloader commonLibraryRef="Camunda"/>
+    <classloader commonLibraryRef="Operaton"/>
   </application>
 
 </server>

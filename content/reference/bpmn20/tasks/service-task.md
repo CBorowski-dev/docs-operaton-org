@@ -13,7 +13,7 @@ menu:
 
 
 
-A Service Task is used to invoke services. In Camunda this is done by calling Java code or providing a work item for an external worker to complete asynchronously or invoking a logic which is implemented in form of webservices.
+A Service Task is used to invoke services. In Operaton this is done by calling Java code or providing a work item for an external worker to complete asynchronously or invoking a logic which is implemented in form of webservices.
 
 {{< bpmn-symbol type="service-task" >}}
 
@@ -31,7 +31,7 @@ To specify a class that is called during process execution, the fully qualified 
 ```xml
 <serviceTask id="javaService"
              name="My Java Service Task"
-             camunda:class="org.camunda.bpm.MyJavaDelegate" />
+             camunda:class="org.operaton.bpm.MyJavaDelegate" />
 ```
 
 Please refer to the [Java Delegate]({{< ref "/user-guide/process-engine/delegation-code.md#java-delegate" >}}) section of the [User Guide]({{< ref "/user-guide/_index.md" >}}) for details on how to implement a Java Delegate.
@@ -92,7 +92,7 @@ To declare a Service Task to be handled externally, the attribute `camunda:type`
            camunda:topic="ShipmentProcessing" />
 ```
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

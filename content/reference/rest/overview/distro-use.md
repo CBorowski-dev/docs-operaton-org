@@ -11,7 +11,7 @@ menu:
 ---
 
 
-The REST API is included in Camunda's pre-built distributions.
+The REST API is included in Operaton's pre-built distributions.
 It can be accessed via the context `/engine-rest` and uses the engines provided by the class `BpmPlatform`.
 
 The default process engine is available out of the box by accessing `/engine-rest/engine/default/{rest-methods}`

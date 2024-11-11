@@ -12,7 +12,7 @@ menu:
 ---
 
 {{< enterprise >}}
-Please note that this feature is only included in the enterprise edition of Camunda 7, it is not available in the community edition.
+Please note that this feature is only included in the enterprise edition of Operaton, it is not available in the community edition.
 {{< /enterprise >}}
 
 {{< img src="../../img/cockpit-decision-requirements-definition-view.png" title="Decision Requirements Definition View" >}}
@@ -20,7 +20,7 @@ Please note that this feature is only included in the enterprise edition of Camu
 On the decision requirements definition view, you can find a diagram of the deployed decision requirements definition.
 Use the mouse to navigate through the diagram. By turning the mouse wheel you can zoom in and out.
 Hold the left mouse button to pan the diagram in the desired direction.
-By clicking on a decision definition on the diagram you can filter instances in the table below by the selected definition. 
+By clicking on a decision definition on the diagram you can filter instances in the table below by the selected definition.
 You can also select multiple decision definitions while holding the control key.
 
 When a decision definition is either a decision table or a literal expression, a
@@ -42,9 +42,9 @@ In the decision instances tab, you can find a listing of all decision instances 
 
 Furthermore, you can copy a link to the current search query to your clipboard by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-link"></i></button> button and you can save search queries to your local browser storage by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-floppy-disk"></i></button> button and inserting a name in the drop down menu that appears. You can then retrieve the search query by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-floppy-disk"></i></button> button and selecting the chosen name in the drop down menu.
 
-If the decision instance was executed in the context of a process, you can also find 
-the process definition as well as the process instance ID that executed that specific 
-decision instance. 
+If the decision instance was executed in the context of a process, you can also find
+the process definition as well as the process instance ID that executed that specific
+decision instance.
 
 Clicking on the links takes you to the respective pages.
 The same principle also applies to case definitions and case instances.
@@ -57,8 +57,8 @@ In the decision requirements definition instances tab, you can find a listing of
 
 Furthermore, you can copy a link to the current search query to your clipboard by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-link"></i></button> button and you can save search queries to your local browser storage by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-floppy-disk"></i></button> button and inserting a name in the drop down menu that appears. You can then retrieve the search query by clicking on the <button class="btn btn-xs"><i class="glyphicon glyphicon-floppy-disk"></i></button> button and selecting the chosen name in the drop down menu.
 
-If the instance was executed in the context of a process, you can also find 
-the process definition as well as the process instance ID that executed that specific 
+If the instance was executed in the context of a process, you can also find
+the process definition as well as the process instance ID that executed that specific
 decision instance.
 
 Clicking on the links takes you to the respective pages.

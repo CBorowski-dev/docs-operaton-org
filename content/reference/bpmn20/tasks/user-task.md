@@ -71,7 +71,7 @@ A User Task can be directly assigned to a single user, a list of users or a list
 ## Assignment using BPMN Resource Assignments
 
 BPMN defines some native assignment concepts which can be used in camunda.
-As a more powerful alternative, Camunda also defines a set of custom extension elements (see below).
+As a more powerful alternative, Operaton also defines a set of custom extension elements (see below).
 
 ### Human Performer
 
@@ -128,7 +128,7 @@ If no specifics are given whether the given text string is a user or a group, th
 <formalExpression>group(accountancy)</formalExpression>
 ```
 
-## User Assignment using Camunda Extensions
+## User Assignment using Operaton Extensions
 
 It is clear that user and group assignments are quite cumbersome for use cases where the assignment is more complicated. To avoid these complexities, custom extensions on the User Task are possible.
 
@@ -231,7 +231,7 @@ It is also possible to use [task listeners]({{< ref "/user-guide/process-engine/
 ```xml
 <userTask id="task1" name="My task" >
   <extensionElements>
-    <camunda:taskListener event="create" class="org.camunda.bpm.MyAssignmentHandler" />
+    <camunda:taskListener event="create" class="org.operaton.bpm.MyAssignmentHandler" />
   </extensionElements>
 </userTask>
 ```
@@ -259,7 +259,7 @@ is intentional, in order to avoid creating event loops.
 
 ## Assignments and Identity Service
 
-Although the Camunda engine provides an identity management component, which is exposed through the IdentityService, it does not check whether a provided user is known by the identity component. This allows integration of the engine with existing identity management solutions when it is embedded into an application.
+Although the Operaton engine provides an identity management component, which is exposed through the IdentityService, it does not check whether a provided user is known by the identity component. This allows integration of the engine with existing identity management solutions when it is embedded into an application.
 
 However, note that you can use the identity service in a service / bean or listener to query your user repository if this is useful to you.
 
@@ -347,7 +347,7 @@ attribute:
 The form key is a symbolic value which can be set in the BPMN XML file by using the extension attribute
 `formKey` and retrieved at runtime using the process engine API.
 
-If the User Task form is displayed inside the Camunda Tasklist, the format of the formKey must follow
+If the User Task form is displayed inside the Operaton Tasklist, the format of the formKey must follow
 special rules. [See the corresponding section in the user guide for details]({{< ref "/user-guide/task-forms/_index.md" >}}).
 
 In custom applications, the value of the form key attribute can be interpreted freely. Based on the specific UI technology used,
@@ -390,7 +390,7 @@ VariableMap processVariables = formService
 formService.submitTaskForm(taskId, properties);
 ```
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

@@ -10,23 +10,23 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on a JBoss AS
+The following steps describe how to update the Operaton artifacts on a JBoss AS
 7, Wildfly 8 and Wildfly 10 server in a shared process engine scenario. For the entire
 procedure, refer to the [update guide][update-guide]. If not
-already done, make sure to download the [Camunda 7.8 JBoss distribution](https://downloads.camunda.cloud/release/camunda-bpm/jboss/7.8/), [Camunda 7.8 Wildfly 8](https://downloads.camunda.cloud/release/camunda-bpm/wildfly8/7.8/)
-or [Camunda 7.8 Wildfly 10 distribution](https://downloads.camunda.cloud/release/camunda-bpm/wildfly10/7.8/). In the following instructions
+already done, make sure to download the [Operaton JBoss distribution](https://downloads.camunda.cloud/release/camunda-bpm/jboss/7.8/), [Operaton Wildfly 8](https://downloads.camunda.cloud/release/camunda-bpm/wildfly8/7.8/)
+or [Operaton Wildfly 10 distribution](https://downloads.camunda.cloud/release/camunda-bpm/wildfly10/7.8/). In the following instructions
 `$APP_SERVER` should be replaced with either `jboss` or `wildfly`, depending on
 the used application server.
 
 The update procedure takes the following steps:
 
-1. Update the Camunda 7 Modules
-2. Update Optional Camunda 7 Modules
-3. Update Camunda Web Applications
+1. Update the OperatonModules
+2. Update Optional OperatonModules
+3. Update Operaton Web Applications
 
 Whenever the instructions are to *replace* a module, make sure to delete the previous version of the module first to avoid orphan jars.
 
-# 1. Update the Camunda 7 Modules
+# 1. Update the OperatonModules
 
 Replace the following modules from the folder `$APP_SERVER_HOME/modules/` with their new versions from the folder `$APP_SERVER_DISTRIBUTION/modules/`:
 
@@ -43,9 +43,9 @@ Replace the following modules from the folder `$APP_SERVER_HOME/modules/` with t
 * `org/camunda/commons/camunda-commons-typed-values`
 * `org/camunda/commons/camunda-commons-utils`
 
-# 2. Update Optional Camunda 7 Modules
+# 2. Update Optional OperatonModules
 
-In addition to the core modules, there may be optional artifacts in `$APP_SERVER_HOME/modules/` for LDAP integration, Camunda Connect, Camunda Spin, and Groovy scripting.
+In addition to the core modules, there may be optional artifacts in `$APP_SERVER_HOME/modules/` for LDAP integration, Operaton Connect, Operaton Spin, and Groovy scripting.
 If you use any of these extensions, the following update steps apply:
 
 ## LDAP Integration
@@ -54,7 +54,7 @@ Replace the following module from the folder `$APP_SERVER_HOME/modules/` with it
 
 * `org/camunda/bpm/identity/camunda-identity-ldap`
 
-## Camunda Connect
+## Operaton Connect
 
 Replace the following modules from the folder `$APP_SERVER_HOME/modules/` with their new versions from the folder `$APP_SERVER_DISTRIBUTION/modules/`, if present:
 
@@ -63,7 +63,7 @@ Replace the following modules from the folder `$APP_SERVER_HOME/modules/` with t
 * `org/camunda/connect/camunda-connect-soap-http`
 * `org/camunda/bpm/camunda-engine-plugin-connect`
 
-## Camunda Spin
+## Operaton Spin
 
 Replace the following modules from the folder `$APP_SERVER_HOME/modules/` with their new versions from the folder `$APP_SERVER_DISTRIBUTION/modules/`, if present:
 
@@ -85,11 +85,11 @@ Replace the following module from the folder `$APP_SERVER_HOME/modules/` with it
 * `org/codehaus/groovy/groovy-all`
 
 
-# 3. Update Camunda Web Applications
+# 3. Update Operaton Web Applications
 
 ## Update REST API
 
-The following steps are required to update the Camunda REST API on a JBoss/Wildfly instance:
+The following steps are required to update the Operaton REST API on a JBoss/Wildfly instance:
 
 1. Undeploy an existing web application with a name like `camunda-engine-rest`
 2. Download the REST API web application archive from our [Artifact Repository][engine-rest]. Alternatively, switch to the private repository for
@@ -98,10 +98,10 @@ The following steps are required to update the Camunda REST API on a JBoss/Wildf
 
 ## Update Cockpit, Tasklist, and Admin
 
-The following steps are required to update the Camunda web applications Cockpit, Tasklist, and Admin on a JBoss/Wildfly instance:
+The following steps are required to update the Operaton web applications Cockpit, Tasklist, and Admin on a JBoss/Wildfly instance:
 
 1. Undeploy an existing web application with a name like `camunda-webapp`
-2. Download the Camunda web application archive from our [Artifact Repository][webapp-jboss].
+2. Download the Operaton web application archive from our [Artifact Repository][webapp-jboss].
    Alternatively, switch to the private repository for the enterprise version (credentials from license required).
    Choose the correct version named `$PLATFORM_VERSION/camunda-webapp-jboss.war`.
 3. Deploy the web application archive to your JBoss/Wildfly instance.

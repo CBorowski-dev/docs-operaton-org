@@ -11,19 +11,19 @@ menu:
 
 ---
 
-The auto starter uses the  `org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin` mechanism to configure the engine.
+The auto starter uses the  `org.operaton.bpm.engine.impl.cfg.ProcessEnginePlugin` mechanism to configure the engine.
 
 The configuration is divided into _sections_. These _sections_ are represented by the marker interfaces:
 
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaProcessEngineConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaDatasourceConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaHistoryConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaHistoryLevelAutoHandlingConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaJobConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaDeploymentConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaAuthorizationConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaFailedJobConfiguration`
-* `org.camunda.bpm.spring.boot.starter.configuration.CamundaMetricsConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonProcessEngineConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonDatasourceConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonHistoryConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonHistoryLevelAutoHandlingConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonJobConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonDeploymentConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonAuthorizationConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonFailedJobConfiguration`
+* `org.operaton.bpm.spring.boot.starter.configuration.OperatonMetricsConfiguration`
 
 ## Default Configurations
 
@@ -35,11 +35,11 @@ Sets the process engine name and automatically adds all `ProcessEnginePlugin` be
 
 ### `DefaultDatasourceConfiguration`
 
-Configures the Camunda data source and enables [transaction integration]({{< ref "/user-guide/spring-framework-integration/transactions.md" >}}). By default, the primary `DataSource` and `PlatformTransactionManager` beans are wired with the process engine configuration.
+Configures the Operaton data source and enables [transaction integration]({{< ref "/user-guide/spring-framework-integration/transactions.md" >}}). By default, the primary `DataSource` and `PlatformTransactionManager` beans are wired with the process engine configuration.
 
 If you want to [configure more than one datasource](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-two-datasources)
 and don't want to use the `@Primary` one for the process engine, then you can create a separate
-data source with name `camundaBpmDataSource` that will be automatically wired with Camunda instead.
+data source with name `camundaBpmDataSource` that will be automatically wired with Operaton instead.
 
 ```java
 @Bean
@@ -58,7 +58,7 @@ public DataSource secondaryDataSource() {
 
 If you don't want to use the `@Primary` transaction manager, it is possible to create a separate
 transaction manager with the name `camundaBpmTransactionManager` that will be wired with the data
-source used for Camunda (either `@Primary` or `camundaBpmDataSource`):
+source used for Operaton (either `@Primary` or `camundaBpmDataSource`):
 
 ```java
 @Bean
@@ -74,7 +74,7 @@ public PlatformTransactionManager camundaTransactionManager(@Qualifier("camundaB
 ```
 
 {{< note title="" class="warning" >}}
-  The wired data source and transaction manager beans must match, i.e. make sure that the transaction manager actually manages the Camunda data source. If that is not the case, the process engine will use auto-commit mode for the data source connection, potentially leading to inconsistencies in the database.
+  The wired data source and transaction manager beans must match, i.e. make sure that the transaction manager actually manages the Operaton data source. If that is not the case, the process engine will use auto-commit mode for the data source connection, potentially leading to inconsistencies in the database.
 {{< /note >}}
 
 ### `DefaultHistoryConfiguration`
@@ -90,11 +90,11 @@ public HistoryEventHandler customHistoryEventHandler() {
 ```
 
 ### `DefaultHistoryLevelAutoHandlingConfiguration`
-As camunda version >= 7.4 supports `history-level auto`, this configuration adds support for versions <= 7.3.
+As operaton version >= 7.4 supports `history-level auto`, this configuration adds support for versions <= 7.3.
 
 To have more control over the handling, you can provide your own
 
-- `org.camunda.bpm.spring.boot.starter.jdbc.HistoryLevelDeterminator` with name `historyLevelDeterminator`
+- `org.operaton.bpm.spring.boot.starter.jdbc.HistoryLevelDeterminator` with name `historyLevelDeterminator`
 
 IMPORTANT: The default configuration is applied after all other default configurations using the ordering mechanism.
 
@@ -104,13 +104,13 @@ Applies the job execution properties to the process engine.
 
 To have more control over the execution itself, you can provide your own
 
-- `org.camunda.bpm.engine.impl.jobexecutor.JobExecutor`
+- `org.operaton.bpm.engine.impl.jobexecutor.JobExecutor`
 - `org.springframework.core.task.TaskExecutor` named `camundaTaskExecutor`
 
 beans.
 
 IMPORTANT: The job executor is not enabled in the configuration.
-This is done after the spring context successfully loaded (see `org.camunda.bpm.spring.boot.starter.runlistener`).
+This is done after the spring context successfully loaded (see `org.operaton.bpm.spring.boot.starter.runlistener`).
 
 ### `DefaultDeploymentConfiguration`
 
@@ -127,11 +127,11 @@ Provide a bean implementing one of the marker interfaces. For example to customi
 
 ```java
 @Configuration
-public class MyCamundaConfiguration {
+public class MyOperatonConfiguration {
 
 	@Bean
-	public static CamundaDatasourceConfiguration camundaDatasourceConfiguration() {
-		return new MyCamundaDatasourceConfiguration();
+	public static OperatonDatasourceConfiguration camundaDatasourceConfiguration() {
+		return new MyOperatonDatasourceConfiguration();
 	}
 
 }
@@ -139,15 +139,15 @@ public class MyCamundaConfiguration {
 
 ## Adding Additional Configurations
 
-You just have to provide one or more beans implementing the `org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin` interface
-(or extend from `org.camunda.bpm.spring.boot.starter.configuration.impl.AbstractCamundaConfiguration`).
+You just have to provide one or more beans implementing the `org.operaton.bpm.engine.impl.cfg.ProcessEnginePlugin` interface
+(or extend from `org.operaton.bpm.spring.boot.starter.configuration.impl.AbstractOperatonConfiguration`).
 The configurations are applied ordered using the spring ordering mechanism (`@Order` annotation and `Ordered` interface).
 So if you want your configuration to be applied before the default configurations, add a `@Order(Ordering.DEFAULT_ORDER - 1)` annotation to your class.
 If you want your configuration to be applied after the default configurations, add a `@Order(Ordering.DEFAULT_ORDER + 1)` annotation to your class.
 
 ```java
 @Configuration
-public class MyCamundaConfiguration {
+public class MyOperatonConfiguration {
 
 	@Bean
 	@Order(Ordering.DEFAULT_ORDER + 1)
@@ -181,7 +181,7 @@ or
 
 @Component
 @Order(Ordering.DEFAULT_ORDER + 1)
-public class MyCustomConfiguration extends AbstractCamundaConfiguration {
+public class MyCustomConfiguration extends AbstractOperatonConfiguration {
 
 	@Override
 	public void preInit(SpringProcessEngineConfiguration springProcessEngineConfiguration) {
@@ -193,7 +193,7 @@ public class MyCustomConfiguration extends AbstractCamundaConfiguration {
 }
 ```
 
-## Camunda Engine Properties
+## Operaton Engine Properties
 In addition to the bean-based way of overriding process engine configuration properties, it is also possible
 to set those properties via an <code>application.yaml</code> configuration file. Instructions on how to use it
 can be found in the <a href="https://docs.camunda.org/get-started/spring-boot/configuration/">Spring Boot Starter Guide</a>.
@@ -211,14 +211,14 @@ The available properties are as follows:
 
 <tr><td rowspan="15"><code>camunda.bpm</code></td>
 <td><code>.enabled</code></td>
-<td>Switch to disable the Camunda auto-configuration. Use to exclude Camunda in integration tests.</td>
+<td>Switch to disable the Operaton auto-configuration. Use to exclude Operaton in integration tests.</td>
 <td><code>true</code></td>
 </tr>
 
 <tr>
 <td><code>.process-engine-name</code></td>
 <td>Name of the process engine</td>
-<td>Camunda default value</td>
+<td>Operaton default value</td>
 </tr>
 
 <tr>
@@ -236,18 +236,18 @@ The available properties are as follows:
 <tr>
 <td><code>.default-serialization-format</code></td>
 <td>Default serialization format</td>
-<td>Camunda default value</td>
+<td>Operaton default value</td>
 </tr>
 
 <tr>
 <td><code>.history-level</code></td>
-<td>Camunda history level</td>
+<td>Operaton history level</td>
 <td>FULL</td>
 </tr>
 
 <tr>
 <td><code>.history-level-default</code></td>
-<td>Camunda history level to use when <code>history-level</code> is <code>auto</code>, but the level can not determined automatically</td>
+<td>Operaton history level to use when <code>history-level</code> is <code>auto</code>, but the level can not determined automatically</td>
 <td>FULL</td>
 </tr>
 
@@ -271,7 +271,7 @@ The available properties are as follows:
 
 <tr>
 <td><a name="license-file"></a><code>.license-file</code></td>
-<td>Provides a URL to your Camunda license file and is automatically inserted into the DB when the application starts (but only if no valid license key is found in the DB).</br></br>
+<td>Provides a URL to your Operaton license file and is automatically inserted into the DB when the application starts (but only if no valid license key is found in the DB).</br></br>
 <b>Note:</b> This property is only available when using the <a href="{{<ref "/user-guide/spring-boot-integration/webapps.md#enterprise-webapps" >}}">camunda-bpm-spring-boot-starter-webapp-ee</a>
 </td>
 <td>By default, the license key will be loaded:
@@ -401,14 +401,14 @@ The available properties are as follows:
 
 <tr>
 <td><code>.table-prefix</code></td>
-<td>Prefix of the camunda database tables. Attention: The table prefix will <b>not</b> be applied if you  are using <code>schema-update</code>!</td>
-<td><i>Camunda default value</i></td>
+<td>Prefix of the operaton database tables. Attention: The table prefix will <b>not</b> be applied if you  are using <code>schema-update</code>!</td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
 <td><code>.schema-name</code></td>
 <td>The dataBase schema name</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
@@ -416,7 +416,7 @@ The available properties are as follows:
 <td>Controls if the engine executes the jdbc statements as Batch or not.
 It has to be disabled for some databases.
 See the <a href="{{<ref "/user-guide/process-engine/database/database-configuration.md#jdbc-batch-processing" >}}">user guide</a> for further details.</td>
-<td><i>Camunda default value: true</i></td>
+<td><i>Operaton default value: true</i></td>
 </tr>
 
 <tr><td colspan="4"><b>Eventing</b></td></tr>
@@ -454,7 +454,7 @@ See the <a href="{{<ref "/user-guide/spring-boot-integration/the-spring-event-br
 <tr>
 <td><code>camunda.bpm.management</code></td>
 <td><code>.health.camunda.enabled</code></td>
-<td>Enables default camunda health indicators</td>
+<td>Enables default operaton health indicators</td>
 <td><code>true</code></td>
 </tr>
 
@@ -463,20 +463,20 @@ See the <a href="{{<ref "/user-guide/spring-boot-integration/the-spring-event-br
 <td rowspan="2"><code>camunda.bpm.metrics</code></td>
 <td><code>.enabled</code></td>
 <td>Enables metrics reporting</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
 <td><code>.db-reporter-activate</code></td>
 <td>Enables db metrics reporting</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr><td colspan="4"><b>Webapp</b></td></tr>
 <tr>
 <td rowspan="3"><code>camunda.bpm.webapp</code></td>
 <td><code>.enabled</code></td>
-<td>Switch to disable the Camunda Webapp auto-configuration.</td>
+<td>Switch to disable the Operaton Webapp auto-configuration.</td>
 <td><code>true</code></td>
 </tr>
 
@@ -494,7 +494,7 @@ Spring Boot behaviour is taken into account.</td>
 <td><code>.application-path</code></td>
 <td>Changes the application path of the webapp.
 <br/>
-When setting to <code>/</code>, the legacy behavior of Camunda Spring Boot Starter <= 3.4.x is restored.
+When setting to <code>/</code>, the legacy behavior of Operaton Spring Boot Starter <= 3.4.x is restored.
 </td>
 <td><code>/camunda</code></td>
 </tr>
@@ -774,19 +774,19 @@ When setting to <code>/</code>, the legacy behavior of Camunda Spring Boot Start
 <td rowspan="4"><code>camunda.bpm.authorization</code></td>
 <td><code>.enabled</code></td>
 <td>Enables authorization</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
 <td><code>.enabled-for-custom-code</code></td>
 <td>Enables authorization for custom code</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
 <td><code>.authorization-check-revokes</code></td>
 <td>Configures authorization check revokes</td>
-<td><i>Camunda default value</i></td>
+<td><i>Operaton default value</i></td>
 </tr>
 
 <tr>
@@ -907,7 +907,7 @@ camunda:
 
 You can configure the **Session Cookie** for the Spring Boot application via the `application.yaml` configuration file.
 
-Camunda Spring Boot Starter versions <= 2.3 (Spring Boot version 1.x)
+Operaton Spring Boot Starter versions <= 2.3 (Spring Boot version 1.x)
 
 ```yaml
 server:
@@ -917,7 +917,7 @@ server:
       http-only: true # Not possible for versions before 1.5.14
 ```
 
-Camunda Spring Boot Starter versions >= 3.0 (Spring Boot version 2.x)
+Operaton Spring Boot Starter versions >= 3.0 (Spring Boot version 2.x)
 
 ```yaml
 server:
@@ -933,7 +933,7 @@ Further details of the session cookie like the `SameSite` flag can be configured
 
 # Configuring Spin DataFormats
 
-The Camunda Spring Boot Starter auto-configures the Spin Jackson Json DataFormat when the
+The Operaton Spring Boot Starter auto-configures the Spin Jackson Json DataFormat when the
 `camunda-spin-dataformat-json-jackson` dependency is detected on the classpath. To include a
 `DataFormatConfigurator` for the desired Jackson Java 8 module, the appropriate dependency needs
 to be included on the classpath as well. Note that `camunda-engine-plugin-spin`
@@ -960,11 +960,11 @@ appropriate version tags, will need to be added in the Spring Boot Application's
  ```xml
 <dependencies>
     <dependency>
-      <groupId>org.camunda.bpm</groupId>
+      <groupId>org.operaton.bpm</groupId>
       <artifactId>camunda-engine-plugin-spin</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.camunda.spin</groupId>
+      <groupId>org.operaton.spin</groupId>
       <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
     </dependency>
     <dependency>
@@ -979,7 +979,7 @@ configure the Jackson `ObjectMapper`. They can be found [here](https://docs.spri
 
 To provide additional configurations, the following actions need to be performed:
 
-1. Provide a custom implementation of `org.camunda.spin.spi.DataFormatConfigurator`;
+1. Provide a custom implementation of `org.operaton.spin.spi.DataFormatConfigurator`;
 1. Add the appropriate key-value pair of the fully qualified classnames of the interface and the
    implementation to the `META-INF/spring.factories` file;
 1. Ensure that the artifact containing the configurator is reachable from Spin’s classloader.

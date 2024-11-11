@@ -11,13 +11,13 @@ menu:
 
 ---
 
-Each version of Camunda 7 is bound to a specific version of the **External Task Clients**.
+Each version of Operatonis bound to a specific version of the **External Task Clients**.
 
-  Camunda 7 and its compatible **Java** External Task Client always share the same version.
+  Operatonand its compatible **Java** External Task Client always share the same version.
 
 <table class="table table-striped">
   <tr>
-    <th>Camunda 7 version</th>
+    <th>Operatonversion</th>
     <th>NodeJS client</th>
   </tr>
   <tr>
@@ -54,5 +54,5 @@ Each version of Camunda 7 is bound to a specific version of the **External Task 
   </tr>
 </table>
 
-Only these default combinations are recommended (and supported) by Camunda. Nevertheless, each version of the External
-Task Clients can be combined with newer patch versions of the Camunda 7 Workflow Engine.
+Only these default combinations are recommended (and supported) by Operaton. Nevertheless, each version of the External
+Task Clients can be combined with newer patch versions of the OperatonWorkflow Engine.

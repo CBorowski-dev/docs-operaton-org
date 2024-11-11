@@ -10,31 +10,31 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on an Oracle WebLogic application server in a shared process engine setting. For the entire migration procedure, refer to the [migration guide][migration-guide]. If not already done, make sure to download the [Camunda 7.2 Oracle WebLogic distribution](https://artifacts.camunda.com/artifactory/internal/org/camunda/bpm/weblogic/camunda-bpm-weblogic/).
+The following steps describe how to update the Operaton artifacts on an Oracle WebLogic application server in a shared process engine setting. For the entire migration procedure, refer to the [migration guide][migration-guide]. If not already done, make sure to download the [Operaton Oracle WebLogic distribution](https://artifacts.camunda.com/artifactory/internal/org/camunda/bpm/weblogic/camunda-bpm-weblogic/).
 
 The update procedure takes the following steps:
 
-1. Uninstall the Camunda libraries and archives
-2. Add the new Camunda libraries
-3. Install optional Camunda dependencies
+1. Uninstall the Operaton libraries and archives
+2. Add the new Operaton libraries
+3. Install optional Operaton dependencies
 4. Configure process engines
-5. Install the Camunda archive
-6. Install the Camunda 7 web applications
+5. Install the Operaton archive
+6. Install the Operatonweb applications
 
 In each of the following steps, the identifiers `$*_VERSION` refer to the current version and the new versions of the artifacts.
 
 {{< note title="Changing Platform Configuration" class="info" >}}
-Depending on your chosen feature set for Camunda 7, some of the (optional) migration steps may require to change the configuration of Camunda 7. The Camunda enterprise archive (EAR) contains a default platform configuration. If you want to change this configuration, you can replace it as described in the 
+Depending on your chosen feature set for Operaton, some of the (optional) migration steps may require to change the configuration of Operaton. The Operaton enterprise archive (EAR) contains a default platform configuration. If you want to change this configuration, you can replace it as described in the
 [deployment descriptor reference]({{< ref "/reference/deployment-descriptors/descriptors/bpm-platform-xml.md" >}}).
 {{< /note >}}
 
-# 1. Uninstall the Camunda Applications and Archives
+# 1. Uninstall the Operaton Applications and Archives
 
-First, uninstall the Camunda web applications, namely the Camunda REST API (artifact name like `camunda-engine-rest`) and the Camunda applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
+First, uninstall the Operaton web applications, namely the Operaton REST API (artifact name like `camunda-engine-rest`) and the Operaton applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
 
-Uninstall the camunda EAR. Its name should be `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`. Then, uninstall the Camunda job executor adapter, called `camunda-oracle-weblogic-$PLATFORM_VERSION.rar`.
+Uninstall the operaton EAR. Its name should be `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`. Then, uninstall the Operaton job executor adapter, called `camunda-oracle-weblogic-$PLATFORM_VERSION.rar`.
 
-# 2. Replace the Camunda Libraries
+# 2. Replace the Operaton Libraries
 
 After shutting down the server, replace the following libraries in `$WLS_DOMAIN_HOME/lib` with their equivalents from `$WLS_DISTRIBUTION/modules/lib`:
 
@@ -51,19 +51,19 @@ Add the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$W
 
 * `camunda-cmmn-model-$PLATFORM_VERSION.jar`
 
-# 3. Install Optional Camunda Dependencies
+# 3. Install Optional Operaton Dependencies
 
-There are artifacts for Camunda Connect, Camunda Spin, the Freemarker template language and Groovy scripting that may optionally be added to the shared library folder. Since all these artifacts add new functionality, the following steps are not required for migration.
+There are artifacts for Operaton Connect, Operaton Spin, the Freemarker template language and Groovy scripting that may optionally be added to the shared library folder. Since all these artifacts add new functionality, the following steps are not required for migration.
 
-**Note:** The default Camunda configuration file contained by the Camunda EAR automatically activates the newly introduced, optional Camunda dependencies, Camunda Spin and Connect. If you do not use a custom Camunda 7 configuration as described [here][configuration-location] and do not intend to do so, you *must* install the Camunda Spin and Connect core libraries to the shared libraries folder.
+**Note:** The default Operaton configuration file contained by the Operaton EAR automatically activates the newly introduced, optional Operaton dependencies, Operaton Spin and Connect. If you do not use a custom Operatonconfiguration as described [here][configuration-location] and do not intend to do so, you *must* install the Operaton Spin and Connect core libraries to the shared libraries folder.
 
 {{< note title="Not Using Connect/Spin" class="info" >}}
-If you do not want to use Camunda Connect or Camunda Spin, you cannot use the default Camunda 7 configuration that is contained in the Camunda EAR. In this case, make sure to change the configuration location as described [here][configuration-location]. As a starting point, you can copy the default configuration from `$WAS_DISTRIBUTION/modules/camunda-ibm-was-ear-$PLATFORM_VERSION.ear/camunda-ibm-was-service-$PLATFORM_VERSION.jar/META-INF/bpm-platform.xml` and remove the `<plugin>` entries for the classes `ConnectProcessEnginePlugin` and `SpinProcessEnginePlugin`.
+If you do not want to use Operaton Connect or Operaton Spin, you cannot use the default Operatonconfiguration that is contained in the Operaton EAR. In this case, make sure to change the configuration location as described [here][configuration-location]. As a starting point, you can copy the default configuration from `$WAS_DISTRIBUTION/modules/camunda-ibm-was-ear-$PLATFORM_VERSION.ear/camunda-ibm-was-service-$PLATFORM_VERSION.jar/META-INF/bpm-platform.xml` and remove the `<plugin>` entries for the classes `ConnectProcessEnginePlugin` and `SpinProcessEnginePlugin`.
 {{< /note >}}
 
-## Camunda Connect
+## Operaton Connect
 
-If Camunda Connect is intended to be used, copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`:
+If Operaton Connect is intended to be used, copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`:
 
 * `camunda-connect-core-$CONNECT_VERSION.jar`
 * `camunda-commons-logging-$COMMONS_VERSION.jar`
@@ -71,7 +71,7 @@ If Camunda Connect is intended to be used, copy the following library from `$WLS
 * `slf4j-api-$SLF4J_VERSION.jar`
 * `slf4j-jdk14-$SLF4J_VERSION.jar`
 
-If you use a custom Camunda 7 configuration file, Camunda Connect functionality has to be activated for a process engine by registering a process engine plugin (note that if you use the default configuration, this step is not necessary):
+If you use a custom Operatonconfiguration file, Operaton Connect functionality has to be activated for a process engine by registering a process engine plugin (note that if you use the default configuration, this step is not necessary):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -90,9 +90,9 @@ If you use a custom Camunda 7 configuration file, Camunda Connect functionality 
 </bpm-platform>
 ```
 
-## Camunda Spin
+## Operaton Spin
 
-If Camunda Spin is intended to be used, copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`:
+If Operaton Spin is intended to be used, copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`:
 
 * `camunda-spin-core-$CONNECT_VERSION.jar`
 * `camunda-commons-logging-$COMMONS_VERSION.jar`
@@ -100,7 +100,7 @@ If Camunda Spin is intended to be used, copy the following library from `$WLS_DI
 * `slf4j-api-$SLF4J_VERSION.jar`
 * `slf4j-jdk14-$SLF4J_VERSION.jar`
 
-If you use a custom Camunda 7 configuration file, Camunda Spin functionality has to be activated for a process engine by registering a process engine plugin (note that if you use the default configuration, this step is not necessary):
+If you use a custom Operatonconfiguration file, Operaton Spin functionality has to be activated for a process engine by registering a process engine plugin (note that if you use the default configuration, this step is not necessary):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -110,7 +110,7 @@ If you use a custom Camunda 7 configuration file, Camunda Spin functionality has
     <plugins>
       ... existing plugins ...
       <plugin>
-        <class>org.camunda.spin.plugin.impl.SpinProcessEnginePlugin</class>
+        <class>org.operaton.spin.plugin.impl.SpinProcessEnginePlugin</class>
       </plugin>
     </plugins>
     ...
@@ -127,7 +127,7 @@ If Groovy is to be used as a scripting language, add the following artifacts to 
 
 ## Freemarker Integration
 
-If the Camunda integration for Freemarker is intended to be used, add the following artifacts to the folder `$WLS_DOMAIN_HOME/lib`:
+If the Operaton integration for Freemarker is intended to be used, add the following artifacts to the folder `$WLS_DOMAIN_HOME/lib`:
 
 * `camunda-template-engines-freemarker-$TEMPLATE_VERSION.jar`
 * `freemarker-2.3.20.jar`
@@ -161,25 +161,25 @@ As of 7.2, the default behavior of script variables has changed. Script variable
 As an alternative, process application developers can migrate script code by replacing all implicit declarations of process variables in their scripts with an explicit call to `execution.setVariable('varName', 'value')`.
 
 
-# 5. Install the Camunda Archive
+# 5. Install the Operaton Archive
 
-Install the Camunda EAR, i.e., the file `$WLS_DISTRIBUTION/modules/camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
+Install the Operaton EAR, i.e., the file `$WLS_DISTRIBUTION/modules/camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
 
-As of version 7.2, the Camunda job executor resource adapter (RAR) that you uninstalled in step 1 is part of the Camunda EAR and therefore does not need to be installed separately.
+As of version 7.2, the Operaton job executor resource adapter (RAR) that you uninstalled in step 1 is part of the Operaton EAR and therefore does not need to be installed separately.
 
 
-# 6. Install the Camunda Web Applications
+# 6. Install the Operaton Web Applications
 
-## Camunda REST API
+## Operaton REST API
 
 Deploy the web application `$WLS_DISTRIBUTION/webapps/camunda-engine-rest-$PLATFORM_VERSION-wls.war` to your Oracle WebLogic instance.
 
-## Camunda Cockpit, Tasklist, and Admin
+## Operaton Cockpit, Tasklist, and Admin
 
 Deploy the web application `$WLS_DISTRIBUTION/webapps/camunda-webapp-ee-wls-$PLATFORM_VERSION.war` to your Oracle WebLogic instance.
 
 {{< note title="LDAP Entity Caching" class="info" >}}
-With 7.2, it is possible to enable entity caching for Hypertext Application Language (HAL) requests that the camunda web applications make. This can be especially useful when you use camunda in combination with LDAP. To activate caching, the camunda webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
+With 7.2, it is possible to enable entity caching for Hypertext Application Language (HAL) requests that the operaton web applications make. This can be especially useful when you use operaton in combination with LDAP. To activate caching, the operaton webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
 {{< /note >}}
 
 [configuration-location]: {{< ref "/reference/deployment-descriptors/descriptors/bpm-platform-xml.md" >}}

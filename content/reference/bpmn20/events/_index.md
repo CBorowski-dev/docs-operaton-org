@@ -10,4 +10,4 @@ menu:
 
 ---
 
-BPMN defines different Event types. The following are supported by Camunda.
+BPMN defines different Event types. The following are supported by Operaton.

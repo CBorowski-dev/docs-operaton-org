@@ -10,32 +10,32 @@ menu:
 
 ---
 
-Camunda allows users to authorize access to the data it manages. This makes it possible to configure which user can access which process instances, tasks, etc...
+Operaton allows users to authorize access to the data it manages. This makes it possible to configure which user can access which process instances, tasks, etc...
 
 Authorization has a performance cost and introduces some complexity. It should only be used if required.
 
 # When is Authorization required?
 
-Not every Camunda setup needs to enable authorization. In many scenarios, Camunda is embedded into an application and the application itself ensures that users can only access data they are authorized to access. Generally speaking, authorization is only required if untrusted parties interact with the process engine API directly. If you embed the process engine into a Java application, you usually do not need to enable authorization. The application can control how the API is accessed.
+Not every Operaton setup needs to enable authorization. In many scenarios, Operaton is embedded into an application and the application itself ensures that users can only access data they are authorized to access. Generally speaking, authorization is only required if untrusted parties interact with the process engine API directly. If you embed the process engine into a Java application, you usually do not need to enable authorization. The application can control how the API is accessed.
 
 Situations in which authorization is required:
 
-* Camunda Rest API is made accessible to users who should not have full access, even after authentication.
-* Camunda Webapplication is made accessible to users who should not have full access, even after authentication.
+* Operaton Rest API is made accessible to users who should not have full access, even after authentication.
+* Operaton Webapplication is made accessible to users who should not have full access, even after authentication.
 * Other situations in which an untrusted user can directly construct the queries and commands executed on the process engine.
 
 Situations in which authorization is *not* required
 
 * An application completely controls the API methods invoked on the process engine.
-* Camunda Webapplication is made accessible to users who can have full access after authentication.
+* Operaton Webapplication is made accessible to users who can have full access after authentication.
 
 **Example**
 
 Assume that you have the following authorization requirement: *As a regular user, I can only see the tasks that are assigned to me.*
 
-If the engine is embedded into a Java application, the application can easily ensure this by restricting the task query on the `assignee` property. The application can guarantee this since the Camunda API is not directly exposed to the user.
+If the engine is embedded into a Java application, the application can easily ensure this by restricting the task query on the `assignee` property. The application can guarantee this since the Operaton API is not directly exposed to the user.
 
-By contrast, if the Camunda Rest API is directly exposed over the network to a Javascript application, then a malicious user, once authenticated, can send a request to the server querying all tasks, even the ones that are not assigned to this user. In this case, authorization needs to be turned on to ensure the user only sees the tasks which he is authorized to see, regardless of the query parameters.
+By contrast, if the Operaton Rest API is directly exposed over the network to a Javascript application, then a malicious user, once authenticated, can send a request to the server querying all tasks, even the ones that are not assigned to this user. In this case, authorization needs to be turned on to ensure the user only sees the tasks which he is authorized to see, regardless of the query parameters.
 
 # Basic Principles
 
@@ -51,7 +51,7 @@ An Authorization assigns a set of Permissions to an identity to interact with a 
 
 ## Identities
 
-Camunda 7 distinguishes between two types of identities: users and groups. Authorizations can either range over all users (userId = ANY), an individual user or a group of users.
+Operatondistinguishes between two types of identities: users and groups. Authorizations can either range over all users (userId = ANY), an individual user or a group of users.
 
 
 ## Permissions
@@ -227,7 +227,7 @@ There are three types of authorizations:
     <td>Revoke Authorization (<code>AUTH_TYPE_REVOKE</code>)</td>
     <td>Ranges over users and groups and revokes a set of permissions. Revoke authorizations are commonly used for revoking permissions to a user or group that the global authorization grants.</td>
     <td>2</td>
-  </tr>  
+  </tr>
 </table>
 
 {{< note class="warning" title="Performance of REVOKE Authorizations" >}}
@@ -254,7 +254,7 @@ Authorizations are checked if
 The last item means that even if authorization is enabled, authorization checks are only performed if a user is currently authenticated.
 If no user is authenticated, then the engine does not perform any checks.
 
-When using the Camunda Webapps, it is always ensured that a user is authenticated before the user can access any restricted resources.
+When using the Operaton Webapps, it is always ensured that a user is authenticated before the user can access any restricted resources.
 When embedding the process engine into a custom application, the application needs to take care of authentication if it needs authorization checks to be performed.
 
 {{< note class="info" title="Authentication vs. Authorization" >}}
@@ -403,7 +403,7 @@ The following table gives an overview for which resources they are available:
   </tbody>
 </table>
 
-To execute an operation [asynchronously]({{< ref "/user-guide/process-engine/batch.md">}}), only a **Create** permission on the Batch Resource is required. However, when executing the same operation synchronously, the specific permissions (e.g. **Delete** on **Process Instance Resource**) are checked. 
+To execute an operation [asynchronously]({{< ref "/user-guide/process-engine/batch.md">}}), only a **Create** permission on the Batch Resource is required. However, when executing the same operation synchronously, the specific permissions (e.g. **Delete** on **Process Instance Resource**) are checked.
 
 For example, a user without the **Update** permission on the **Process Instance Resource** and granted **Create** permission on the **Batch Resource** can modify multiple process instances asynchronously by creating a batch. However, the user can't execute this operation synchronously.
 
@@ -555,7 +555,7 @@ GRANT and REVOKE authorizations with **Task Work**, **Task Assign**, and **Updat
 ### Default Task Permissions
 
 When a user is related to a task as an assignee, a candidate user, a part of a candidate group, or an owner, these users
-obtain the default permissions as either **Task Work** or **Update**, based on the process engine configuration property **defaultUserPermissionNameForTask**. 
+obtain the default permissions as either **Task Work** or **Update**, based on the process engine configuration property **defaultUserPermissionNameForTask**.
 
 If the "defaultUserPermissionNameForTask" configuration option is not set, then by default **Update** permission is granted.
 
@@ -653,7 +653,7 @@ In case of Process Definitions
 ## Application Permissions
 
 The resource "Application" uniquely supports the **Access** permission.
-The **Access** permission controls whether a user has access to a Camunda web application or not. Out of the box, it can be granted for the following applications (resource ids):
+The **Access** permission controls whether a user has access to a Operaton web application or not. Out of the box, it can be granted for the following applications (resource ids):
 
 * `admin`
 * `cockpit`
@@ -675,8 +675,8 @@ Out of the box, it can be granted for the following categories (resource ids):
 
 The resources control whether a user can read the history related to a specific instance.
 
-Compared to runtime permissions, historic permissions are not immediately removed when the related 
-instance has been finished. The [Removal-Time-based History Cleanup Strategy] removes historic 
+Compared to runtime permissions, historic permissions are not immediately removed when the related
+instance has been finished. The [Removal-Time-based History Cleanup Strategy] removes historic
 permissions at a later point.
 
 You can enable the permissions with the help of a [process engine configuration flag][hist-inst-perm-config-flag]:
@@ -691,11 +691,11 @@ The feature is disabled by default because of two reasons:
    More complex queries may degrade the performance.
 2. When enabled and an Identity Link is added to a Task, the respective User or Group is authorized
    to read the associated history (e. g. for the Task, Variable, or Identity Link History).
-   For Camunda 7 versions <= 7.12, the history is not readable in this case.
+   For Operatonversions <= 7.12, the history is not readable in this case.
 
 ### Historic Task Permissions
 
-When permission is granted to a Historic Task, you can use the following queries to retrieve the 
+When permission is granted to a Historic Task, you can use the following queries to retrieve the
 entities related to the Historic Task:
 
 * Historic Task Instance Query
@@ -706,7 +706,7 @@ entities related to the Historic Task:
 
 ### Historic Process Instance Permissions
 
-When permission is granted to a Historic Process Instance, you can use the following queries to 
+When permission is granted to a Historic Process Instance, you can use the following queries to
 retrieve the entities related to the Historic Process Instance:
 
 * Historic Process Instance Query
@@ -874,13 +874,13 @@ The following table gives an overview of the features that the system permission
 
 # Administrators
 
-Camunda 7 has no explicit concept of "administrator" beyond it being a user who has been granted all authorizations on all resources.
+Operatonhas no explicit concept of "administrator" beyond it being a user who has been granted all authorizations on all resources.
 
 ## The "camunda-admin" Group
 
-When downloading the Camunda 7 distribution, the invoice example application creates a group with id `camunda-admin` and grants all authorizations on all resources to this group.
+When downloading the Operatondistribution, the invoice example application creates a group with id `camunda-admin` and grants all authorizations on all resources to this group.
 
-In absense of the demo application, this task is performed by the [Camunda Admin Web Application]({{< ref "/webapps/admin/user-management.md#initial-user-setup" >}}). If the Camunda webapplication is started for the first time and no user exists in the database, it asks you to perform the "initial setup". In this process, the `camunda-admin` group is created and granted all permissions on all resources. 
+In absense of the demo application, this task is performed by the [Operaton Admin Web Application]({{< ref "/webapps/admin/user-management.md#initial-user-setup" >}}). If the Operaton webapplication is started for the first time and no user exists in the database, it asks you to perform the "initial setup". In this process, the `camunda-admin` group is created and granted all permissions on all resources.
 
 {{< note title="LDAP" class="info" >}}
 The group "camunda-admin" is not created when using LDAP (since LDAP is only accessed in a read-only way). Also see the below section on the administrator authorization plugin.
@@ -899,7 +899,7 @@ The following is an example of how to configure the administrator authorization 
   ...
   <plugins>
     <plugin>
-      <class>org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
+      <class>org.operaton.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
       <properties>
         <property name="administratorUserName">admin</property>
       </properties>
@@ -1014,9 +1014,9 @@ authProcessInstance.addPermission(Permissions.CREATE);
 authorizationService.saveAuthorization(authProcessDefinition);
 authorizationService.saveAuthorization(authProcessInstance);
 ```
-# Camunda Admin Webapp
+# Operaton Admin Webapp
 
-The Camunda Admin Webapplication provides an out of the box [UI for configuring Authorizations]({{< ref "/webapps/admin/authorization-management.md" >}}).
+The Operaton Admin Webapplication provides an out of the box [UI for configuring Authorizations]({{< ref "/webapps/admin/authorization-management.md" >}}).
 
 # Performance Considerations
 

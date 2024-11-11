@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.20.x` to `7.21.0` and covers the following use cases:
+This document guides you through the update from Operaton `7.20.x` to `7.21.0` and covers the following use cases:
 
 1. For administrators and developers: [Database updates](#database-updates)
 1. For administrators and developers: [Full distribution update](#full-distribution)
@@ -25,11 +25,11 @@ This document guides you through the update from Camunda `7.20.x` to `7.21.0` an
 1. For developers: [External MDC properties are isolated from the engine's processing](#external-mdc-properties-are-isolated-from-engine-processing)
 1. For developers: [FEEL Engine 1.17.x Upgrade](#feel-engine-1-17-upgrade)
 
-This guide covers mandatory migration steps and optional considerations for the initial configuration of new functionality included in Camunda 7.21.
+This guide covers mandatory migration steps and optional considerations for the initial configuration of new functionality included in Operaton.
 
 # Database updates
 
-Every Camunda installation requires a database schema update. Check our [database schema update guide]({{< ref "/installation/database-schema.md#update" >}})
+Every Operaton installation requires a database schema update. Check our [database schema update guide]({{< ref "/installation/database-schema.md#update" >}})
 for further instructions.
 
 # Full distribution
@@ -40,18 +40,18 @@ with a **shared process engine**.
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server.
+1. Update the Operaton libraries and applications inside the application server.
 2. Migrate custom process applications.
 
-Before starting, ensure you have downloaded the Camunda 7.21 distribution for the application server you use. This contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, ensure you have downloaded the Operaton distribution for the application server you use. This contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
 # Add Default History Time To Live to BPMN Fluent API
 
-Starting with this release, the [BPMN Fluent API Builder]({{< ref "/user-guide/model-api/bpmn-model-api/fluent-builder-api" >}}) assigns by default a history time to live of **6 months** to processes. You can change this default or pass `null` to remove the attribute using the `#setCamundaHistoryTimeToLive` or `#setCamundaHistoryTimeToLiveString` API.
+Starting with this release, the [BPMN Fluent API Builder]({{< ref "/user-guide/model-api/bpmn-model-api/fluent-builder-api" >}}) assigns by default a history time to live of **6 months** to processes. You can change this default or pass `null` to remove the attribute using the `#setOperatonHistoryTimeToLive` or `#setOperatonHistoryTimeToLiveString` API.
 
 # Spring Boot Starter and Run logs admin user information on `DEBUG` level
 
-In previous releases, when configuring Camunda's admin user in the Spring Boot Starter or Run via `camunda.bpm.admin-user`, information about the admin user appeared in the logs on log level `INFO` on startup.
+In previous releases, when configuring Operaton's admin user in the Spring Boot Starter or Run via `camunda.bpm.admin-user`, information about the admin user appeared in the logs on log level `INFO` on startup.
 With this release, the log level for the logs `STARTER-SB010` and `STARTER-SB011` was changed to `DEBUG`.
 
 # External Task Client Java

@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.19.x` to `7.20.0` and covers the following use cases:
+This document guides you through the update from Operaton `7.19.x` to `7.20.0` and covers the following use cases:
 
 1. For administrators and developers: [Database updates](#database-updates)
 1. For administrators and developers: [Full distribution update](#full-distribution)
@@ -26,7 +26,7 @@ This document guides you through the update from Camunda `7.19.x` to `7.20.0` an
 1. For developers: [Spring Framework 6.0 support](#spring-framework-6-0-support)
 1. For developers: [Upgrade to Spring Boot 3.1](#upgrade-to-spring-boot-3-1)
    * For developers: [External Task Client Spring Boot Starter requires JDK 17](#external-task-client-spring-boot-starter-requires-jdk-17)
-   * For developers: [Camunda 7 Run requires JDK 17](#camunda-platform-run-requires-jdk-17)
+   * For developers: [OperatonRun requires JDK 17](#camunda-platform-run-requires-jdk-17)
 1. For developers: [Update Alpine Base Docker Image from version 3.15 to 3.18](#update-alpine-base-of-camunda-docker-images-from-version-3-15-to-3-18)
 1. For developers: [Quarkus 3 update](#quarkus-3-update)
 1. For developers: [Discontinued support for JDK 8](#discontinued-support-for-jdk-8)
@@ -34,30 +34,30 @@ This document guides you through the update from Camunda `7.19.x` to `7.20.0` an
 1. For developers: [Discontinued support for handling JPA entities as variables](#discontinued-support-for-handling-jpa-entities-as-variables)
 1. For developers: [Discontinued support for Velocity, XSLT, and XQuery template engines](#discontinued-support-for-velocity-xslt-and-xquery-template-engines)
 
-This guide covers mandatory migration steps and optional considerations for the initial configuration of new functionality included in Camunda 7.20.
+This guide covers mandatory migration steps and optional considerations for the initial configuration of new functionality included in Operaton.
 
 # Database updates
 
-Every Camunda installation requires a database schema update. Check our [database schema update guide]({{< ref "/installation/database-schema.md#update" >}}) 
+Every Operaton installation requires a database schema update. Check our [database schema update guide]({{< ref "/installation/database-schema.md#update" >}})
 for further instructions.
 
 # Full distribution
 
-This section is applicable if you installed the 
-[Full Distribution]({{< ref "/introduction/downloading-camunda.md#full-distribution" >}}) 
+This section is applicable if you installed the
+[Full Distribution]({{< ref "/introduction/downloading-camunda.md#full-distribution" >}})
 with a **shared process engine**.
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server.
+1. Update the Operaton libraries and applications inside the application server.
 2. Migrate custom process applications.
 
-Before starting, ensure you have downloaded the Camunda 7.20 distribution for the application server you use. This contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, ensure you have downloaded the Operaton distribution for the application server you use. This contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda libraries and applications
+## Operaton libraries and applications
 
 {{< note title="Removed support for WebSphere 9" class="info" >}}
-Support for WebSphere 9 was discontinued with the Camunda 7.20.0 release. Some of the artifacts that are compatible with WebSphere 9 have been renamed. See details in the dedicated [IBM WebSphere Liberty guide]({{< ref "/update/minor/719-to-720/was.md" >}}).
+Support for WebSphere 9 was discontinued with the Operaton release. Some of the artifacts that are compatible with WebSphere 9 have been renamed. See details in the dedicated [IBM WebSphere Liberty guide]({{< ref "/update/minor/719-to-720/was.md" >}}).
 {{< /note >}}
 
 
@@ -70,7 +70,7 @@ Choose the application server you are working with from the following list:
 
 ## Custom process applications
 
-For every process application, the Camunda dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of the following:
+For every process application, the Operaton dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of the following:
 
 * `camunda-engine-spring`
 * `camunda-engine-cdi`
@@ -84,24 +84,24 @@ Many of our users have installations that contain model resources (BPMN, DMN, CM
 their historic data grow over time and remain uncleaned due to this configuration. The history data of your executed processes will clutter the database and eventually negatively impact the engine's performance – even for runtime processes. Since the engine uses a relational database, only starting to clean up the history when a vast amount of data has been pilled up is very costly and time-consuming – in some situations, there is even no other solution than truncating tables and losing data. This is why with this release
 we decided to make the historyTimeToLive mandatory for new deployments or redeployments.
 
-At the same time, we acknowledge there might be use cases (e.g. when there are no history events fired at all, 
-see [history level]({{< ref "/user-guide/process-engine/history/history-configuration.md#set-the-history-level" >}}) configuration) 
-where our users might favour to keep the legacy behaviour despite our recommendation. 
-If that is the case, you can always turn off the feature by setting the feature flag `enforceHistoryTimeToLive` to `false`. 
+At the same time, we acknowledge there might be use cases (e.g. when there are no history events fired at all,
+see [history level]({{< ref "/user-guide/process-engine/history/history-configuration.md#set-the-history-level" >}}) configuration)
+where our users might favour to keep the legacy behaviour despite our recommendation.
+If that is the case, you can always turn off the feature by setting the feature flag `enforceHistoryTimeToLive` to `false`.
 For more information, checkout the new parameter description under <a href="{{< ref "/reference/deployment-descriptors/tags/process-engine#configuration-properties" >}}">Configuration Properties</a>.
 
 # Explicit JUEL module on Jakarta Expression Language 4
 
-Camunda supports using small script-like expressions in many locations as described in our [Expression Language guide]({{< ref "/user-guide/process-engine/expression-language.md" >}}). Up to version 7.19.x, this support is based on a JSP 2.1 standard-compliant implementation of the open source library [JUEL](http://juel.sourceforge.net/). The source code of that library is embedded into and distributed with our core `camunda-engine` artifact.
+Operaton supports using small script-like expressions in many locations as described in our [Expression Language guide]({{< ref "/user-guide/process-engine/expression-language.md" >}}). Up to version 7.19.x, this support is based on a JSP 2.1 standard-compliant implementation of the open source library [JUEL](http://juel.sourceforge.net/). The source code of that library is embedded into and distributed with our core `camunda-engine` artifact.
 
-With this version, we removed that source code from the core artifact and created a dedicated library called `camunda-juel`. This library is based on the [Jakarta Expression Language 4.0 specification](https://jakarta.ee/specifications/expression-language/4.0), a successor of the JSP 2.1 standard. This allows us to benefit from the many improvements that have been incorporated into the expression language API since the creation of the JSP 2.1 standard. The new expression language API is integrated into the Camunda JUEL library and relocated inside it to avoid any classpath pollution related to the official Jakarta Expression Language API that might be present in your environment.
+With this version, we removed that source code from the core artifact and created a dedicated library called `camunda-juel`. This library is based on the [Jakarta Expression Language 4.0 specification](https://jakarta.ee/specifications/expression-language/4.0), a successor of the JSP 2.1 standard. This allows us to benefit from the many improvements that have been incorporated into the expression language API since the creation of the JSP 2.1 standard. The new expression language API is integrated into the Operaton JUEL library and relocated inside it to avoid any classpath pollution related to the official Jakarta Expression Language API that might be present in your environment.
 
-Our pre-packaged distributions all come with the new Camunda JUEL library by default. If you're updating your distribution from 7.19.x or earlier, consult your [environment-specific guide](#full-distribution) on how to add the library. If you're relying on the `camunda-engine` artifact itself in your application, the new module will come as a transitive dependency automatically.
+Our pre-packaged distributions all come with the new Operaton JUEL library by default. If you're updating your distribution from 7.19.x or earlier, consult your [environment-specific guide](#full-distribution) on how to add the library. If you're relying on the `camunda-engine` artifact itself in your application, the new module will come as a transitive dependency automatically.
 
 If you are using any JUEL or expression language-related classes that formerly resided in the `camunda-engine` artifact in your custom application, note that the package names change as follows:
 
-* Classes from `org.camunda.bpm.engine.impl.javax.*` now reside in `org.camunda.bpm.impl.juel.jakarta.*`.
-* Classes from `de.odysseus.el.*` now reside in `org.camunda.bpm.impl.juel.*`.
+* Classes from `org.operaton.bpm.engine.impl.javax.*` now reside in `org.operaton.bpm.impl.juel.jakarta.*`.
+* Classes from `de.odysseus.el.*` now reside in `org.operaton.bpm.impl.juel.*`.
 
 Updating to a newer expression language standard comes with some behavioral changes, the most noteworthy ones being the following:
 
@@ -144,11 +144,11 @@ You can read more about SQL connection exceptions & SQL classes [here](https://e
 
 # JavaScript external task client rethrows errors on task service APIs
 
-Previously, the JavaScript external task client swallowed errors caused by the engine's REST API when 
-calling task service APIs like `#complete`. You could handle these errors only by subscribing to a 
+Previously, the JavaScript external task client swallowed errors caused by the engine's REST API when
+calling task service APIs like `#complete`. You could handle these errors only by subscribing to a
 global error handler.
 
-With this release, the client re-throws errors, additionally directly on calling the respective task service APIs, 
+With this release, the client re-throws errors, additionally directly on calling the respective task service APIs,
 and you can handle them directly. Adjust your custom business logic accordingly.
 
 # Spring Framework 6.0 support
@@ -157,7 +157,7 @@ The newly created `engine-spring-6` module provides support to Spring Framework 
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-spring-6</artifactId>
 </dependency>
 ```
@@ -166,7 +166,7 @@ The most noteworthy changes from the new major version are JDK 17+ and Jakarta E
 To adjust your applications, follow the Spring Framework [upgrade guide][spring6-guide]
 and check the [Spring Framework 6.0 goes GA][spring6] blog post.
 
-Camunda 7 introduces Spring Framework 6.0 support for:
+Operatonintroduces Spring Framework 6.0 support for:
 
 * Spring Boot Starter
 * WildFly Application Server 27
@@ -176,13 +176,13 @@ Camunda 7 introduces Spring Framework 6.0 support for:
 
 # Upgrade to Spring Boot 3.1
 
-The Camunda Engine now offers support for Spring Boot 3.1. The new major version builds on Spring Framework 6.0 
-and brings changes such as JDK 17 baseline and switching to the Jakarta namespace. 
+The Operaton Engine now offers support for Spring Boot 3.1. The new major version builds on Spring Framework 6.0
+and brings changes such as JDK 17 baseline and switching to the Jakarta namespace.
 
 For a complete list of new features and changes, check the [Spring Boot 3.0][boot30] and [Spring Boot 3.1][boot31] release notes.
 Have a look at the Spring Boot [update guide][boot30-guide] to migrate your applications from Spring Boot 2.7.
 
-The switch to the Jakarta namespace requires the Spring Boot Starter and other modules to now rely on Camunda 7 modules that are created for this purpose.
+The switch to the Jakarta namespace requires the Spring Boot Starter and other modules to now rely on Operatonmodules that are created for this purpose.
 For example, if you want to build a custom webjar, keep the following changes in mind:
 
 * `camunda-webapp-webjar` depends on `camunda-webapp-jakarta` for building the Spring Boot webjar.
@@ -197,13 +197,13 @@ For example, if you want to build a custom webjar, keep the following changes in
 
 After adopting Spring Boot 3, the External Task Client Spring Boot Starter requires Java 17.
 
-## Camunda 7 Run requires JDK 17
+## OperatonRun requires JDK 17
 
-Starting with Camunda 7.20, the Camunda 7 Run distribution requires Java Runtime Environment 17 installed.
+Starting with Operaton, the OperatonRun distribution requires Java Runtime Environment 17 installed.
 
-# Update Alpine Base of Camunda Docker images from Version 3.15 to 3.18
+# Update Alpine Base of Operaton Docker images from Version 3.15 to 3.18
 
-The Camunda Docker images are based on Alpine. This release updates the Alpine base docker image from version 3.15 to 3.18. Please find the changes in detail at the official sources below:
+The Operaton Docker images are based on Alpine. This release updates the Alpine base docker image from version 3.15 to 3.18. Please find the changes in detail at the official sources below:
 
 * [Alpine 3.16.0 Release Notes] [alpine316]
 * [Alpine 3.17.0 Release Notes] [alpine317]
@@ -231,12 +231,12 @@ You can find more details about the extension on our dedicated [Quarkus Integrat
 
 # Discontinued support for JDK 8
 
-With version 7.20, we discontinue support for JDK 8 and require a minimum of Java Runtime Environment 11 for building and operating Camunda 7.
+With version 7.20, we discontinue support for JDK 8 and require a minimum of Java Runtime Environment 11 for building and operating Operaton.
 As [mentioned above](#upgrade-to-spring-boot-3-1), Spring Boot-related applications already require Java Runtime Environment 17.
 
 # Discontinued support of Standalone web application
 
-Camunda Automation Platform 7.19 is the last release providing support for Standalone Web Application Distribution.
+Operaton Automation Platform 7.19 is the last release providing support for Standalone Web Application Distribution.
 Version 7.20.0 no longer provides this distribution.
 
 # Discontinued support for handling JPA entities as variables
@@ -257,11 +257,11 @@ We discontinue support for template engines with the following Maven artifacts (
 
 * org.camunda.template-engines:camunda-template-engines-velocity
 * org.camunda.template-engines:camunda-template-engines-xquery
-* org.camunda.bpm.extension.xslt:camunda-bpm-xslt
+* org.operaton.bpm.extension.xslt:camunda-bpm-xslt
 
-We moved the source code of the template engines listed above over to Camunda's [Community Hub](https://github.com/camunda-community-hub/camunda-7-template-engines-jsr223) and released version 2.2.0, the first community release and last release triggered by us.
+We moved the source code of the template engines listed above over to Operaton's [Community Hub](https://github.com/camunda-community-hub/camunda-7-template-engines-jsr223) and released version 2.2.0, the first community release and last release triggered by us.
 
-You can contribute to the [GitHub repository](https://github.com/camunda-community-hub/camunda-7-template-engines-jsr223) if you require code changes, library updates, or bug fixes. Camunda doesn't drive development for community extensions.
+You can contribute to the [GitHub repository](https://github.com/camunda-community-hub/camunda-7-template-engines-jsr223) if you require code changes, library updates, or bug fixes. Operaton doesn't drive development for community extensions.
 
 If you want to continue to use the community-maintained template engines, use the following Maven coordinates:
 

@@ -7,7 +7,7 @@ menu:
   main:
     identifier: "cmmn-ref-extensions-elements"
     parent: "cmmn-ref-extensions"
-    pre: "Reference of Camunda Extension Elements for CMMN."
+    pre: "Reference of Operaton Extension Elements for CMMN."
 
 ---
 

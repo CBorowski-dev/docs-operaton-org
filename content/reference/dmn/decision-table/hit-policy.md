@@ -32,7 +32,7 @@ element. If no hit policy is set, then the default hit policy `UNIQUE` is used.
 ```
 
 The following hit policies are
-supported by the Camunda DMN engine:
+supported by the Operaton DMN engine:
 
 <table class="table table-striped">
   <tr>
@@ -143,7 +143,7 @@ XML element.
 ### Aggregators for Collect Hit Policy
 
 In the visual representation of the decision table an aggregator can be selected in addition to the `COLLECT` hit policy. The following aggregators are supported by
-the Camunda DMN engine:
+the Operaton DMN engine:
 
 <table class="table table-striped">
   <tr>

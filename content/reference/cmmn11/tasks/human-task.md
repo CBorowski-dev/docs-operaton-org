@@ -90,8 +90,8 @@ A human task can be directly assigned to a single user, a list of users or a lis
 
 ## Assignment using CMMN Case Role
 
-CMMN defines some native assignment concepts which can be used in Camunda.
-As a more powerful alternative, Camunda also defines a set of custom extension elements (see below).
+CMMN defines some native assignment concepts which can be used in Operaton.
+As a more powerful alternative, Operaton also defines a set of custom extension elements (see below).
 
 The CMMN concept of `performerRef` can be used to assign a task to a single user. The `performerRef` attribute references an existing role. Such a role definition needs a name that defines the user.
 
@@ -112,7 +112,7 @@ Tasks directly assigned to users can be retrieved through the task service as fo
 List<Task> tasks = taskService.createTaskQuery().taskAssignee("kermit").list();
 ```
 
-## User Assignment using Camunda Extensions
+## User Assignment using Operaton Extensions
 
 When strictly following the CMMN standard, user and group assignments can be quite cumbersome for use cases where the assignment is more complicated. To avoid these complexities, custom extensions on the human task element can be set.
 
@@ -133,7 +133,7 @@ attribute:
 The form key is a symbolic value which can be set in the CMMN XML file by using the extension
 attribute `formKey` and retrieved at runtime using the process engine API.
 
-If the user task form is displayed inside the Camunda Tasklist, the format of the formKey must follow
+If the user task form is displayed inside the Operaton Tasklist, the format of the formKey must follow
 special rules. [See the corresponding section in the user guide for details]({{< ref "/user-guide/task-forms/_index.md" >}}).
 
 In custom applications, the value of the form key can be chosen freely. In a custom application the
@@ -165,7 +165,7 @@ for(Task task : tasks) {
 Note that it is required to call the `.initializeFormKeys()` method on the `TaskQuery` object to
 make sure the form keys are initialized.
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

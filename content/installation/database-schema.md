@@ -8,43 +8,43 @@ menu:
     name: "Database Schema"
     identifier: "installation-guide-database-schema"
     parent: "installation-guide"
-    pre: "Install and update the Camunda 7 database schema used by the Process Engine."
+    pre: "Install and update the Operaton database schema used by the Process Engine."
 
 ---
 
-This document will guide you through the installation and update of the Camunda 7 [database schema]({{< ref "/user-guide/process-engine/database/database-schema.md" >}}) used by the process engine.
+This document will guide you through the installation and update of the Operaton[database schema]({{< ref "/user-guide/process-engine/database/database-schema.md" >}}) used by the process engine.
 Regardless of the [architecture of your application setup]({{< ref "/introduction/architecture.md" >}}), the process engine always requires this database schema.
 In a production environment, we recommend setting up this schema yourself and reference the prepared database instance in your application configuration.
 Consult the installation guide related to your setup to configure the database for a [remote engine]({{< ref "/installation/camunda-bpm-run.md" >}}), [shared engine]({{< ref "/installation/full/_index.md" >}}), or [embedded engine]({{< ref "/installation/spring-boot.md" >}}) accordingly.
 
 This guide will not detail how to set up an instance of your target database or how to create a schema object on it.
 Consult the documentation of your target database on how to do that.
-Camunda 7 supports a variety of databases that are documented in the [supported environments]({{< ref "/introduction/supported-environments.md#databases" >}}). 
+Operatonsupports a variety of databases that are documented in the [supported environments]({{< ref "/introduction/supported-environments.md#databases" >}}).
 
-Camunda 7 supports the following ways of installing the database schema:
+Operatonsupports the following ways of installing the database schema:
 
-* Use the database migration tool [Liquibase](https://www.liquibase.org/) with the provided changelog for a semi-automatic installation and update. Liquibase keeps track of database schema changes. This allows you to focus on *when* changes should be applied rather than also on *which* changes are relevant. Starting with version `7.16.0`, Camunda 7 comes with a curated *changelog file* that Liquibase can consume.
+* Use the database migration tool [Liquibase](https://www.liquibase.org/) with the provided changelog for a semi-automatic installation and update. Liquibase keeps track of database schema changes. This allows you to focus on *when* changes should be applied rather than also on *which* changes are relevant. Starting with version `7.16.0`, Operatoncomes with a curated *changelog file* that Liquibase can consume.
 * Use the provided SQL scripts with the tools related to your database for a fully manual installation and update. A manual procedure allows you to fully control the SQL statements that are executed on your database instance and to adjust those statements to your needs if necessary.
 
 {{< note title="Isolation level" class="info" >}}
-READ COMMITED is the required isolation level for database systems to run Camunda 7 with. 
-You may have to change the default setting on your database when installing Camunda 7. 
+READ COMMITED is the required isolation level for database systems to run Operatonwith.
+You may have to change the default setting on your database when installing Operaton.
 For more information see the documentation on [isolation levels]({{< ref "/user-guide/process-engine/database/database-configuration.md#isolation-level-configuration" >}}).
 {{< /note >}}
 
 # Installation
 
-You can either install your database schema using Liquibase or using the provided SQL scripts manually. You can switch between those mechanisms when updating your Camunda 7 version at a later stage if desired.
-However, this might come with additional preparation work to work reliably. 
+You can either install your database schema using Liquibase or using the provided SQL scripts manually. You can switch between those mechanisms when updating your Operatonversion at a later stage if desired.
+However, this might come with additional preparation work to work reliably.
 The [update](#update) paragraph provides more details on this topic.
 
 ## Liquibase installation
 
-Camunda 7 comes with a maintained changelog file that Liquibase can consume.
+Operatoncomes with a maintained changelog file that Liquibase can consume.
 This changelog defines which SQL statements to execute on a database.
 You can find the changelog and its referenced resources on our [Artifact Repository].
 Select the respective version (`$PLATFORM_VERSION`) and download the resources as a `zip` or `tar.gz` file.
-Open the `camunda-sql-scripts-$PLATFORM_VERSION/liquibase` folder to find the changelog. 
+Open the `camunda-sql-scripts-$PLATFORM_VERSION/liquibase` folder to find the changelog.
 In case you are using a [pre-packaged distribution], the Liquibase resources already reside in the `sql/liquibase` folder of the distribution.
 
 The `liquibase` folder contains the following resources:
@@ -75,10 +75,10 @@ Furthermore, if you have defined a specific prefix for the entities of your data
 
 ## Manual installation
 
-To install the database schema required for Camunda 7, we provide a set of scripts with prepared DDL statements.
-Those scripts create all required tables and default indices. You can find the provided SQL scripts on our [Artifact Repository]. 
+To install the database schema required for Operaton, we provide a set of scripts with prepared DDL statements.
+Those scripts create all required tables and default indices. You can find the provided SQL scripts on our [Artifact Repository].
 Select the respective version (`$PLATFORM_VERSION`) and download the scripts as a `zip` or `tar.gz` file.
-Open the `camunda-sql-scripts-$PLATFORM_VERSION/create` folder to find all available scripts. 
+Open the `camunda-sql-scripts-$PLATFORM_VERSION/create` folder to find all available scripts.
 In case you are using a [pre-packaged distribution], the SQL scripts already reside in the `sql/create` folder of the distribution.
 
 The `create` folder contains the following SQL scripts:
@@ -99,11 +99,11 @@ If you have defined a specific prefix for the entities of your database, you wil
 
 # Update
 
-Updating to a newer Camunda 7 minor version also requires a database schema update. You can reuse all the options available for a [schema installation](#installation) here as well.
+Updating to a newer Operatonminor version also requires a database schema update. You can reuse all the options available for a [schema installation](#installation) here as well.
 If you are switching from one option to another, you might need to perform additional preparation work to update reliably.
 The individual sections on the mechanisms will provide details if necessary.
 
-In case you are just updating to a newer patch level of your Camunda 7 installation, a schema update might not be necessary.
+In case you are just updating to a newer patch level of your Operatoninstallation, a schema update might not be necessary.
 Section [patch level update](#patch-level-update) provides details on how this can be achieved depending on the mechanism you want to apply.
 
 ## Liquibase update
@@ -111,7 +111,7 @@ Section [patch level update](#patch-level-update) provides details on how this c
 This section assumes you are already set up with Liquibase as described in the [installation section](#liquibase-installation).
 In case you have not set up Liquibase itself yet and want to update a database that you [manually installed](#manual-installation) and updated until now, please consult the [migration section](#migrate-to-liquibase) first.
 
-Camunda comes with a maintained changelog file that Liquibase can consume.
+Operaton comes with a maintained changelog file that Liquibase can consume.
 This changelog helps Liquibase to keep track of the changes that have been made to your database already.
 Based on that changelog and the tracking tables, Liquibase determines which changes it needs to apply when you instruct it to update your schema.
 
@@ -125,7 +125,7 @@ Liquibase takes care of determining the necessary changes and applying them to y
 You can pass on the connection details to your database instance via parameters as described in the Liquibase documentation or [create a properties file](https://docs.liquibase.com/workflows/liquibase-community/creating-config-properties.html).
 1. We highly recommend updating to the latest patch version that is within the bounds of the new minor version you are updating to (`$Y`).
 
-    _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.16.X` where `X > 0`.
+    _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.16.X` where `X > 0`.
 
 {{< note title="Do I need to apply every minor version if I missed a few?" class="warning" >}}
 Liquibase takes care of determining which upgrade scripts to apply automatically according to the changelog of your target version (`$Y`).
@@ -155,13 +155,13 @@ You have migrated your manual installation to Liquibase.
 
 ## Manual update
 
-Updating from your current minor version (`$X`) to its follow-up version (`$Y`) requires updating the database schema as well. 
+Updating from your current minor version (`$X`) to its follow-up version (`$Y`) requires updating the database schema as well.
 Follow the outlined procedure to perform this update:
 
 1. Check for [available database patch scripts](#patch-level-update") for your database that are within the bounds of your update path.
 You can find the scripts on our [Artifact Repository].
 Select the respective version you want to update to (`$Y`) and download the scripts as a `zip` or `tar.gz` file.
-Open the `camunda-sql-scripts-$Y/upgrade` folder to find all available scripts. 
+Open the `camunda-sql-scripts-$Y/upgrade` folder to find all available scripts.
 In case you are using a [pre-packaged distribution], the SQL scripts already reside in the `sql/upgrade` folder of the distribution with version `$Y`.
 We highly recommend executing these patches before updating.
 Execute those related to your database type (`$DATABASENAME`) in ascending order by version number.
@@ -172,7 +172,7 @@ The scripts update the database from one minor version to the next and change th
 
 1. We highly recommend checking for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to (`$Y`). Execute them in ascending order by version number. The procedure is the same as in step 1, only for the new minor version.
 
-    _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.16.X` where `X > 0`.
+    _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.16.X` where `X > 0`.
 
 {{< note title="Do I need to apply every minor version if I missed a few?" class="warning" >}}
 If you need to apply multiple minor versions, you MUST execute the database alteration scripts in minor version order as they are NOT cumulative.
@@ -182,18 +182,14 @@ If you need to apply multiple minor versions, you MUST execute the database alte
 
 This section explains how to perform a [patch-level update]({{< ref "/update/patch-level.md" >}}) for your database schema. The *patch level* is the version number "after the second dot". For example, update from `7.14.2` to `7.14.3`.
 
-{{< enterprise >}}
-Please note that Patch Level Updates are only provided to enterprise customers. They are not available in the community edition.
-{{< /enterprise >}}
-
 Between patch levels, the structure of the database schema does not change. The database structure of all patch releases is backward compatible with the corresponding minor version. For example, the database schema of all `7.14.x` versions are backward compatible with the `7.14.0` schema.
 
-The one exception to this is a bug in the database schema itself. If you are affected by such a bug, you have the option to run a patch script. The following list contains all available patch scripts, information on what the fixes are related to, and a link to the corresponding [Camunda Jira](https://jira.camunda.com/projects/CAM) issue:
+The one exception to this is a bug in the database schema itself. If you are affected by such a bug, you have the option to run a patch script. The following list contains all available patch scripts, information on what the fixes are related to, and a link to the corresponding [Operaton Jira](https://jira.camunda.com/projects/CAM) issue:
 
 <table class="table desc-table">
   <thead>
     <tr>
-      <th>Camunda Version</th>
+      <th>Operaton Version</th>
       <th>Patch file</th>
       <th>Description</th>
       <th>Affected databases</th>
@@ -616,7 +612,7 @@ The one exception to this is a bug in the database schema itself. If you are aff
 
 ### Liquibase patch level update
 
-Camunda 7 comes with a maintained changelog file that Liquibase can consume.
+Operatoncomes with a maintained changelog file that Liquibase can consume.
 This changelog helps Liquibase to keep track of the changes that have been made to your database already.
 Based on that changelog and the tracking tables, Liquibase determines which changes it needs to apply when instructing it to update your schema.
 Therefore, the procedure for patch-level updates is equivalent to that for [minor version updates](#liquibase-update).

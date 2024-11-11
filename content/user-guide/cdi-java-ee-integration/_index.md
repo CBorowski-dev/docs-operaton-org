@@ -11,7 +11,7 @@ menu:
 ---
 
 The `camunda-engine-cdi` and `camunda-engine-cdi-jakarta` modules provide programming model integration with CDI (Context and Dependency Injection).
-CDI is the Jakarta EE/Java EE standard for Dependency Injection. The Camunda CDI integration leverages both the configuration of the Camunda engine
+CDI is the Jakarta EE/Java EE standard for Dependency Injection. The Operaton CDI integration leverages both the configuration of the Operaton engine
 and the extensibility of CDI. The most prominent features are:
 
  * A custom El-Resolver for resolving CDI beans (including EJBs) from the process.
@@ -31,12 +31,12 @@ Read about the limitations in the [Quarkus Integration]({{< ref "/user-guide/qua
 To use the `camunda-engine-cdi` module inside your application, you must include the following Maven dependency:
 
 {{< note title="" class="info" >}}
-  Please import the [Camunda BOM](/get-started/apache-maven/) to ensure correct versions for every Camunda project.
+  Please import the [Operaton BOM](/get-started/apache-maven/) to ensure correct versions for every Operaton project.
 {{< /note >}}
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-cdi</artifactId>
 </dependency>
 ```
@@ -45,7 +45,7 @@ For Jakarta EE 9+ containers, use the following dependency instead:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-cdi-jakarta</artifactId>
 </dependency>
 ```

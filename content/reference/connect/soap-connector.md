@@ -10,7 +10,7 @@ menu:
 
 ---
 
-In Camunda Connect a `Connectors` class exists which automatically detects
+In Operaton Connect a `Connectors` class exists which automatically detects
 every connector in the classpath. It can be used to get the SOAP connector
 instance by its connector ID, which is `soap-http-connector`.
 
@@ -18,7 +18,7 @@ instance by its connector ID, which is `soap-http-connector`.
 SoapHttpConnector soap = Connectors.getConnector(SoapHttpConnector.ID);
 ```
 
-The SOAP connector extends the Camunda Connect HTTP connector which uses
+The SOAP connector extends the Operaton Connect HTTP connector which uses
 the Apache HTTP client in the default implementation. To read about default and custom client configuration,
 please see the corresponding section in the [HTTP connector docs]({{< ref "/reference/connect/http-connector.md" >}}).
 

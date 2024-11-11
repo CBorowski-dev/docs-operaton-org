@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.2.x` to `7.3.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.2.x` to `7.3.0`. It covers these use cases:
 
 1. For administrators and developers: [Database Updates]({{< relref "#database-updates" >}})
 2. For administrators and developers: [Full Distribution Update]({{< relref "#full-distribution" >}})
@@ -22,14 +22,14 @@ This document guides you through the update from Camunda `7.2.x` to `7.3.0`. It 
 5. For administrators: [Migrating a Tasklist translation file]({{< relref "#tasklist-translation-file" >}})
 6. For administrators and developers: [Checking authorizations for newly introduced authorization resources]({{< relref "#notewothy-new-features" >}})
 
-This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Camunda 7.3.
+This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Operaton.
 
 Noteworthy new Features in 7.3:
 
-* **Authorization:** With [Authorization]({{< relref "#notewothy-new-features" >}}) being used for restricting access to applications and identity-related data in Camunda 7.2, 7.3 extends authorization checks to execution-related concepts like process instances and task
+* **Authorization:** With [Authorization]({{< relref "#notewothy-new-features" >}}) being used for restricting access to applications and identity-related data in Operaton, 7.3 extends authorization checks to execution-related concepts like process instances and task
 
 {{< note title="No Rolling Updates" class="warning" >}}
-It is not possible to migrate process engines from Camunda 7.2 to 7.3 in a rolling fashion. This means, it is not possible to run process engines of version 7.2 and 7.3 in parallel with the same database configuration. The reason is that a 7.2 engine may not be able to execute process instances that have been previously executed by a 7.3 engine, as these may use features that were not available yet in 7.2.
+It is not possible to migrate process engines from Operaton to 7.3 in a rolling fashion. This means, it is not possible to run process engines of version 7.2 and 7.3 in parallel with the same database configuration. The reason is that a 7.2 engine may not be able to execute process instances that have been previously executed by a 7.3 engine, as these may use features that were not available yet in 7.2.
 {{< /note >}}
 
 # Database Updates
@@ -39,7 +39,7 @@ The first step consists in updating the database.
 ## Basic Procedure
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend to execute these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.2_patch_?.sql`.
 
@@ -50,7 +50,7 @@ The first step consists in updating the database.
 
     The scripts update the database from one minor version to the next one and change the underlying database structure, so make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.2.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.2.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 ## Special Considerations
 
@@ -69,12 +69,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update Camunda Libraries and Applications inside the application server
+1. Update Operaton Libraries and Applications inside the application server
 2. Migrate custom Process Applications
 
-Before starting, make sure that you have downloaded the Camunda 7.3 distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -86,7 +86,7 @@ Please choose the application server you are working with from the following lis
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies have to be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies have to be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine`
 * `camunda-bpmn-model`
@@ -120,11 +120,11 @@ This section describes a change in the engine's default behavior. While the chan
 ### Task Query Expressions
 
 As of 7.3.3, the default handling of expressions submitted as parameters of task queries has changed. Passing EL expressions in a task query enables execution of arbitrary code when the query is evaluated. The process engine no longer evaluates these expressions by default and throws an exception instead. This behavior can be toggled in the process engine configuration using the properties `enableExpressionsInAdhocQueries` (default `false`) and `enableExpressionsInStoredQueries` (default `true`). To restore the engine's previous behavior, set both flags to `true`. See the user guide on [security considerations for custom code]({{< ref "/user-guide/process-engine/securing-custom-code.md" >}}) for details.
-This is already the default for Camunda 7 versions after and including 7.2.8.
+This is already the default for Operatonversions after and including 7.2.8.
 
 # Cockpit Plugins
 
-Migrating a Cockpit Plugin from Camunda 7.2 to 7.3 consists of the following steps:
+Migrating a Cockpit Plugin from Operaton to 7.3 consists of the following steps:
 
 Client side:
 
@@ -297,8 +297,8 @@ The update script `$DATABASE_engine_7.2_to_7.3.sql` contains `INSERT`-statements
 If these authorizations are not desired and you want to restrict access to the listed resources, you have the following options:
 
 * Before executing the update script `$DATABASE_engine_7.2_to_7.3.sql` remove the corresponding `INSERT`-statements inside the script.
-* Use the [Camunda Admin application]({{< ref "/webapps/admin/authorization-management.md" >}}) to delete the created authorizations.
-* Use the [Camunda Admin application]({{< ref "/webapps/admin/authorization-management.md" >}}) to add authorizations that restrict access.
+* Use the [Operaton Admin application]({{< ref "/webapps/admin/authorization-management.md" >}}) to delete the created authorizations.
+* Use the [Operaton Admin application]({{< ref "/webapps/admin/authorization-management.md" >}}) to add authorizations that restrict access.
 
 {{< note title="Note" class="warning" >}}
 If you use custom authorization resources with 7.2, make sure to check that they have a different id than the newly introduced resources (listed above). Otherwise, granted/restricted authorizations apply to both resources which may result in undesired behavior.

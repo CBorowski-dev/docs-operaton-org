@@ -246,7 +246,7 @@ decisionResult.getSingleEntry();
 ```
 
 Note that the decision can also be evaluated using the
-{{< javadocref page="org/camunda/bpm/dmn/engine/DmnEngine.html##evaluateDecisionTable(org.camunda.bpm.dmn.engine.DmnDecision, java.util.Map)"
+{{< javadocref page="org/camunda/bpm/dmn/engine/DmnEngine.html##evaluateDecisionTable(org.operaton.bpm.dmn.engine.DmnDecision, java.util.Map)"
 text="evaluateDecisionTable()" >}} method if it is implemented as [decision table]. In this case, evaluation returns a {{< javadocref page="org/camunda/bpm/dmn/engine/DmnDecisionTableResult.html" text="DmnDecisionTableResult" >}} which is semantically equal and provides the same methods as a
 `DmnDecisionResult`.
 
@@ -258,7 +258,7 @@ Assume the following example of making a decision to select beverages.
 
 {{< img src="../img/beverages-dmn.png" title="Beverages Decision" >}}
 
-The following [decision requirements diagram] shows that the `Beverages` decision requires the `Dish` decision (from the previous example).  
+The following [decision requirements diagram] shows that the `Beverages` decision requires the `Dish` decision (from the previous example).
 
 {{< img src="../img/drd.png" title="Select beverages" >}}
 
@@ -268,7 +268,7 @@ Assume that the decision is evaluated with the following input variables:
 
 - `season`: "Spring"
 - `guestCount`: 14
-- `guestsWithChildren`: false 
+- `guestsWithChildren`: false
 
 With the above inputs, `Dish` decision table has one matching rule and generates the output value `Stew` that is mapped to the output variable `desiredDish`.
 
@@ -286,7 +286,7 @@ List<String> beverages = decisionResult.collectEntries("beverages");
 
 ## Hit Policy of Required Decisions
 
-The [hit policy] of a required decision can affect the result that is passed as input to the requiring decision. If the required decision has a [COLLECT] hit policy with aggregator then the decision result (i.e. output value) is only the aggregated value. 
+The [hit policy] of a required decision can affect the result that is passed as input to the requiring decision. If the required decision has a [COLLECT] hit policy with aggregator then the decision result (i.e. output value) is only the aggregated value.
 
 In case of a hit policy with multiple matched rules (i.e., [COLLECT] without aggregator or [RULE ORDER]), the output variable is mapped to a list of output values, even if only one rule matched.
 

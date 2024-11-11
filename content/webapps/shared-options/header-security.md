@@ -8,18 +8,18 @@ menu:
   main:
     identifier: "http-header-security"
     parent: "webapps-shared-options"
-    pre: "A HTTP Header Security Filter for the Camunda Web Applications"
+    pre: "A HTTP Header Security Filter for the Operaton Web Applications"
 ---
 
 The HTTP Header Security mechanism allows you to add security-related response headers which enable browser-side security mechanisms.
 
 ## What are the headers supposed to be?
 
-This section briefly describes the purpose of the headers. You can find more information about the 
-[XSS Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection), 
+This section briefly describes the purpose of the headers. You can find more information about the
+[XSS Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection),
 [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy),
-[Content-Type Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)  
-as well as [Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) 
+[Content-Type Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
+as well as [Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
 header in Mozilla’s Developer Guide.
 
 ### XSS Protection
@@ -30,7 +30,7 @@ If the **XSS Protection** header is enabled some cross-site scripting (XSS) atta
 
 The **Content Security Policy** is a mighty tool to prevent cross-site scripting and code injection attacks.
 
-It is a common practice to extend Camunda 7 web applications by custom scripts and forms.
+It is a common practice to extend Operatonweb applications by custom scripts and forms.
 Our default **Content Security Policy** defines some exceptions to ensure our web apps, your embedded forms, and embedded form scripts work out of the box.
 
 #### Default Policy
@@ -62,7 +62,7 @@ the script tag, otherwise they will be ignored by the browser.
 #### Policy Details
 
 We encourage you to use a strict **Content Security Policy**.
-This section describes what our default policy contains: 
+This section describes what our default policy contains:
 
 * `base-uri 'self'`
   * The URI of the HTML Base Tag must not point to a cross-origin
@@ -102,7 +102,7 @@ Keep in mind a stricter configuration than the one introduced above might break 
 
 ### Content-Type Options
 
-If the **Content-Type Options** header is enabled, the browser uses the mime type declared in the <code>Content-Type</code> 
+If the **Content-Type Options** header is enabled, the browser uses the mime type declared in the <code>Content-Type</code>
 header to render a resource and prevents trying to guess the mime type by inspecting the actual content of the byte stream (sniffing).
 
 ### Strict Transport Security
@@ -113,9 +113,9 @@ the user tries to access the Webapps via HTTP.
 
 {{< note title="Heads-up!" class="info" >}}
 * The **Strict Transport Security** header is disabled by default. When going into production, it is highly
-  recommended to enable **Strict Transport Security** and [Strengthen the Base Configuration](#strengthen-the-base-configuration) 
+  recommended to enable **Strict Transport Security** and [Strengthen the Base Configuration](#strengthen-the-base-configuration)
   to protect the Webapps against man-in-the-middle attacks.
-* When accessing the Webapps via HTTP, the **Strict Transport Security** header is ignored. Therefore, 
+* When accessing the Webapps via HTTP, the **Strict Transport Security** header is ignored. Therefore,
   make sure to redirect HTTP requests to HTTPS.
 {{< /note >}}
 
@@ -129,28 +129,28 @@ max-age=31536000
 
 #### Strengthen the Base Configuration
 
-We encourage you to use a stricter configuration. Here you can find hints on how to strengthen 
+We encourage you to use a stricter configuration. Here you can find hints on how to strengthen
 the Base Configuration. Please also see the section on [How to Configure?](#hsts-config)
 
 **Max Age**
 
-The higher the value, the better: after expiration, the Webapps can be accessed via HTTP, which is 
+The higher the value, the better: after expiration, the Webapps can be accessed via HTTP, which is
 prone to be exploited by attackers.
-  
+
 **Include Subdomains**
 
 If you can answer the questions below with **yes**, you should consider enabling the `includeSubdomains` flag:
 
-* Are the Webapps the only web services provided under your domain? 
-* Additionally to the main domain, are there any subdomains redirected to the Webapps 
+* Are the Webapps the only web services provided under your domain?
+* Additionally to the main domain, are there any subdomains redirected to the Webapps
   (e.g., `www.example.com` is redirected to `example.com`)?
 
 **Preload**
 
-To even avoid the initial HTTP request (redirected to HTTPS), you can submit your domain to the 
-[Preload List Service](https://hstspreload.org/) maintained by Google and set the 
-**Strict Transport Security** header according to the 
-[Submission Requirements](https://hstspreload.org/#submission-requirements) with the help of 
+To even avoid the initial HTTP request (redirected to HTTPS), you can submit your domain to the
+[Preload List Service](https://hstspreload.org/) maintained by Google and set the
+**Strict Transport Security** header according to the
+[Submission Requirements](https://hstspreload.org/#submission-requirements) with the help of
 the config property <code>hstsValue</code>.
 
 ## Where to Configure?
@@ -179,7 +179,7 @@ The following table shows the possible configuration settings and the default be
     <td><code>xssProtectionDisabled</code></td>
     <td>
       The header can be entirely disabled if set to <code>true</code>. <br>
-      Allowed set of values is <code>true</code> and <code>false</code>. 
+      Allowed set of values is <code>true</code> and <code>false</code>.
     </td>
     <td><code>false</code></td>
   </tr>
@@ -218,7 +218,7 @@ The following table shows the possible configuration settings and the default be
     <td><code>contentSecurityPolicyDisabled</code></td>
     <td>
       The header can be entirely disabled if set to <code>true</code>. <br>
-      Allowed set of values is <code>true</code> and <code>false</code>. 
+      Allowed set of values is <code>true</code> and <code>false</code>.
     </td>
     <td><code>false</code></td>
   </tr>
@@ -236,7 +236,7 @@ The following table shows the possible configuration settings and the default be
     <td><code>contentTypeOptionsDisabled</code></td>
     <td>
       The header can be entirely disabled if set to <code>true</code>. <br>
-      Allowed set of values is <code>true</code> and <code>false</code>. 
+      Allowed set of values is <code>true</code> and <code>false</code>.
     </td>
     <td><code>false</code></td>
   </tr>
@@ -254,7 +254,7 @@ The following table shows the possible configuration settings and the default be
     <td><code>hstsDisabled</code></td>
     <td>
       Set to <code>false</code> to enable the header. The header is disabled by default. <br>
-      Allowed set of values is <code>true</code> and <code>false</code>. 
+      Allowed set of values is <code>true</code> and <code>false</code>.
     </td>
     <td><code>true</code></td>
   </tr>
@@ -294,7 +294,7 @@ The following table shows the possible configuration settings and the default be
       <strong>Note:</strong>
       <ul>
         <li>Is ignored when <code>hstsDisabled</code> is <code>true</code></li>
-        <li>Cannot be set in conjunction with <code>hstsMaxAge</code> or 
+        <li>Cannot be set in conjunction with <code>hstsMaxAge</code> or
         <code>hstsIncludeSubdomainsDisabled</code></li>
       </ul>
     </td>

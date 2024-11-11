@@ -13,7 +13,7 @@ menu:
 
 {{< img src="../img/admin-system-management.png" title="System Management" >}}
 
-The System Settings menu gives you general information about the process engine. It enables users with system permissions to access certain system information, including diagnostics, metrics, and license key. Provided that you are using the Enterprise Edition of Camunda 7, you can also insert your *License Key*.
+The System Settings menu gives you general information about the process engine. It enables users with system permissions to access certain system information, including diagnostics, metrics, and license key. Provided that you are using the Enterprise Edition of Operaton, you can also insert your *License Key*.
 
 {{< note title="Accessing the System Settings menu" class="info" >}}
 The System Settings menu is only usable by users which are granted with *All* permission for authorizations.
@@ -23,7 +23,7 @@ The System Settings menu is only usable by users which are granted with *All* pe
 
 {{< img src="../img/admin-diagnostics.png" title="Diagnostics" >}}
 
-The **Diagnostics** menu allows you to view and copy diagnostics data about your environment or distribution of Camunda. The main purpose of the **Diagnostics** menu is to increase transparency by giving you easy access to important system diagnostics information. In the event of an issue, this should also improve problem diagnosis by enabling you to quickly understand and share the Camunda environment you are running.
+The **Diagnostics** menu allows you to view and copy diagnostics data about your environment or distribution of Operaton. The main purpose of the **Diagnostics** menu is to increase transparency by giving you easy access to important system diagnostics information. In the event of an issue, this should also improve problem diagnosis by enabling you to quickly understand and share the Operaton environment you are running.
 
 # Execution Metrics
 
@@ -41,8 +41,8 @@ Underneath, it displays all the available annual usage metrics.
 Annual metrics together with the diagnostics data can be copied to the clipboard by clicking on
 the <button class="btn btn-xs"><i class="glyphicon glyphicon-copy"></i></button> button.
 The copied format consists of two parts as seen below in the example.
-The top part contains the actual metrics that enterprise customers need to share with Camunda before renewal.
-The second part contains the diagnostics data which provides useful information that helps Camunda to improve support but customers can opt out of sharing it.
+The top part contains the actual metrics that enterprise customers need to share with Operaton before renewal.
+The second part contains the diagnostics data which provides useful information that helps Operaton to improve support but customers can opt out of sharing it.
 This part has been truncated in the example.
 
 ```
@@ -56,38 +56,10 @@ This part has been truncated in the example.
 {
   "installation": "bf32d0f5-43c6-4be4-b45e-de0ef1a48117",
   "product": {
-    "name": "Camunda BPM Runtime",
+    "name": "Operaton BPM Runtime",
     "version": "{{< minor-version >}}.0",
     "edition": "community",
     ...
   }
 }
 ```
-
-# Camunda License Key
-
-{{< enterprise >}}
-  Please note that this feature is only included in the enterprise edition of Camunda 7, it is not 
-  available in the community edition.
-{{< /enterprise >}}
-
-Some features of the Camunda Webapps (e.g. enterprise plugins) require a license key. To read more about the Camunda
-license key, please see the [dedicated section]({{< ref "/user-guide/license-use.md" >}}) of the docs. The following 
-section explains how to activate a license through the Camunda Admin Webapp UI.
-
-Whenever you see one of the following messages, a valid license key must be entered.
-
-{{< img src="../img/admin-license-prompt.png" title="License Prompt for Admins" >}}
-{{< img src="../img/admin-license-prompt-noAdmin.png" title="License Prompt for Non-Admins" >}}
-
-If you have administrator authorizations, insert your company's license key for Camunda 7 and view 
-some License Key details such as the Company Id and the validity of the license key. The Admin system setting menu 
-offers the possibility to enter additional licenses, for instance when your existing license is expiring and you want 
-to enter a new license key.
-
-If you do not have administrator authorizations, please contact your administrator so that they can enter the license.
-
-In case you are running Camunda 7 locally, you can use this URL to enter the license key:
-http://localhost:8080/camunda/app/admin/default/#/system?section=system-settings-license
-
-{{< img src="../img/admin-license-key.png" title="License Key" >}}

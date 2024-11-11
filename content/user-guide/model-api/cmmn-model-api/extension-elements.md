@@ -12,11 +12,11 @@ menu:
 
 
 [Custom extension elements]({{< ref "/reference/cmmn11/custom-extensions/_index.md" >}}) are a standardized way to extend the CMMN model.
-The [Camunda extension elements]({{< ref "/reference/cmmn11/custom-extensions/camunda-elements.md" >}}) are fully implemented in the CMMN model API but unknown extension elements can also easily be accessed and added.
+The [Operaton extension elements]({{< ref "/reference/cmmn11/custom-extensions/camunda-elements.md" >}}) are fully implemented in the CMMN model API but unknown extension elements can also easily be accessed and added.
 
 Every CMMN `CmmnElement` can have a child element of the type `extensionElements`.
 This element can contain all sorts of extension elements. To access the
-extension elements you have to call the `getExtensionElements()` method and, 
+extension elements you have to call the `getExtensionElements()` method and,
 if no such child element exists, you must create one first.
 
 ```java
@@ -32,7 +32,7 @@ Collection<ModelElementInstance> elements = extensionElements.getElements();
 After that you can add or remove extension elements to the collection.
 
 ```java
-CamundaCaseExecutionListener listener = modelInstance.newInstance(CamundaCaseExecutionListener.class);
+OperatonCaseExecutionListener listener = modelInstance.newInstance(OperatonCaseExecutionListener.class);
 extensionElements.getElements().add(listener);
 extensionElements.getElements().remove(listener);
 ```
@@ -43,16 +43,16 @@ You can also access a query-like interface to filter the extension elements.
 extensionElements.getElementsQuery().count();
 extensionElements.getElementsQuery().list();
 extensionElements.getElementsQuery().singleResult();
-extensionElements.getElementsQuery().filterByType(CamundaCaseExecutionListener.class).singleResult();
+extensionElements.getElementsQuery().filterByType(OperatonCaseExecutionListener.class).singleResult();
 ```
 
 Additionally, there are some shortcuts to add new extension elements. You can use
 the `namespaceUri` and the `elementName` to add your own extension elements. Or
-you can use the `class` of a known extension element type, e.g., the Camunda
+you can use the `class` of a known extension element type, e.g., the Operaton
 extension elements. The extension element is added to the CMMN element and returned
 so that you can set attributes or add child elements.
 
 ```java
 ModelElementInstance element = extensionElements.addExtensionElement("http://example.com/cmmn", "myExtensionElement");
-CamundaCaseExecutionListener listener = extensionElements.addExtensionElement(CamundaCaseExecutionListener.class);
+OperatonCaseExecutionListener listener = extensionElements.addExtensionElement(OperatonCaseExecutionListener.class);
 ```

@@ -18,7 +18,7 @@ process engine, enable the corresponding parse listener in the configuration:
 ```xml
 <property name="postParseListeners">
   <list>
-    <bean class="org.camunda.bpm.engine.cdi.impl.event.CdiEventSupportBpmnParseListener" />
+    <bean class="org.operaton.bpm.engine.cdi.impl.event.CdiEventSupportBpmnParseListener" />
   </list>
 </property>
 ```
@@ -32,7 +32,7 @@ Now the engine is configured for publishing events using the CDI event bus.
 {{< /note >}}
 
 The following gives an overview of how process events can be received in CDI beans. In CDI, we can declaratively specify event
-observers using the `@Observes`-annotation. Event notification is type-safe. The type of process events is `org.camunda.bpm.engine.cdi.BusinessProcessEvent`.
+observers using the `@Observes`-annotation. Event notification is type-safe. The type of process events is `org.operaton.bpm.engine.cdi.BusinessProcessEvent`.
 The following is an example of a simple event observer method:
 
 ```java

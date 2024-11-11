@@ -16,7 +16,7 @@ The XML datatype supports querying with the XPath 1.0 query language.
 # Querying an Element
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -27,7 +27,7 @@ SpinXmlTreeElement child = XML(xml).xPath("/root/child").element();
 # Querying an Element List
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -38,7 +38,7 @@ SpinList<SpinXmlTreeElement> childs = XML(xml).xPath("/root/child/a").elementLis
 # Querying an Attribute
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -49,7 +49,7 @@ SpinXmlTreeAttribute attribute = XML(xml).xPath("/root/child/@id").attribute();
 # Querying an Attribute List
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -60,7 +60,7 @@ SpinList<SpinXmlTreeAttribute> attributes = XML(xml).xPath("/root/child/a/@id").
 # Querying a String
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -71,7 +71,7 @@ String value = XML(xml).xPath("string(/root/child/@id)").string();
 # Querying a Number
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -82,7 +82,7 @@ Double count = XML(xml).xPath("count(/root/child/a)").number();
 # Querying a Boolean
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root><child id=\"child\"><a id=\"a\"/><a id=\"b\"/></child></root>";
 
@@ -98,7 +98,7 @@ To use namespaces in spin with XML, you can choose one of the following methods 
 ## 1. Using a Single Prefix - URI Pair
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root xmlns:t=\"http://camunda.org\"><t:child id=\"child\"><a id=\"a\"/></t:child></root>";
 
@@ -110,7 +110,7 @@ SpinXmlTreeElement child = XML(xml).xPath("/root/t:child")
 ## 2. Using a Map of Prefix - URI Pairs
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<root xmlns:t=\"http://camunda.org\"><t:child id=\"child\"><a id=\"a\"/></t:child></root>";
 

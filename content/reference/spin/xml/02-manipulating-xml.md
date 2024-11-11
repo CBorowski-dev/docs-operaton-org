@@ -18,7 +18,7 @@ The XML data type supports manipulation of XML attributes and child elements.
 ## Checking for Attributes in XML
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"name\" />";
 
@@ -32,7 +32,7 @@ assertTrue(hasAttr);
 ## Reading Attributes from XML
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 SpinXmlDomAttribute attribute = XML("<order id=\"order1\" />").attr("id");
 String id = XML("<order id=\"order1\" />").attr("id").value();
@@ -43,7 +43,7 @@ The `attr` method returns a wrapper of the XML attribute and with `value` the va
 If you want to access an attribute in another namespace, you have to use the `attrNs` method.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"order1\" />";
 
@@ -53,7 +53,7 @@ SpinXmlDomAttribute attribute = XML(xml).attrNs("http://camunda.org/example", "n
 You can also get a collection of all attributes or only of a specific namespace.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"order1\" />";
 
@@ -67,7 +67,7 @@ attributes = XML(xml).attrs("http://camunda.org/example");
 Or you can directly get all attribute names instead.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"order1\" />";
 
@@ -83,7 +83,7 @@ names = XML(xml).attrNames("http://camunda.org/example");
 It is possible to set a new attribute value directly from the element wrapper or on the attribute wrapper.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order id=\"order1\" />";
 
@@ -96,7 +96,7 @@ attribute.value("newId");
 You can also specify the namespace of the attribute to set.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"name\" />";
 
@@ -111,7 +111,7 @@ attribute.value("newName");
 It is possible to remove an attribute from the element directly or to remove the attribute itself.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order id=\"order1\" />";
 
@@ -126,7 +126,7 @@ assertFalse(element.hasAttr("id));
 You can also specify the namespace of the attribute to remove.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\" id=\"order1\" cam:name=\"name\" />";
 
@@ -144,7 +144,7 @@ assertFalse(element.hasAttrNs("http://camunda.org/example", "name"));
 It is possible to read and write the text content of an XML element with the `textContent` method.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 SpinXmlDomElement element = XML("<customer>Foo</customer>");
 assertEquals("Foo", element.textContent());
@@ -159,7 +159,7 @@ element.textContent("Bar");
 Besides attributes, you can also get a unique or all child elements of a specific type. Optionally, a namespace can be passed to the methods as first parameter.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 String xml = "<order xmlns:cam=\"http://camunda.org/example\">" +
       "<date/><cam:due/><item/><item/><cam:op/><cam:op/></order>";
@@ -176,7 +176,7 @@ SpinCollection<SpinXmlDomElement> ops = XML(xml).childElements("http://camunda.o
 The method `append` is used to append a single or multiple child elements to an XML element.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 SpinXmlTreeElement root = XML("<root/>");
 
@@ -192,7 +192,7 @@ root.append(child1, child2, child3);
 To remove child elements from an XML element, the method `remove` is used. It accepts single or multiple child elements and removes them from the parent element.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 SpinXmlTreeElement root = XML("<root><child/><child/><child/></root>");
 
@@ -204,7 +204,7 @@ root.remove(root.childElements("child"));
 To replace an element or a child element, the methods `replace` and `replaceChild` are used.
 
 ```java
-import static org.camunda.spin.Spin.XML;
+import static org.operaton.spin.Spin.XML;
 
 SpinXmlTreeElement root = XML("<root><date/><order/></root>");
 

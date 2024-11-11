@@ -46,7 +46,7 @@ Another possibility to define an error is setting of the type (class name) of an
 
 ```xml
 <definitions>
-  <error id="myException" errorCode="com.company.MyBusinessException" 
+  <error id="myException" errorCode="com.company.MyBusinessException"
       name="myBusinessException"/>
   <!-- ... -->
   <process>
@@ -67,7 +67,7 @@ The referencing error event definition must specify <a href="{{< ref "/reference
 
 ```xml
 <definitions>
-  <error id="myError" errorCode="ERROR-OCCURED" name="ERROR-OCCURED" 
+  <error id="myError" errorCode="ERROR-OCCURED" name="ERROR-OCCURED"
       camunda:errorMessage="Something went wrong: ${errorCause}" />
   <!-- ... -->
   <process>
@@ -88,8 +88,8 @@ For External Tasks, it is also possible to define error events by using a [camun
   camunda:type="external"
   camunda:topic="AddressValidation" >
   <extensionElements>
-    <camunda:errorEventDefinition id="addressErrorDefinition" 
-      errorRef="addressError" 
+    <camunda:errorEventDefinition id="addressErrorDefinition"
+      errorRef="addressError"
       expression="${externalTask.getErrorDetails().contains('address error found')}" />
   </extensionElements>
 </serviceTask>
@@ -120,7 +120,7 @@ Three optional attributes can be added to the error start event: <code>errorRef<
 </definitions>
 ```
 * If `errorRef` is omitted, the subprocess will start for every error event that occurs.
-* The `camunda:errorCodeVariable` will contain the error code that was specified with the error. 
+* The `camunda:errorCodeVariable` will contain the error code that was specified with the error.
 * The `camunda:errorMessageVariable` will contain the error message that was specified with the error.
 
 `camunda:errorCodeVariable` and `camunda:errorMessageVariable` can be retrieved like any other process variable, but only if the attribute was set.
@@ -130,7 +130,7 @@ Three optional attributes can be added to the error start event: <code>errorRef<
 
 When process execution arrives at an error end event, the current path of execution is ended and an error is thrown. This error can be caught by a matching intermediate error boundary event. In case no matching error boundary event is found, the execution semantics defaults to the none end event semantics.
 
-## Camunda Extensions
+## Operaton Extensions
 
 ### Error Event Definition
 
@@ -218,13 +218,13 @@ The errorCode is used to match the errors that are caught:
 # Unhandled BPMN Error
 
 It can happen that no catching boundary event was defined for an error event. The default behaviour in this case is to log information and end the current execution.
-This behaviour can be changed with <code>enableExceptionsAfterUnhandledBpmnError</code> property set to <code>true</code> 
+This behaviour can be changed with <code>enableExceptionsAfterUnhandledBpmnError</code> property set to <code>true</code>
 (via the process engine configuration or the deployment descriptor) and Process Engine Exception will be thrown if unhandled BPMN Error occurs.
 
 
 # Catch and Re-Throw Pattern
 
-An error can be handled by the error start event in the event sub process and the same error can be thrown from the event sub process to handle the error on the higher level scope (in the example  below, the error thrown from the Event Subprocess is handled by the error boundary event in the Subprocess). 
+An error can be handled by the error start event in the event sub process and the same error can be thrown from the event sub process to handle the error on the higher level scope (in the example  below, the error thrown from the Event Subprocess is handled by the error boundary event in the Subprocess).
 
 <div data-bpmn-diagram="../bpmn/catchandthrowpattern"></div>
 

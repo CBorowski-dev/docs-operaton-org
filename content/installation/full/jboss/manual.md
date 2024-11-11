@@ -13,29 +13,29 @@ menu:
 ---
 
 
-This document describes the installation of Camunda 7 and its components on a vanilla [WildFly Application Server](http://www.wildfly.org) or JBoss EAP 7 / 8.
+This document describes the installation of Operatonand its components on a vanilla [WildFly Application Server](http://www.wildfly.org) or JBoss EAP 7 / 8.
 
 {{< note title="Reading this Guide" class="info" >}}
 This guide uses a number of variables to denote common path names and constants:
 
 * `$WILDFLY_HOME` points to the JBoss EAP/WildFly application server main directory.
 * `$WILDFLY_VERSION` denotes the version of WildFly application server.
-* `$WILDFLY_DISTRIBUTION` represents the downloaded pre-packaged Camunda 7 distribution for WildFly, e.g. `camunda-bpm-wildfly-$PLATFORM_VERSION.zip` or `camunda-bpm-wildfly-$PLATFORM_VERSION.tar.gz`.
-* `$PLATFORM_VERSION` denotes the version of Camunda 7 you want to install or already have installed, e.g. `7.0.0`.
+* `$WILDFLY_DISTRIBUTION` represents the downloaded pre-packaged Operatondistribution for WildFly, e.g. `camunda-bpm-wildfly-$PLATFORM_VERSION.zip` or `camunda-bpm-wildfly-$PLATFORM_VERSION.tar.gz`.
+* `$PLATFORM_VERSION` denotes the version of Operatonyou want to install or already have installed, e.g. `7.0.0`.
 {{< /note >}}
 
 ## Setup
 
-* For WildFly ≥27 / JBoss EAP 8, download the [Camunda 7 WildFly distribution](https://downloads.camunda.cloud/release/camunda-bpm/wildfly/).
+* For WildFly ≥27 / JBoss EAP 8, download the [OperatonWildFly distribution](https://downloads.camunda.cloud/release/camunda-bpm/wildfly/).
 * For WildFly ≤26 / JBoss EAP 7, download the [`camunda-wildfly26-modules`](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/wildfly/camunda-wildfly26-modules/).
 
 ### Copy Modules
 
-Copy the modules from the `modules/` folder of the Camunda 7 distribution, or extract the `camunda-wildfly-modules` archive, to the `$WILDFLY_HOME/modules/` of your WildFly application server.
+Copy the modules from the `modules/` folder of the Operatondistribution, or extract the `camunda-wildfly-modules` archive, to the `$WILDFLY_HOME/modules/` of your WildFly application server.
 
 {{< note title="Replace H2 Database" >}}
 The WildFly distribution ships a different version of the H2 database than the one that is shipped with WildFly itself.
-The version shipped with Camunda 7 is the version that the process engine is tested on and it is strongly recommended to use Camunda's version.
+The version shipped with Operatonis the version that the process engine is tested on and it is strongly recommended to use Operaton's version.
 To do so, **make sure to delete the folder**
 
 ```
@@ -50,19 +50,19 @@ $WILDFLY_HOME/modules/system/layers/base/com/h2database
 Next, a number of changes need to be performed in the application server's configuration file.
 In most cases this is `$WILDFLY_HOME/standalone/configuration/standalone.xml`.
 
-Add the Camunda 7 subsystem as extension:
+Add the Operatonsubsystem as extension:
 
 ```xml
 <server xmlns="urn:jboss:domain:20.0">
   <extensions>
     ...
-    <extension module="org.camunda.bpm.wildfly.camunda-wildfly-subsystem"/>
+    <extension module="org.operaton.bpm.wildfly.camunda-wildfly-subsystem"/>
 ```
 
-Configure the thread pool for the Camunda Job Executor:
+Configure the thread pool for the Operaton Job Executor:
 
-Since Camunda 7.5, the configuration of the thread pool is done in the Camunda 7 subsystem, not in the JBoss Threads subsystem anymore like it was done before 7.5.
-The thread pool creation and shutdown is now controlled through the Camunda 7 subsystem.
+Since Operaton, the configuration of the thread pool is done in the Operatonsubsystem, not in the JBoss Threads subsystem anymore like it was done before 7.5.
+The thread pool creation and shutdown is now controlled through the Operatonsubsystem.
 You are able to configure it through the following new configuration elements in the `job-executor` element of the subsystem XML configuration.
 
 Mandatory configuration elements are:
@@ -81,7 +81,7 @@ Shown values are the default ones.
 The below example also configures the default process engine.
 
 ```xml
-<subsystem xmlns="urn:org.camunda.bpm.jboss:1.1">
+<subsystem xmlns="urn:org.operaton.bpm.jboss:1.1">
   <process-engines>
     <process-engine name="default" default="true">
       <datasource>java:jboss/datasources/ProcessEngine</datasource>
@@ -116,7 +116,7 @@ The below example also configures the default process engine.
 
 By default, the database schema is automatically created in an H2 database when the engine starts up for the first time. If you do not want to use the H2 database, you have to
 
-* Create a database schema for Camunda 7 yourself.
+* Create a database schema for Operatonyourself.
 * Install the database schema to create all required tables and default indices using our [database schema installation guide]({{< ref "/installation/database-schema.md" >}}).
 
 When you create the tables manually, then you can also configure the engine to **not** create tables at startup by setting the `isAutoSchemaUpdate` property to `false` (or, in case you are using Oracle, to `noop`). In WildFly, this is done in the `standalone.xml`, located in the `$WILDFLY_DISTRIBUTION\server\wildfly-$WILDFLY_VERSION\standalone\configuration\` folder.
@@ -149,14 +149,14 @@ These links point you to resources for other databases:
 
 ## Optional Components
 
-This section describes how to install optional dependencies. None of these are required to work with the core platform. Before continuing, make sure that Camunda 7 is already installed according to [this step]({{< relref "#setup" >}}) for WildFly / JBoss EAP.
+This section describes how to install optional dependencies. None of these are required to work with the core platform. Before continuing, make sure that Operatonis already installed according to [this step]({{< relref "#setup" >}}) for WildFly / JBoss EAP.
 
 
 ### Cockpit, Tasklist, and Admin
 
 The following steps are required to deploy the web application:
 
-1. Download the Camunda web application that contains the web applications from our Maven Artifactory.
+1. Download the Operaton web application that contains the web applications from our Maven Artifactory.
     Alternatively, switch to the private repository for the enterprise version (credentials from license required).
     * For [WildFly ≥27 / JBoss EAP 8](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-wildfly/), the name of the artifact is `$PLATFORM_VERSION/camunda-webapp-wildfly-$PLATFORM_VERSION.war`.
     * For [WildFly ≤26 / JBoss EAP 7](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-jboss/), the name of the artifact is `$PLATFORM_VERSION/camunda-webapp-jboss-$PLATFORM_VERSION.war`.
@@ -184,17 +184,17 @@ The following steps are required to deploy the REST API:
    provided that you deployed the application in the context `/engine-rest`.
 
 
-### Camunda Connect Plugin
+### Operaton Connect Plugin
 
 Add the following modules (if not existing) from the folder `$WILDFLY_DISTRIBUTION/modules/` to the folder `$WILDFLY_HOME/modules/`:
 
 * `org/camunda/bpm/camunda-engine-plugin-connect`
 * `org/camunda/commons/camunda-commons-utils`
 
-To activate Camunda Connect functionality for a process engine, a process engine plugin has to be registered in `$WILDFLY_HOME/standalone/configuration/standalone.xml` as follows:
+To activate Operaton Connect functionality for a process engine, a process engine plugin has to be registered in `$WILDFLY_HOME/standalone/configuration/standalone.xml` as follows:
 
 ```xml
-<subsystem xmlns="urn:org.camunda.bpm.jboss:1.1">
+<subsystem xmlns="urn:org.operaton.bpm.jboss:1.1">
   ...
   <process-engines>
     <process-engine name="default" default="true">
@@ -213,9 +213,9 @@ To activate Camunda Connect functionality for a process engine, a process engine
 ```
 
 
-### Camunda Spin
+### Operaton Spin
 
-You can use the Camunda Spin plugin to extend the engine functionality to de-/serialize object variables from and to JSON and XML. For more information, see the [Spin Reference]({{< ref "/reference/spin/_index.md" >}}).
+You can use the Operaton Spin plugin to extend the engine functionality to de-/serialize object variables from and to JSON and XML. For more information, see the [Spin Reference]({{< ref "/reference/spin/_index.md" >}}).
 
 #### Setup Spin
 
@@ -234,10 +234,10 @@ Add the following modules (if not existing) from the folder `$WILDFLY_DISTRIBUTI
 * `com/fasterxml/jackson/core/jackson-annotations`
 * `com/jayway/jsonpath/json-path`
 
-In order to activate Camunda Spin functionality for a process engine, a process engine plugin has to be registered in `$WILDFLY_HOME/standalone/configuration/standalone.xml` as follows:
+In order to activate Operaton Spin functionality for a process engine, a process engine plugin has to be registered in `$WILDFLY_HOME/standalone/configuration/standalone.xml` as follows:
 
 ```xml
-<subsystem xmlns="urn:org.camunda.bpm.jboss:1.1">
+<subsystem xmlns="urn:org.operaton.bpm.jboss:1.1">
   ...
   <process-engines>
     <process-engine name="default" default="true">
@@ -245,7 +245,7 @@ In order to activate Camunda Spin functionality for a process engine, a process 
       <plugins>
         ... existing plugins ...
         <plugin>
-          <class>org.camunda.spin.plugin.impl.SpinProcessEnginePlugin</class>
+          <class>org.operaton.spin.plugin.impl.SpinProcessEnginePlugin</class>
         </plugin>
       </plugins>
       ...
@@ -257,27 +257,27 @@ In order to activate Camunda Spin functionality for a process engine, a process 
 
 #### Problems with Jackson Annotations
 
-The usage of Jackson annotations on WildFly together with the Camunda Spin JSON serialization can lead to problems.
+The usage of Jackson annotations on WildFly together with the Operaton Spin JSON serialization can lead to problems.
 WildFly implicitly adds the JAX-RS subsystem to each new deployment, if JAX-RS annotations are present (see the WildFly [documentation](https://docs.wildfly.org/23/Developer_Guide.html#Implicit_module_dependencies_for_deployments) for more information).
-This JAX-RS subsystem includes the Jackson library, the version of which does not match with the version used by the Camunda SPIN Plugin.
+This JAX-RS subsystem includes the Jackson library, the version of which does not match with the version used by the Operaton SPIN Plugin.
 As a result, Jackson annotations will be ignored. Note that this problem does not necessarily have to emerge upon direct usage of Spin.
-The Spin plugin also comes into play when JSON variables are set or read by the Camunda Process Engine.
+The Spin plugin also comes into play when JSON variables are set or read by the Operaton Process Engine.
 
 See one of the following ways to fix this:
 
-1. Change the Jackson `main` slot to the version which is used by the Camunda Spin Plugin.
+1. Change the Jackson `main` slot to the version which is used by the Operaton Spin Plugin.
  * Make sure that Resteasy can work with this Jackson version, as we cannot give any guarantees on this.
 
 2. Exclude implicitly added JAX-RS dependencies.
  * Add a `jboss-deployment-structure.xml` file to you application in the WEB-INF folder.
- * Exclude the JAX-RS subsystem and add the Jackson dependencies, with the version which is used by the Camunda Spin Plugin.
- * This solution is also shown in the [Jackson Annotation Example for WildFly](https://github.com/camunda/camunda-bpm-examples/blob/master/wildfly/jackson-annotations) in the Camunda example repository.
+ * Exclude the JAX-RS subsystem and add the Jackson dependencies, with the version which is used by the Operaton Spin Plugin.
+ * This solution is also shown in the [Jackson Annotation Example for WildFly](https://github.com/camunda/camunda-bpm-examples/blob/master/wildfly/jackson-annotations) in the Operaton example repository.
 
 See this [Forum Post](https://forum.camunda.org/t/camunda-json-marshalling-and-jsonignore/271/19) for other approaches and information.
 
 #### Problem With Deployments Using the REST API
 
-Camunda Spin is not available in scripts if a process definition is deployed via REST API. Because WildFly handles dependencies using its module system and Camunda engine module has no module dependency on the spin module.
+Operaton Spin is not available in scripts if a process definition is deployed via REST API. Because WildFly handles dependencies using its module system and Operaton engine module has no module dependency on the spin module.
 
 ### Groovy Scripting
 

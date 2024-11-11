@@ -14,10 +14,6 @@ menu:
 
 This guide explains how to perform a patch level update. The *patch level* is the version number "after the second dot". Example: update from `7.14.2` to `7.14.3`.
 
-{{< enterprise >}}
-Please note that Patch Level Updates are only provided to enterprise customers, they are not available in the community edition.
-{{< /enterprise >}}
-
 # Database Patches
 
 Between patch levels, the structure of the database schema is not changed. The database structure of all patch releases is backward compatible with the corresponding minor version. Our [database schema update guide]({{< ref "/installation/database-schema.md#patch-level-update" >}}) provides details on the update procedure as well as available database patches.
@@ -43,8 +39,8 @@ See the user guide on [security considerations for custom code]({{< ref "/user-g
 
 You can now configure, if you forbid the usage of Java serialization format, when passing object variables in their Java serialized representation.
 
-The new [configuration parameter `javaSerializationFormatEnabled`]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#javaSerializationFormatEnabled" >}}) 
-defaults to `true`, but can be configured to `false` in Camunda engine configuration.
+The new [configuration parameter `javaSerializationFormatEnabled`]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#javaSerializationFormatEnabled" >}})
+defaults to `true`, but can be configured to `false` in Operaton engine configuration.
 
 Following use cases are affected:
 
@@ -61,7 +57,7 @@ PUT /process-instance/{id}/variables/{varName}
     "serializationDataFormat": "application/x-java-serialized-object"
   }
 }
-``` 
+```
 
 * Java API:
 
@@ -82,22 +78,22 @@ You can disable Java serialization usage with the help of [this configuration pa
 
 ### Groovy version
 
-The pre-built Camunda distributions of versions 7.6.10, 7.7.5 and 7.8.0 ship with Groovy library of version 2.4.5, whereas newer versions come with Groovy 2.4.13. 
+The pre-built Operaton distributions of versions 7.6.10, 7.7.5 and 7.8.0 ship with Groovy library of version 2.4.5, whereas newer versions come with Groovy 2.4.13.
 Please update the library `groovy-all-$GROOVY_VERSION.jar` in the `lib` folder of your application server.
 
 
-## 7.8.1. to 7.8.2 
+## 7.8.1. to 7.8.2
 
-### Restrict heatmap/statistics by time period  
+### Restrict heatmap/statistics by time period
 
 In the historic process definition diagram it is possible to select time periods for which activity instance badges are displayed.
 
-By default the displayed timer period is set to 'today' but can be extended to show badges of 'this week', 'this month' or the 'complete' history.   
+By default the displayed timer period is set to 'today' but can be extended to show badges of 'this week', 'this month' or the 'complete' history.
 
 This feature can be configured in two ways:
 
 1. The default timer period can be changed to 'this week', 'this month' or 'complete'
-2. The manual selection of the time period within cockpit can be disabled.   
+2. The manual selection of the time period within cockpit can be disabled.
 
 These attributes can be modified in the [configuration file]({{< ref "/webapps/cockpit/extend/configuration.md#historic-activity-instance-metrics" >}})
 
@@ -117,36 +113,36 @@ As of v. 7.8.7, history cleanup can be parallelized, which leads to creation of 
 
 With this release, cockpit adds support for DMN 1.3, the next version of the DMN standard. If you edit and deploy DMN diagrams in Cockpit, which use earlier versions of DMN, they will automatically be migrated to DMN 1.3.
 
-The Camunda engine already supports the DMN 1.3 namespace by default, so there are no more steps required to migrate.
-Make sure you have the latest version of [Camunda Modeler](https://camunda.com/download/modeler/) installed to edit DMN 1.3 files locally.
+The Operaton engine already supports the DMN 1.3 namespace by default, so there are no more steps required to migrate.
+Make sure you have the latest version of [Operaton Modeler](https://camunda.com/download/modeler/) installed to edit DMN 1.3 files locally.
 
 ## 7.12.5 to 7.12.6
 
-### Oracle JDBC Driver Removed from Camunda Docker Images
+### Oracle JDBC Driver Removed from Operaton Docker Images
 
-The Docker images for Camunda 7.13 no longer provide an Oracle JDBC driver out of the box. If you relied on this, apply the strategy outlined in https://github.com/camunda/docker-camunda-bpm-platform#database-environment-variables: Add the driver to the container and configure the database settings manually by linking the configuration file into the container.
+The Docker images for Operaton no longer provide an Oracle JDBC driver out of the box. If you relied on this, apply the strategy outlined in https://github.com/camunda/docker-camunda-bpm-platform#database-environment-variables: Add the driver to the container and configure the database settings manually by linking the configuration file into the container.
 
 ## 7.13.6 to 7.13.7 / 7.12.11 to 7.12.12 / 7.11.18 to 7.11.19
 
-### [Legal Note] Telemetry 
+### [Legal Note] Telemetry
 
 In the mentioned patches above, a telemetry functionality is introduced. For more information please visit the [telemetry][] page.
-Before you upgrade to a Camunda 7 Runtime version >= 7.14.0-alpha1, 7.13.7+, 7.12.12+, and 7.11.19+, or activate the telemetry functionality, please make sure that you are authorized to take this step, and that the installation or activation of the [telemetry functionality][engine-config-initializeTelemetry] is not in conflict with any company-internal policies, compliance guidelines, any contractual or other provisions or obligations of your company.
+Before you upgrade to a OperatonRuntime version >= 7.14.0-alpha1, 7.13.7+, 7.12.12+, and 7.11.19+, or activate the telemetry functionality, please make sure that you are authorized to take this step, and that the installation or activation of the [telemetry functionality][engine-config-initializeTelemetry] is not in conflict with any company-internal policies, compliance guidelines, any contractual or other provisions or obligations of your company.
 
-Camunda cannot be held responsible in the event of unauthorized installation or activation of this function.
+Operaton cannot be held responsible in the event of unauthorized installation or activation of this function.
 
 [engine-config-initializeTelemetry]: {{< ref "/reference/deployment-descriptors/tags/process-engine.md#initializeTelemetry" >}}
 [telemetry]: {{< ref "/introduction/telemetry.md" >}}
 
 ### Custom REST API
 
-In case you are deploying a custom REST API that builds upon the one provided by Camunda, please make sure to add the following listener to the `web.xml`:
+In case you are deploying a custom REST API that builds upon the one provided by Operaton, please make sure to add the following listener to the `web.xml`:
 
 ```xml
 <web-app ...>
   ...
   <listener>
-    <listener-class>org.camunda.bpm.engine.rest.impl.web.bootstrap.RestContainerBootstrap</listener-class>
+    <listener-class>org.operaton.bpm.engine.rest.impl.web.bootstrap.RestContainerBootstrap</listener-class>
   </listener>
   ...
 </web-app>
@@ -158,8 +154,8 @@ This servlet context listener is used for bootstrapping the REST API and should 
 
 ### FEEL Engine: Changed Module Structure
 
-With the above-mentioned patch releases, the module structure has changed in conjunction with the [FEEL Engine]. 
-From now on, the FEEL Engine will be delivered as a dedicated module `feel-engine`. It is no longer part of 
+With the above-mentioned patch releases, the module structure has changed in conjunction with the [FEEL Engine].
+From now on, the FEEL Engine will be delivered as a dedicated module `feel-engine`. It is no longer part of
 the `camunda-engine-feel-scala` module. The FEEL Engine module follows its own versioning.
 
 The following modules are dependent on the newly introduced `feel-engine` module:
@@ -171,7 +167,7 @@ The following modules are dependent on the newly introduced `feel-engine` module
 
 ## 7.14.3 to 7.14.4 / 7.13.9 to 7.13.10 / 7.12.15 to 7.12.16
 
-### Update of MySQL JDBC Driver in Camunda Docker Images
+### Update of MySQL JDBC Driver in Operaton Docker Images
 
 With this release, the docker images contain a new version of the MySQL JDBC Driver.
 
@@ -180,17 +176,17 @@ New Version: 8.0.23
 
 #### Behavior Changes
 
-The driver's new version has two significant behavioral changes you should take care of when migrating 
-your Docker-based Camunda Runtime installation.
+The driver's new version has two significant behavioral changes you should take care of when migrating
+your Docker-based Operaton Runtime installation.
 
 ##### Downgrade to 5.1.21
 
 You don't want to migrate to the new version? You can replace the new MySQL JDBC Driver with the old one
-to restore the previous behavior. To do so, you can create a new `Dockerfile` based on one of our official 
+to restore the previous behavior. To do so, you can create a new `Dockerfile` based on one of our official
 docker images and add your custom commands to replace the MySQL JDBC Driver.
 
-For the Wildfly image, additionally make sure to adjust the data source class in the `standalone.xml` 
-file located under `/camunda/standalone/configuration/` from `com.mysql.cj.jdbc.MysqlXADataSource` back to 
+For the Wildfly image, additionally make sure to adjust the data source class in the `standalone.xml`
+file located under `/camunda/standalone/configuration/` from `com.mysql.cj.jdbc.MysqlXADataSource` back to
 `com.mysql.jdbc.jdbc2.optional.MysqlXADataSource`:
 
 ```xml
@@ -203,26 +199,26 @@ file located under `/camunda/standalone/configuration/` from `com.mysql.cj.jdbc.
 
 ##### 1) Milliseconds Precision for Date/Time values
 
-The new version of the Driver changes how a date/time value is handled. Please make sure to configure 
+The new version of the Driver changes how a date/time value is handled. Please make sure to configure
 the Driver as described in [MySQL Database Configuration]({{< ref "/user-guide/process-engine/database/mysql-configuration.md" >}})
 to avoid breaking behavior.
 
 ##### 2) Changed Time Zone Handling
 
-In case the process engine and the MySQL Server operate in different time zones, and you use the 
-MySQL JDBC Driver's default configuration, migrating to the new release leads to a wrong conversion of 
+In case the process engine and the MySQL Server operate in different time zones, and you use the
+MySQL JDBC Driver's default configuration, migrating to the new release leads to a wrong conversion of
 date values (e.g., the due date of a task can change).
 
-You can configure the driver to convert date values from and to the MySQL Server into the time zone 
-in which the process engine/JVM operates. This ensures that values that were stored before the migration 
-are returned correctly after the migration and date values are stored correctly after the migration. 
+You can configure the driver to convert date values from and to the MySQL Server into the time zone
+in which the process engine/JVM operates. This ensures that values that were stored before the migration
+are returned correctly after the migration and date values are stored correctly after the migration.
 You can achieve this by specifying the correct time zone via the property [`serverTimeZone`](https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-datetime-types-processing.html#cj-conn-prop_serverTimezone) in your JDBC connection URL.\
 For instance, if your process engine operates in CET but your MySQL Server does not, set the property to `serverTimeZone=CET`.
 
 {{< note title="Heads-up!" class="info" >}}
-Changing the time zone of the MySQL Server to the one the process engine operates in can have unwanted side-effects 
-to date values that are stored in columns of type `TIMESTAMP`: MySQL converts `TIMESTAMP` values from the server time zone 
-to UTC for storage, and back from UTC to the current time zone for retrieval. Read more about it in the 
+Changing the time zone of the MySQL Server to the one the process engine operates in can have unwanted side-effects
+to date values that are stored in columns of type `TIMESTAMP`: MySQL converts `TIMESTAMP` values from the server time zone
+to UTC for storage, and back from UTC to the current time zone for retrieval. Read more about it in the
 [MySQL Docs](https://dev.mysql.com/doc/refman/5.6/en/datetime.html).
 {{< /note >}}
 
@@ -245,8 +241,8 @@ With this release, the following dependencies of Spin have been updated:
 
 The standalone web applications now use HikariCP for data source configuration instead of Apache Commons DBCP. Replace
 the `org.apache.commons.dbcp.BasicDataSource` class in your `applicationContext.xml` with a
-`com.zaxxer.hikari.HikariDataSource`. The HikariCP data source expects the JDBC URL on a property called `jdbcUrl` 
-instead of `url`. Thus, you need to rename the `url` property. Your data source description should look similar to 
+`com.zaxxer.hikari.HikariDataSource`. The HikariCP data source expects the JDBC URL on a property called `jdbcUrl`
+instead of `url`. Thus, you need to rename the `url` property. Your data source description should look similar to
 this, with `DB-DRIVER-CLASS`, `JDBC-URL`, `DB-USER`, and `DB-PASSWORD` replaced by values related to your database:
 
 ```xml
@@ -276,7 +272,7 @@ This updates the following template engine versions:
   * Old version: 2.2 (Release date: January 2020)
   * New version: 2.3 (Release date: March 2021)
   * Change log: https://velocity.apache.org/engine/2.3/upgrading.html
-  
+
 Please note that the new version of Freemarker contains changes that are not compatible with the previous version. We strongly recommend to test the execution of your templates before applying the update. In addition, you can replace the artifacts of version 2.1.0 by the old artifacts in version 2.0.0 to continue using the old versions of Freemarker and Velocity.
 
 ## 7.16.1 to 7.16.2 / 7.15.7 to 7.15.8
@@ -286,11 +282,11 @@ Please note that the new version of Freemarker contains changes that are not com
 The patches introduce the [Jackson JSR310 artifact](https://search.maven.org/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/2.12.1/bundle) to the REST API and web applications by default.
 This artifact enables those modules to handle [Java 8 Date & Time API](https://jcp.org/en/jsr/detail?id=310) data types.
 
-Be aware that the serialized data of values of such data types can change with the usage of this artifact. 
+Be aware that the serialized data of values of such data types can change with the usage of this artifact.
 Prior to version 2.12, the serialization library Jackson defaulted to a fallback serialization mechanism if no artifact was available for those data types.
-Starting with version 2.12.0, Jackson [throws an exception](https://github.com/FasterXML/jackson-databind/issues/2683) in such cases. 
+Starting with version 2.12.0, Jackson [throws an exception](https://github.com/FasterXML/jackson-databind/issues/2683) in such cases.
 Therefore, the REST API and web applications now register an appropriate module.
-This allows you to keep using Java 8 date and time data types when updating to a newer Jackson version. 
+This allows you to keep using Java 8 date and time data types when updating to a newer Jackson version.
 However, this can also lead to changed serialized data for such values.
 
 ## 7.16.3 to 7.16.4 / 7.15.9 to 7.15.10 / 7.14.15 to 7.14.16
@@ -301,8 +297,8 @@ This set of patches introduce configuration properties for the Spin `DomXmlDataF
 configuration properties provide options to toggle **External XML Entity (XXE)** processing, as well as secure processing
 for the Spin XML parser.
 
-By default, we disabled XXE processing, and enabled secure processing of XML documents to protect the Spin XML 
-parser against [XXE attacks](https://en.wikipedia.org/wiki/XML_external_entity_attack) and 
+By default, we disabled XXE processing, and enabled secure processing of XML documents to protect the Spin XML
+parser against [XXE attacks](https://en.wikipedia.org/wiki/XML_external_entity_attack) and
 [Billion laughs attacks](https://en.wikipedia.org/wiki/Billion_laughs_attack).
 
 You can restore the old behavior by passing the appropriate [configuration properties to the Spin process engine plugin][spin-config].
@@ -335,29 +331,29 @@ Please note that we strongly discourage enabling remote access because it create
 
 ### Groovy version
 
-The pre-built Camunda distributions of versions `7.15.14`, `7.16.8`, and `7.17.1` provide version `2.4.13` of the Groovy library, whereas newer versions come with Groovy `2.4.21`.
+The pre-built Operaton distributions of versions `7.15.14`, `7.16.8`, and `7.17.1` provide version `2.4.13` of the Groovy library, whereas newer versions come with Groovy `2.4.21`.
 
 Update the library `groovy-all-$GROOVY_VERSION.jar` in the `lib` folder of your application server.
 
-### Camunda Docker Images: Base image updated to Alpine 3.15
+### Operaton Docker Images: Base image updated to Alpine 3.15
 
-With 7.17.2, 7.16.9, and 7.15.15, Alpine, the base image in Camunda’s Docker images, has been updated from version 3.13 to 3.15.
+With 7.17.2, 7.16.9, and 7.15.15, Alpine, the base image in Operaton’s Docker images, has been updated from version 3.13 to 3.15.
 
 We went through the release notes to identify breaking changes and could identify the following:
 
 > The faccessat2 syscall has been enabled in musl. This can result in issues on docker hosts with older versions of docker (<20.10.0) and libseccomp (<2.4.4), which blocks this syscall.
 
-Besides Docker runtime versions < 20.10.0, alternative docker runtimes like containerd.io are also affected by this. 
+Besides Docker runtime versions < 20.10.0, alternative docker runtimes like containerd.io are also affected by this.
 Read more about it in the [Alpine 3.14 Release Notes](https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.14.0#faccessat2).
 
-If you have extended the Camunda docker images yourself, please read the release notes of Alpine 3.14 and 3.15 carefully:
+If you have extended the Operaton docker images yourself, please read the release notes of Alpine 3.14 and 3.15 carefully:
 
 * https://alpinelinux.org/posts/Alpine-3.14.0-released.html
 * https://alpinelinux.org/posts/Alpine-3.15.0-released.html
 
 ### XLTS for AngularJS
 
-These patches replace the AngularJS libraries with XLTS for AngularJS. Where AngularJS was licensed entirely under the MIT license, XLTS for AngularJS licenses additional parts under the XLTS for AngularJS – EULA. By downloading and using Camunda with XLTS for AngularJS, you agree to the terms of the XLTS for AngularJS – EULA. Please see our [third-Party libraries documentation]({{< ref "/introduction/third-party-libraries/_index.md#xlts-for-angularjs" >}}) for details and the terms of the EULA.
+These patches replace the AngularJS libraries with XLTS for AngularJS. Where AngularJS was licensed entirely under the MIT license, XLTS for AngularJS licenses additional parts under the XLTS for AngularJS – EULA. By downloading and using Operaton with XLTS for AngularJS, you agree to the terms of the XLTS for AngularJS – EULA. Please see our [third-Party libraries documentation]({{< ref "/introduction/third-party-libraries/_index.md#xlts-for-angularjs" >}}) for details and the terms of the EULA.
 
 ## 7.18.1 to 7.18.2 / 7.17.7 to 7.17.8
 
@@ -445,9 +441,9 @@ Requests for undeclared assets will be rejected, and it will likely render your 
 
 ## 7.19.4 to 7.19.5 / 7.18.9 to 7.18.10 / 7.17.14 to 7.17.15
 
-### Update Alpine Base of Camunda Docker images from Version 3.15 to 3.18
+### Update Alpine Base of Operaton Docker images from Version 3.15 to 3.18
 
-The Camunda Docker images are based on Alpine. This release updates the Alpine base docker image from version 3.15 to 3.18. Please find the changes in detail at the official sources below:
+The Operaton Docker images are based on Alpine. This release updates the Alpine base docker image from version 3.15 to 3.18. Please find the changes in detail at the official sources below:
 
 * [Alpine 3.16.0 Release Notes] [alpine316]
 * [Alpine 3.17.0 Release Notes] [alpine317]
@@ -461,7 +457,7 @@ The Camunda Docker images are based on Alpine. This release updates the Alpine b
 
 ### Spring Boot Starter and Run logs admin user information on `DEBUG` level
 
-In previous releases, when configuring Camunda's admin user in the Spring Boot Starter and Run via `camunda.bpm.admin-user`, information about the admin user appeared in the logs on log level `INFO` on startup.
+In previous releases, when configuring Operaton's admin user in the Spring Boot Starter and Run via `camunda.bpm.admin-user`, information about the admin user appeared in the logs on log level `INFO` on startup.
 With this release, the log level for the logs `STARTER-SB010` and `STARTER-SB011` was changed to `DEBUG`.
 
 ## 7.20.2 to 7.20.3
@@ -496,7 +492,7 @@ This version supports all the necessary building-block modules for our users to 
 
 **<h4>Jakarta Namespace</h4>**
 
-`Tomcat 10` is compatible with the `jakarta` namespace. 
+`Tomcat 10` is compatible with the `jakarta` namespace.
 If you wish to use it, the `jakarta` modules needs to be used (`camunda-webapp-tomcat-jakarta`, `camunda-engine-rest-jakarta`).
 
 The `javax` modules won't work with `Tomcat 10`.
@@ -507,7 +503,7 @@ For detailed steps of manual installation, follow the [Tomcat Manual Installatio
 In deployment scenarios involving one or more process applications with managed beans, classloading issues may occur if the WELD library is directly embedded in the WAR's `/WEB-INF/lib` folder.
 To resolve this, move the weld library away from the war and place it into the `$CATALINA_HOME/lib` folder.
 
-The above workaround is not guaranteed to work for cases with bean references between WAR deployments (WAR A referencing a bean from WAR B). 
+The above workaround is not guaranteed to work for cases with bean references between WAR deployments (WAR A referencing a bean from WAR B).
 
 The following test scenarios fail on Tomcat 10:
 
@@ -522,7 +518,7 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 Please note that the following procedure may differ for cluster scenarios. Contact our [support team](https://app.camunda.com/jira/browse/SUPPORT) if you need further assistance.
 
 * Shut down the server
-* Exchange Camunda 7 libraries, tools and webapps (EAR, RAR, Subsystem (Wildfly), Shared Libs) - essentially, follow the [installation guide]({{< ref "/installation/full/_index.md" >}}) for your server.
+* Exchange Operatonlibraries, tools and webapps (EAR, RAR, Subsystem (Wildfly), Shared Libs) - essentially, follow the [installation guide]({{< ref "/installation/full/_index.md" >}}) for your server.
 * Restart the server
 
 # Application With Embedded Process Engine
@@ -535,8 +531,8 @@ In case you use an embedded process engine inside your Java Application, you nee
 
 # Standalone Webapplication Distribution
 
-{{< note title="Camunda discontinues the support of the Standalone Web Application Distribution." class="warning" >}}
-Camunda Automation Platform 7.19 is the last release providing support for Standalone Web Application Distribution.
+{{< note title="Operaton discontinues the support of the Standalone Web Application Distribution." class="warning" >}}
+Operaton Automation Platform 7.19 is the last release providing support for Standalone Web Application Distribution.
 
 Please consider migrating to [another supported]({{< ref "/introduction/downloading-camunda.md#download-the-runtime" >}}) setup.
 {{< /note >}}

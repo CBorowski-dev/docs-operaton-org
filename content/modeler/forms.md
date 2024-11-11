@@ -1,6 +1,6 @@
 ---
 
-title: 'Building Forms in Camunda Modeler'
+title: 'Building Forms in Operaton Modeler'
 weight: 25
 
 menu:
@@ -8,7 +8,7 @@ menu:
     name: "Forms"
     identifier: "camunda-modeler-forms"
     parent: "modeler"
-    pre: "How to build Camunda Forms using the Camunda Modeler."
+    pre: "How to build Operaton Forms using the Operaton Modeler."
 
 ---
 

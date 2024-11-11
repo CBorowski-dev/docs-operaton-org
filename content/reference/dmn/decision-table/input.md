@@ -43,8 +43,8 @@ XML element.
 # Input Id
 
 The input id is a unique identifier of the decision table input. It is used by
-Camunda 7 to reference the input in the history of evaluated
-decisions. Therefore, it is required by the Camunda DMN engine. It is set as
+Operatonto reference the input in the history of evaluated
+decisions. Therefore, it is required by the Operaton DMN engine. It is set as
 the `id` attribute of the `input` XML element.
 
 ```xml
@@ -124,7 +124,7 @@ supported expression languages are listed in the [User Guide][supported EL].
 </input>
 ```
 
-If no expression language is set then the global expression 
+If no expression language is set then the global expression
 language, which is set on the `definitions` XML element, is used.
 
 ```xml
@@ -149,7 +149,7 @@ The name of the variable can be specified by the `camunda:inputVariable`
 [extension attribute][inputVariable] on the `input` element. By default, the
 name is `cellInput`.
 
-To use the attribute you have to define the Camunda DMN namespace
+To use the attribute you have to define the Operaton DMN namespace
 `xmlns:camunda="http://camunda.org/schema/1.0/dmn` in the XML.
 
 ```xml

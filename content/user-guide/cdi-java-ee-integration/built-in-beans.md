@@ -16,7 +16,7 @@ menu:
 * The current business key can be injected via `@Inject @BusinessKey String businessKey`.
 * The current process instance id be injected via `@Inject @ProcessInstanceId String pid`.
 
-Process variables are available for injection. Camunda CDI supports
+Process variables are available for injection. Operaton CDI supports
 
 * Type-safe injection of `@BusinessProcessScoped` beans using `@Inject [additional qualifiers] Type fieldName`.
 * Unsafe injection of other process variables using the `@ProcessVariable(name?)` qualifier:
@@ -44,7 +44,7 @@ this requires that it is known which process engine is used at design time. A mo
 process engine at runtime based on contextual information such as the logged in user. In this case, `@Inject` can be used
 without a `@ProcessEngineName` annotation.
 
-To implement resolution from contextual data, the producer bean `org.camunda.bpm.engine.cdi.impl.ProcessEngineServicesProducer`
+To implement resolution from contextual data, the producer bean `org.operaton.bpm.engine.cdi.impl.ProcessEngineServicesProducer`
 must be extended. The following code implements a contextual resolution of the engine by the currently authenticated user.
 Note that which contextual data is used and how it is accessed is entirely up to you.
 

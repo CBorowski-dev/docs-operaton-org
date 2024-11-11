@@ -29,24 +29,24 @@ connectors. Currently the following connector implementations exist:
   </tr>
 </table>
 
-It is also possible to implement your own custom connector in camunda. For more information about extending connectors please visit the [Connector reference]({{< ref "/reference/connect/extending-connect.md" >}}). 
+It is also possible to implement your own custom connector in camunda. For more information about extending connectors please visit the [Connector reference]({{< ref "/reference/connect/extending-connect.md" >}}).
 
 
-# Configure Camunda Connect
+# Configure Operaton Connect
 
-As Camunda Connect is available only partially when using the process engine (check the list below). With a pre-built distribution, Camunda Connect is already preconfigured.
+As Operaton Connect is available only partially when using the process engine (check the list below). With a pre-built distribution, Operaton Connect is already preconfigured.
 
 The following `connect` artifacts exist:
 
 * `camunda-connect-core`: a jar that contains only the core Connect classes. The artifact already is available as dependency to the process engine. In addition to `camunda-connect-core`, single connector implementations like `camunda-connect-http-client` and `camunda-connect-soap-http-client` exist. These dependencies should be used when the default connectors have to be reconfigured or when custom connector implementations are used.
 * `camunda-connect-connectors-all`: a single jar without dependencies that contains the HTTP and SOAP connectors.
-* `camunda-engine-plugin-connect`: a process engine plugin to add Connect to Camunda 7.
+* `camunda-engine-plugin-connect`: a process engine plugin to add Connect to Operaton.
 
 
 # Maven Coordinates
 
 {{< note title="" class="info" >}}
-  Please import the [Camunda BOM](/get-started/apache-maven/) to ensure correct versions for every Camunda project.
+  Please import the [Operaton BOM](/get-started/apache-maven/) to ensure correct versions for every Operaton project.
 {{< /note >}}
 
 
@@ -77,7 +77,7 @@ The following `connect` artifacts exist:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-plugin-connect</artifactId>
 </dependency>
 ```
@@ -101,9 +101,9 @@ This artifact contains the HTTP and SOAP connectors as well as their dependencie
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<bpm-platform xmlns="http://www.camunda.org/schema/1.0/BpmPlatform"
+<bpm-platform xmlns="http://www.operaton.org/schema/1.0/BpmPlatform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.camunda.org/schema/1.0/BpmPlatform http://www.camunda.org/schema/1.0/BpmPlatform ">
+  xsi:schemaLocation="http://www.operaton.org/schema/1.0/BpmPlatform http://www.operaton.org/schema/1.0/BpmPlatform ">
   ...
   <process-engine name="default">
     ...
@@ -118,15 +118,15 @@ This artifact contains the HTTP and SOAP connectors as well as their dependencie
 ```
 
 {{< note title="" class="info" >}}
-  When using a pre-built distribution of Camunda 7, the plugin is already pre-configured.
+  When using a pre-built distribution of Operaton, the plugin is already pre-configured.
 {{< /note >}}
 
 
 # Use Connectors
 
-To use a connector, you have to add the Camunda extension element [connector]({{< ref "/reference/bpmn20/custom-extensions/extension-elements.md#camunda-connector" >}}). The connector is configured by a unique [connectorId]({{< ref "/reference/bpmn20/custom-extensions/extension-elements.md#camunda-connectorid" >}}), which specifies the used connector implementation. The ids of the currently supported connectors can be found at the beginning of this section. Additionally, an [input/output mapping]({{< ref "/user-guide/process-engine/variables.md#input-output-variable-mapping" >}}) is used to configure the connector. The required input parameters and the available output parameters depend on the connector implementation. Additional input parameters can also be provided to be used within the connector.
+To use a connector, you have to add the Operaton extension element [connector]({{< ref "/reference/bpmn20/custom-extensions/extension-elements.md#camunda-connector" >}}). The connector is configured by a unique [connectorId]({{< ref "/reference/bpmn20/custom-extensions/extension-elements.md#camunda-connectorid" >}}), which specifies the used connector implementation. The ids of the currently supported connectors can be found at the beginning of this section. Additionally, an [input/output mapping]({{< ref "/user-guide/process-engine/variables.md#input-output-variable-mapping" >}}) is used to configure the connector. The required input parameters and the available output parameters depend on the connector implementation. Additional input parameters can also be provided to be used within the connector.
 
-As an example, a shortened configuration of the Camunda SOAP connector implementation is shown. A complete [example](https://github.com/camunda/camunda-bpm-examples/tree/master/servicetask/soap-service) can be found in the [Camunda examples repository](https://github.com/camunda/camunda-bpm-examples) on GitHub.
+As an example, a shortened configuration of the Operaton SOAP connector implementation is shown. A complete [example](https://github.com/camunda/camunda-bpm-examples/tree/master/servicetask/soap-service) can be found in the [Operaton examples repository](https://github.com/camunda/camunda-bpm-examples) on GitHub.
 
 ```xml
 <serviceTask id="soapRequest" name="Simple SOAP Request">
@@ -155,4 +155,4 @@ As an example, a shortened configuration of the Camunda SOAP connector implement
 </serviceTask>
 ```
 
-A full [example](https://github.com/camunda/camunda-bpm-examples/tree/master/servicetask/rest-service) of the REST connector can also be found in the [Camunda examples repository](https://github.com/camunda/camunda-bpm-examples) on GitHub.
+A full [example](https://github.com/camunda/camunda-bpm-examples/tree/master/servicetask/rest-service) of the REST connector can also be found in the [Operaton examples repository](https://github.com/camunda/camunda-bpm-examples) on GitHub.

@@ -11,15 +11,15 @@ menu:
 ---
 
 
-Camunda 7 supports scripting with JSR-223 compatible script engine implementations. Currently we
+Operatonsupports scripting with JSR-223 compatible script engine implementations. Currently we
 test the integration for Groovy, JavaScript, JRuby and Jython. To use a scripting engine
 it is necessary to add the corresponding jar to the classpath.
 
 {{< note title="" class="info" >}}
-  We include **GraalVM JavaScript** in the pre-packaged Camunda distributions. 
+  We include **GraalVM JavaScript** in the pre-packaged Operaton distributions.
   Consult [JavaScript Considerations](#javascript-considerations) for further information.
-  
-  We include **Groovy** in the pre-packaged Camunda distributions.
+
+  We include **Groovy** in the pre-packaged Operaton distributions.
 {{< /note >}}
 
 The following table provides an overview of the BPMN elements which support the execution of
@@ -113,7 +113,7 @@ runtimeService.startProcessInstanceByKey("process", variables);
 
 # Use Scripts as Execution Listeners
 
-Besides Java code and expression language, Camunda 7 also supports the execution of a script
+Besides Java code and expression language, Operatonalso supports the execution of a script
 as an execution listener. For general information about execution listeners see the corresponding
 [section]({{< ref "/user-guide/process-engine/delegation-code.md#execution-listener" >}}).
 
@@ -184,7 +184,7 @@ The following example shows usage of scripts as task listeners.
 
 # Use Scripts as Conditions
 
-As an alternative to expression language, Camunda 7 allows you to use scripts as
+As an alternative to expression language, Operatonallows you to use scripts as
 `conditionExpression` of conditional sequence flows. To do that, the `language` attribute of the
 `conditionExpression` element has to be set to the desired scripting language. The script source code
 is the text content of the element, as with expression language. Another way to specify the script
@@ -208,7 +208,7 @@ process variable which is available inside the script.
 
 # Use Scripts as inputOutput Parameters
 
-With the Camunda `inputOutput` extension element you can map an `inputParameter` or `outputParameter`
+With the Operaton `inputOutput` extension element you can map an `inputParameter` or `outputParameter`
 with a script. The following example process uses the Groovy script from the previous example to assign
 the Groovy variable `sum` to the process variable `x` for a Java delegate.
 
@@ -227,7 +227,7 @@ the Groovy variable `sum` to the process variable `x` for a Java delegate.
   <process id="process" isExecutable="true">
     <startEvent id="start"/>
     <sequenceFlow id="sequenceFlow1" sourceRef="start" targetRef="task"/>
-    <serviceTask id="task" camunda:class="org.camunda.bpm.example.SumDelegate">
+    <serviceTask id="task" camunda:class="org.operaton.bpm.example.SumDelegate">
       <extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="x">
@@ -327,7 +327,7 @@ We provide the following default configurations for supported script engines bef
   <tr>
     <td>GraalVM JavaScript</td>
     <td>
-      Configured to allow host acces and host class lookup by setting <code>polyglot.js.allowHostAccess</code> and 
+      Configured to allow host acces and host class lookup by setting <code>polyglot.js.allowHostAccess</code> and
       <code>polyglot.js.allowHostClassLookup</code> to <code>true</code>.
     </td>
   </tr>
@@ -350,11 +350,11 @@ Note that for JavaScript execution you might be able to choose the script engine
 
 You can use the following process engine configuration flags to influence the configuration of specific script engines:
 
-* [configureScriptEngineHostAccess]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#configureScriptEngineHostAccess" >}}) - 
+* [configureScriptEngineHostAccess]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#configureScriptEngineHostAccess" >}}) -
   Specifies whether host language resources like classes and their methods are accessible or not.
-* [enableScriptEngineLoadExternalResources]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#enableScriptEngineLoadExternalResources" >}}) - 
+* [enableScriptEngineLoadExternalResources]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#enableScriptEngineLoadExternalResources" >}}) -
   Specifies whether external resources can be loaded from file system or not.
-* [enableScriptEngineNashornCompatibility]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#enableScriptEngineNashornCompatibility" >}}) - 
+* [enableScriptEngineNashornCompatibility]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#enableScriptEngineNashornCompatibility" >}}) -
   Specifies whether Nashorn compatibility mode is enabled or not.
 
 ## System properties
@@ -363,20 +363,20 @@ Depending on the script engine, specific system properties can be used to influe
 Consult the development guides of the script engine you want to configure for further information on available parameters.
 Note that the supported options can differ between versions of the script engine.
 
-You can set system properties either programmatically through `System.setProperty(parameter, value)` or as JVM arguments, 
-for example upon application start on command line via `-Dparameter=value`. Most application servers like Wildfly, 
-Tomcat, Websphere, and Weblogic support providing JVM arguments via environment variables `JAVA_OPTS` or `JAVA_OPTIONS`. 
-Consult your application server's documentation to learn how to pass on JVM arguments. Camunda Run supports setting 
+You can set system properties either programmatically through `System.setProperty(parameter, value)` or as JVM arguments,
+for example upon application start on command line via `-Dparameter=value`. Most application servers like Wildfly,
+Tomcat, Websphere, and Weblogic support providing JVM arguments via environment variables `JAVA_OPTS` or `JAVA_OPTIONS`.
+Consult your application server's documentation to learn how to pass on JVM arguments. Operaton Run supports setting
 JVM arguments via the `JAVA_OPTS` environment variable as well.
 
 ## Custom ScriptEngineResolver
 
-You can provide a custom `ScriptEngineResolver` implementation to configure script engines. Depending on the specifc script engine to configure, 
-you can gain more configuration options with this approach. You can add your custom script engine resolver to the engine configuration 
+You can provide a custom `ScriptEngineResolver` implementation to configure script engines. Depending on the specifc script engine to configure,
+you can gain more configuration options with this approach. You can add your custom script engine resolver to the engine configuration
 with the `#setScriptEngineResolver(ScriptEngineResolver)` method.
 
-You can inherit from the `org.camunda.bpm.engine.impl.scripting.engine.DefaultScriptEngineResolver` for starters in case configuring an existing 
-script engine instance is sufficient for you. By overriding the `#configureScriptEngines(String, ScriptEngine)` method of the `DefaultScriptEngineResolver`, 
+You can inherit from the `org.operaton.bpm.engine.impl.scripting.engine.DefaultScriptEngineResolver` for starters in case configuring an existing
+script engine instance is sufficient for you. By overriding the `#configureScriptEngines(String, ScriptEngine)` method of the `DefaultScriptEngineResolver`,
 you can change settings on the script engine instance provided to that method as shown in the following example:
 
 ```java
@@ -397,7 +397,7 @@ public class CustomScriptEngineResolver extends DefaultScriptEngineResolver {
 ```
 
 If you need more flexibility in configuring a script engine, you can override a method further up the chain in the script engine creation
-or provide your own plain implementation of the interface. Have a look at the following example that provides a custom **GraalVM JavaScript** 
+or provide your own plain implementation of the interface. Have a look at the following example that provides a custom **GraalVM JavaScript**
 instance with Nashorn Compatibility Mode enabled:
 
 ```java
@@ -472,11 +472,11 @@ task = execution.getProcessEngineServices().getTaskService()
 
 # Accessing Process Engine Services using Scripts
 
-Camunda's Java API provides access to Camunda's process engine services; these services can be accessed using Scripts:
+Operaton's Java API provides access to Operaton's process engine services; these services can be accessed using Scripts:
 
 {{< javadocref page="org/camunda/bpm/engine/ProcessEngineServices.html" text="Process Engine Services" >}} \
 
-{{< javadocref page="org/camunda/bpm/engine/package-summary.html" text="Public Java API of Camunda 7 Engine" >}}
+{{< javadocref page="org/camunda/bpm/engine/package-summary.html" text="Public Java API of OperatonEngine" >}}
 
 Example of creating a BPMN Message that correlates with the message key "work":
 
@@ -508,7 +508,7 @@ system.out.println('This prints to the console');
 # Script Source
 
 The standard way to specify the script source code in the BPMN XML model is to add it directly to
-the XML file. Nonetheless, Camunda 7 provides additional ways to specify the script source.
+the XML file. Nonetheless, Operatonprovides additional ways to specify the script source.
 
 If you use another scripting language than Expression Language, you can also specify the script
 source as an expression which returns the source code to be executed. This way, the source code can,
@@ -585,7 +585,7 @@ section of the [Custom Extensions]({{< ref "/reference/bpmn20/custom-extensions/
 # JavaScript Considerations
 
 JavaScript code execution is part of the Java Runtime (JRE) with the **Nashorn** script engine until Java 14 and thus only there available out of the box.
-We include **GraalVM JavaScript** in the pre-packaged Camunda distributions as a replacement regardless of the JRE version.
+We include **GraalVM JavaScript** in the pre-packaged Operaton distributions as a replacement regardless of the JRE version.
 JavaScript code executes on GraalVM JavaScript with preference in the process engine context if this script engine is available.
 If this script engine cannot be found, the process engine defaults to let the JVM select an appropriate script engine.
 
@@ -593,5 +593,5 @@ You can set the default JavaScript engine to use for languages `javascript` and 
 Set this value to `nashorn` to configure the process engine to use the Nashorn script engine by default.
 Note that if no script engine related to that value can be found, the process engine does not look for a fallback and throws an exception.
 
-Consult the [official GraalVM JavaScript Guide](https://www.graalvm.org/reference-manual/js/ScriptEngine/) for questions around that script engine. 
+Consult the [official GraalVM JavaScript Guide](https://www.graalvm.org/reference-manual/js/ScriptEngine/) for questions around that script engine.
 It also contains a guide on [Migration from Nashorn](https://www.graalvm.org/reference-manual/js/NashornMigrationGuide/).

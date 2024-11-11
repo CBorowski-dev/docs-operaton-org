@@ -10,12 +10,12 @@ menu:
 
 ---
 
-In this section we briefly look at the contextual process execution model used by the Camunda CDI extension.
+In this section we briefly look at the contextual process execution model used by the Operaton CDI extension.
 
 A BPMN business process is typically a long-running interaction, comprised of both user and system tasks.
 At runtime, a process is split-up into a set of individual units of work, performed by users and/or application logic.
 
-In Camunda CDI, a process instance can be associated with a CDI scope, the association representing a unit of work.
+In Operaton CDI, a process instance can be associated with a CDI scope, the association representing a unit of work.
 This is particularly useful if a unit of work is complex, for instance if the implementation of a user task is a complex sequence
 of different forms and "non-process-scoped" state needs to be kept during this interaction. In the default configuration,
 process instances are associated with the "broadest" active scope, starting with the conversation and falling back to the request
@@ -24,7 +24,7 @@ if the conversation context is not active.
 # Associate a conversation with a process instance
 
 When resolving `@BusinessProcessScoped` beans or injecting process variables, we rely on an existing association between an active CDI scope and a process instance.
-The Camunda CDI integration provides the `org.camunda.bpm.engine.cdi.BusinessProcess` bean for controlling the association, most prominently:
+The Operaton CDI integration provides the `org.operaton.bpm.engine.cdi.BusinessProcess` bean for controlling the association, most prominently:
 
 * The `startProcessBy*(...)`-methods, mirroring the respective methods exposed by the `RuntimeService` allowing to start and subsequently associate a business process.
 * The `resumeProcessById(String processInstanceId)`, allowing to associate the process instance with the provided Id.
@@ -45,8 +45,8 @@ The following JSF2 snippet begins a new conversation and associates it with a us
 
 # Declaratively controlling the process
 
-Camunda CDI allows declaratively starting process instances and completing tasks using annotations. 
-The `@org.camunda.bpm.engine.cdi.annotation.StartProcess` annotation allows to start a process instance either by "key" or by "name". 
+Operaton CDI allows declaratively starting process instances and completing tasks using annotations.
+The `@org.operaton.bpm.engine.cdi.annotation.StartProcess` annotation allows to start a process instance either by "key" or by "name".
 Note that the process instance is started after the annotated method returns. Example:
 
 ```java
@@ -57,8 +57,8 @@ public String submitRequest(BusinessTripRequest request) {
 }
 ```
 
-Depending on the configuration of the Camunda engine, the code of the annotated method and the starting of the process
-instance will be combined in the same transaction. The `@org.camunda.bpm.engine.cdi.annotation.CompleteTask`-annotation
+Depending on the configuration of the Operaton engine, the code of the annotated method and the starting of the process
+instance will be combined in the same transaction. The `@org.operaton.bpm.engine.cdi.annotation.CompleteTask`-annotation
 works in the same way:
 
 ```java
@@ -74,11 +74,11 @@ after the call to the engine returns. Ending the conversation can be disabled, a
 
 # Work with @BusinessProcessScoped beans
 
-Using Camunda CDI, the lifecycle of a bean can be bound to a process instance. To this extent, a custom context implementation is provided,
+Using Operaton CDI, the lifecycle of a bean can be bound to a process instance. To this extent, a custom context implementation is provided,
 namely the `BusinessProcessContext`. Instances of `BusinessProcessScoped` beans are stored as process variables in the current process instance.
 On deployment, beans annotated with `BusinessProcessScoped` are validated for being "passivation capable", which means that they must implement
 the `Serializable` interface, and their references (dependencies) must be "passivation capable" as well. You can read more about the
-"passivation capable" criteria in the [CDI specification](https://docs.jboss.org/cdi/spec/1.0/html_single/#passivatingscope). 
+"passivation capable" criteria in the [CDI specification](https://docs.jboss.org/cdi/spec/1.0/html_single/#passivatingscope).
 
 The following is an example of a "passivation capable" process scoped bean:
 

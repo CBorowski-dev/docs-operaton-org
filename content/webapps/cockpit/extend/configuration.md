@@ -20,12 +20,12 @@ You can change the visual aspects of Cockpit. The user stylesheet file is locate
 and can override the standard styles.
 
 ```css
-/* hides the Camunda logo */
+/* hides the Operaton logo */
 .app-banner svg {
   display: none;
 }
 .app-banner {
-  /* hides the "Camunda Cockpit" text */
+  /* hides the "Operaton Cockpit" text */
   text-indent: 200vw;
   /* put your logo */
   background-image: url(./path/to/the/logo.png);
@@ -39,7 +39,7 @@ and can override the standard styles.
 }
 ```
 
-**Note:** you can also change the app name (*Cockpit*) and vendor (*Camunda*)
+**Note:** you can also change the app name (*Cockpit*) and vendor (*Operaton*)
 by changing the `app/cockpit/scripts/config.js` configuration file as follow:
 
 ```js
@@ -54,8 +54,8 @@ export default {
 
 # Localization
 
-Cockpit can be localized. Camunda maintains English and German translation files. 
-You can find and download community maintained translation files at the [Camunda webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
+Cockpit can be localized. Operaton maintains English and German translation files.
+You can find and download community maintained translation files at the [Operaton webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
 
 The localization of Cockpit is contained in the `app/cockpit/locales/` directory. This
 directory contains a separate localization file for every available language. The file name
@@ -85,7 +85,7 @@ available, add it to the list of available locales in the configuration file.
 
 # Custom Scripts
 
-Cockpit allows you to include arbitrary JavaScript files. This allows you to extend Cockpit with custom code. The script file might contain a 
+Cockpit allows you to include arbitrary JavaScript files. This allows you to extend Cockpit with custom code. The script file might contain a
 custom frontend module as described in [Cockpit Plugins - Structure of a Frontend Module]({{<ref "/webapps/cockpit/extend/plugins.md#structure-of-a-frontend-module" >}}).
 
 Add your files to the `customScripts` property of the `app/cockpit/scripts/config.js` file:
@@ -93,17 +93,17 @@ Add your files to the `customScripts` property of the `app/cockpit/scripts/confi
 ```javascript
 export default {
   // …
-  customScripts: 
+  customScripts:
     ['custom-module/module.js']
 };
 ```
-This includes a `custom-module/module.js` file. The path is relative to the `app/cockpit` folder in the Camunda webapp .war file.
+This includes a `custom-module/module.js` file. The path is relative to the `app/cockpit` folder in the Operaton webapp .war file.
 
-You can find a complete example about how to use `customScripts` to develop a Cockpit Plugin in the [Camunda 7 examples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/cockpit/cockpit-cats).
+You can find a complete example about how to use `customScripts` to develop a Cockpit Plugin in the [Operatonexamples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/cockpit/cockpit-cats).
 
 ## Legacy Custom Scripts
 
-Custom Scripts created for Camunda 7.13 or earlier can be included using the `requireJsConfig` property to the `app/cockpit/scripts/config.js`. You can include these custom scripts using the custom [requireJS configuration](https://requirejs.org/docs/api.html#config).
+Custom Scripts created for Operaton or earlier can be included using the `requireJsConfig` property to the `app/cockpit/scripts/config.js`. You can include these custom scripts using the custom [requireJS configuration](https://requirejs.org/docs/api.html#config).
 
 ```Javascript
 export default {
@@ -124,7 +124,7 @@ export default {
 }
 ```
 
-For more details about legacy Plugins, check out the legacy [Plugin documentation](https://docs.camunda.org/manual/7.13/webapps/cockpit/extend/plugins/). Please note that this link will take you to the documentation of Camunda **7.13** .
+For more details about legacy Plugins, check out the legacy [Plugin documentation](https://docs.camunda.org/manual/7.13/webapps/cockpit/extend/plugins/). Please note that this link will take you to the documentation of Operaton **7.13** .
 
 # BPMN Diagram Viewer (bpmn.js)
 
@@ -133,7 +133,7 @@ The diagram viewer (bpmn.js) can be either customized by moddle extensions or
 of Cockpit, a `bpmnJs` property must be added to the `app/cockpit/scripts/config.js` file.
 
 ## Additional Modules
-To add modules, the `additionalModules` property needs to be specified, where each module is registered with its path. The path is relative to the `app/cockpit` folder in the .war file of the Camunda Webapp.
+To add modules, the `additionalModules` property needs to be specified, where each module is registered with its path. The path is relative to the `app/cockpit` folder in the .war file of the Operaton Webapp.
 
 ```javascript
 export default {
@@ -146,12 +146,12 @@ export default {
 }
 ```
 
-You can find an example on how to add an additional bpmn.js module to Cockpit in the [Camunda 7 examples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/cockpit/cockpit-bpmn-js-module).
+You can find an example on how to add an additional bpmn.js module to Cockpit in the [Operatonexamples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/cockpit/cockpit-bpmn-js-module).
 
 ## Moddle Extensions
 The BPMN moddle can be extended by adding a `moddleExtensions` property. Each moddle extension has a unique name (key)
 and a path (value) to the JSON file of the moddle extension. The path is relative to the `app/cockpit` folder in the
-.war file of the Camunda Webapp. The suffix `.json` of the file is added automatically and must not be specified.
+.war file of the Operaton Webapp. The suffix `.json` of the file is added automatically and must not be specified.
 ```json
 export default {
   // …
@@ -253,7 +253,7 @@ export default = {
 
 # Disable Welcome Message for new Users
 
-First-time visitors are shown a message directing them to the camunda welcome page. If you do
+First-time visitors are shown a message directing them to the operaton welcome page. If you do
 not want this message to be shown, you can disable it by adjusting the `config.js` as follows:
 ```javascript
 export default = {
@@ -277,7 +277,7 @@ export default = {
 **Note:** This does only affect the Cockpit Operation Log. For the Admin Operation Log, check out the [Admin Configuration]({{<ref "/webapps/admin/configuration.md#user-operation-log-annotation-length" >}}).
 
 # Preview Deployed Embedded Forms
-You can view a preview of embedded forms and other HTML files in the Cockpit deployment view. If the HTML has embedded `<script>` tags, they will be executed, which may have unintended side-effects. You can disable this feature if you don't trust your deployed HTML files in the `config.js` file as follows: 
+You can view a preview of embedded forms and other HTML files in the Cockpit deployment view. If the HTML has embedded `<script>` tags, they will be executed, which may have unintended side-effects. You can disable this feature if you don't trust your deployed HTML files in the `config.js` file as follows:
 
 ```javascript
 export default = {

@@ -24,12 +24,12 @@ Furthermore, the engine classes and Jackson's `com.fasterxml.jackson.jaxrs:jacks
 **Step 1:** Add the REST API to your project as a Maven dependency.
 
 {{< note title="" class="info" >}}
-  Please import the [Camunda BOM](/get-started/apache-maven/) to ensure correct versions for every Camunda project.
+  Please import the [Operaton BOM](/get-started/apache-maven/) to ensure correct versions for every Operaton project.
 {{< /note >}}
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-rest</artifactId>
   <classifier>classes</classifier>
 </dependency>
@@ -38,7 +38,7 @@ For Jakarta EE 9+ containers (like WildFly 27+), use the following dependency in
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine-rest-jakarta</artifactId>
   <classifier>classes</classifier>
 </dependency>
@@ -54,34 +54,34 @@ public class MyApplication extends Application {
     Set<Class<?>> classes = new HashSet<Class<?>>();
     // add your own classes
     ...
-    // add all camunda engine rest resources (or just add those that you actually need).
-    classes.addAll(CamundaRestResources.getResourceClasses());
+    // add all operaton engine rest resources (or just add those that you actually need).
+    classes.addAll(OperatonRestResources.getResourceClasses());
 
     // mandatory
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(OperatonRestResources.getConfigurationClasses());
 
     return classes;
   }
 }
 ```
 
-`CamundaRestResources.getResourceClasses()` contains two JAX-RS resources that serve as the entry points. One of these (`org.camunda.bpm.engine.rest.impl.NamedProcessEngineRestServiceImpl`) provides all of the REST resources listed in this document on paths beginning with `/engine/{name}` while the other (`org.camunda.bpm.engine.rest.impl.DefaultProcessEngineRestServiceImpl`) provides access to the default engine's resources on the root path `/`.
+`OperatonRestResources.getResourceClasses()` contains two JAX-RS resources that serve as the entry points. One of these (`org.operaton.bpm.engine.rest.impl.NamedProcessEngineRestServiceImpl`) provides all of the REST resources listed in this document on paths beginning with `/engine/{name}` while the other (`org.operaton.bpm.engine.rest.impl.DefaultProcessEngineRestServiceImpl`) provides access to the default engine's resources on the root path `/`.
 
-To restrict the exposed REST resources to specific types (e.g., only process-definition-related methods), a subclass of `org.camunda.bpm.engine.rest.impl.AbstractProcessEngineRestServiceImpl` can be implemented and registered with the JAX-RS application. Such a subclass can control which resources get exposed by offering JAX-RS-annotated methods. See the sources of `NamedProcessEngineRestServiceImpl` and `DefaultProcessEngineRestServiceImpl` for an example. **Note**: The path to a subresource should always match the path defined in the subresource's interface.
+To restrict the exposed REST resources to specific types (e.g., only process-definition-related methods), a subclass of `org.operaton.bpm.engine.rest.impl.AbstractProcessEngineRestServiceImpl` can be implemented and registered with the JAX-RS application. Such a subclass can control which resources get exposed by offering JAX-RS-annotated methods. See the sources of `NamedProcessEngineRestServiceImpl` and `DefaultProcessEngineRestServiceImpl` for an example. **Note**: The path to a subresource should always match the path defined in the subresource's interface.
 
 The configuration class `JacksonConfigurator` is required to correctly configure the serialization of date fields.
 You may also have to add the following Jackson providers: `com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider`,
-`org.camunda.bpm.engine.rest.exception.JsonMappingExceptionHandler` and `org.camunda.bpm.engine.rest.exception.JsonParseExceptionHandler`.
+`org.operaton.bpm.engine.rest.exception.JsonMappingExceptionHandler` and `org.operaton.bpm.engine.rest.exception.JsonParseExceptionHandler`.
 Depending on the runtime environment, this may not be necessary.
 On Wildfly, these should be automatically added as an implicit module dependency.
 
 For proper exception responses of the format as described in the [Introduction]({{< ref "/reference/rest/overview/_index.md" >}}),
 it is necessary to include `RestExceptionHandler`. `ProcessEngineExceptionHandler` is used to translate any exception thrown by the
 engine that is not explicitly handled by the REST API classes to a generic HTTP 500 error with the same response body format.
-If you would like to have all kinds of exceptions translated to this format, you can use `org.camunda.bpm.engine.rest.exception.ExceptionHandler` instead of `ProcessEngineExceptionHandler`.
+If you would like to have all kinds of exceptions translated to this format, you can use `org.operaton.bpm.engine.rest.exception.ExceptionHandler` instead of `ProcessEngineExceptionHandler`.
 
 Next is the wiring of the REST API and the process engine(s).
 To do this, you must create a Service Provider that implements the interface `ProcessEngineProvider`
-and declare it in a file `META-INF/services/org.camunda.bpm.engine.rest.spi.ProcessEngineProvider`.
-You may also declare the class `org.camunda.bpm.engine.rest.impl.application.ContainerManagedProcessEngineProvider`
-which comes with the REST API and uses the methods that the class `org.camunda.bpm.BpmPlatform` provides.
+and declare it in a file `META-INF/services/org.operaton.bpm.engine.rest.spi.ProcessEngineProvider`.
+You may also declare the class `org.operaton.bpm.engine.rest.impl.application.ContainerManagedProcessEngineProvider`
+which comes with the REST API and uses the methods that the class `org.operaton.bpm.BpmPlatform` provides.

@@ -40,7 +40,7 @@ gives a warning as it is valid BPMN 2.0).
 ```
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

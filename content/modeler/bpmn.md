@@ -1,6 +1,6 @@
 ---
 
-title: 'Modeling BPMN in Camunda Modeler'
+title: 'Modeling BPMN in Operaton Modeler'
 weight: 10
 
 menu:

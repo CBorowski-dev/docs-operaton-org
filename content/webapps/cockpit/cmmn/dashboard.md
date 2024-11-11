@@ -12,7 +12,7 @@ menu:
 
 ---
 {{< enterprise >}}
-Please note that this feature is only included in the enterprise edition of Camunda 7, it is not available in the community edition.
+Please note that this feature is only included in the enterprise edition of Operaton, it is not available in the community edition.
 {{< /enterprise >}}
 
 The CMMN Cases dashboard of Cockpit is the entry point for case monitoring. It comes with a pre-installed plugin, which lets you see deployed case definitions. Additional [plugins]({{< ref "/webapps/cockpit/extend/plugins.md" >}}) can be added to the cases dashboard.
@@ -22,7 +22,7 @@ The CMMN Cases dashboard of Cockpit is the entry point for case monitoring. It c
 
 {{< img src="../../img/cmmn/case-dashboard-search.png" title="Case Instance Search" >}}
 
-At the top of the dashboard, you can search for case instances which fulfill certain search criteria. To do so, click in the search box and select the parameters to search for. You can also begin typing to find the required parameter faster. Depending on the selected property, you have to specify the value of the property. Some properties also allow operators other than equal, e.g., `like`, which allows searching for case instances where the entered value is a substring of the property value. To search for case variables, you also have to enter the variable name you want to search for. 
+At the top of the dashboard, you can search for case instances which fulfill certain search criteria. To do so, click in the search box and select the parameters to search for. You can also begin typing to find the required parameter faster. Depending on the selected property, you have to specify the value of the property. Some properties also allow operators other than equal, e.g., `like`, which allows searching for case instances where the entered value is a substring of the property value. To search for case variables, you also have to enter the variable name you want to search for.
 To search for a variable of type string, which has a numeric, boolean or null value, you have to wrap the value in single quotes (e.g., `'93288'` or `'NULL'`).
 
 To add additional columns to the details of the search results, click on the 'Add column' button and select the desired details in the drop down menu that appears.

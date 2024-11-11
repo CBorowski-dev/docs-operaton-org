@@ -10,7 +10,7 @@ menu:
 
 ---
 
-In Camunda Connect a `Connectors` class exists which automatically detects
+In Operaton Connect a `Connectors` class exists which automatically detects
 every connector in the classpath. It can be used to get the HTTP connector
 instance by its connector ID, which is `http-connector`.
 
@@ -21,7 +21,7 @@ HttpConnector http = Connectors.getConnector(HttpConnector.ID);
 
 # Configure Apache HTTP Client
 
-Camunda Connect HTTP client uses the Apache HTTP client to make HTTP requests. Accordingly, it supports the same configuration options.
+Operaton Connect HTTP client uses the Apache HTTP client to make HTTP requests. Accordingly, it supports the same configuration options.
 
 ## Default Configuration
 

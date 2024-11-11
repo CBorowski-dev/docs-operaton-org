@@ -75,13 +75,13 @@ runtimeService
   .createSignalEvent("signalName")
   .setVariables(variables)
   .send();
-  
+
 // deliver a signal to a single execution
 runtimeService
   .createSignalEvent("signalName")
   .executionId(executionId)
   .setVariables(variables)
-  .send();  
+  .send();
 ```
 
 Additionally, you can use one of the following methods offered by the `RuntimeService`:
@@ -150,7 +150,7 @@ When a token arrives at the signal intermediate catching event, it will wait the
 </intermediateCatchEvent>
 ```
 
-## Camunda Extensions
+## Operaton Extensions
 
 The following extensions are supported for the Signal Intermediate Catching Event:
 
@@ -297,7 +297,7 @@ In addition to passing process variables to the signal-catching process instance
 
 The business key "camunda:in" element can be used in combination with the process variable passing "camunda:in" elements.
 
-## Camunda Extensions
+## Operaton Extensions
 
 The following extensions are supported for the Signal Intermediate and End Throwing Events:
 

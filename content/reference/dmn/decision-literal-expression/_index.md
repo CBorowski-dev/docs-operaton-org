@@ -16,7 +16,7 @@ aliases: [reference/dmn11/decision-literal-expression/]
 
 {{< img src="img/decision-literal-expression.png" title="Decision Literal Expression" class="no-lightbox" >}}
 
-A decision literal expression represents decision logic which can be depicted as an expression in DMN 1.3. 
+A decision literal expression represents decision logic which can be depicted as an expression in DMN 1.3.
 It consists of a [literal expression] and a [variable].
 
 A decision literal expression is represented by a `literalExpression` element inside a `decision` XML element.
@@ -52,7 +52,7 @@ decision logic. It is set as the `name` attribute on the `decision` element.
 The id is the technical identifier of the decision. It is set in the `id`
 attribute on the `decision` element.
 
-Each decision should have an unique id when it is [deployed] to Camunda 7.
+Each decision should have an unique id when it is [deployed] to Operaton.
 The engine uses the id as the decision key of the deployed
 `DecisionDefinition`.
 
@@ -64,7 +64,7 @@ The engine uses the id as the decision key of the deployed
 
 # Literal Expression
 
-The literal expression specifies how the value of the decision is generated. It is an expression which will be evaluated by the DMN engine. 
+The literal expression specifies how the value of the decision is generated. It is an expression which will be evaluated by the DMN engine.
 It can be used to do a complex calculation, to invoke a bean which provides decision logic, or to combine the output values of [required decisions].
 
 The expression is set inside a `text` element that is a child of the `literalExpression` XML element.
@@ -107,7 +107,7 @@ languages.
 
 # Variable
 
-A decision literal expression must have a variable which specifies the name and the type of the decision result. 
+A decision literal expression must have a variable which specifies the name and the type of the decision result.
 A variable is represented by a `variable` element inside a `decision` XML element.
 
 ```xml
@@ -118,7 +118,7 @@ A variable is represented by a `variable` element inside a `decision` XML elemen
 
 ## Variable Name
 
-The name of the variable is used to reference the value of the literal expression in the decision result. 
+The name of the variable is used to reference the value of the literal expression in the decision result.
 It is specified by the `name` attribute on the `variable` XML element.
 
 ```xml
@@ -146,4 +146,3 @@ safety of the expression result.
 [supported DT]: {{< ref "/user-guide/dmn-engine/data-types.md#supported-data-types" >}}
 [deployed]: {{< ref "/user-guide/process-engine/decisions/repository.md" >}}
 [required decisions]: {{< ref "/reference/dmn/drg/_index.md#required-decisions" >}}
-

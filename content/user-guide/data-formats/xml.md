@@ -10,9 +10,9 @@ menu:
 
 ---
 
-For working with XML, the Spin functions `org.camunda.spin.Spin.S` and `org.camunda.spin.Spin.XML` can be used as entry points. The latter offers strongly-typed access to Spin's XML API and is preferable when writing Java code. In scripting environments, only the `S` function is available. The returned Spin wrapper offers methods for manipulating and writing XML as well as mapping XML to Java. Furthermore, the entry functions can be provided with Java objects that get implicitly converted to Spin's intermediary XML format.
+For working with XML, the Spin functions `org.operaton.spin.Spin.S` and `org.operaton.spin.Spin.XML` can be used as entry points. The latter offers strongly-typed access to Spin's XML API and is preferable when writing Java code. In scripting environments, only the `S` function is available. The returned Spin wrapper offers methods for manipulating and writing XML as well as mapping XML to Java. Furthermore, the entry functions can be provided with Java objects that get implicitly converted to Spin's intermediary XML format.
 
-The following provides examples on how Camunda Spin can be used in the process engine to work with XML data. For illustration purposes, let us assume that a String process variable `customer` containing XML exists. It has the following content:
+The following provides examples on how Operaton Spin can be used in the process engine to work with XML data. For illustration purposes, let us assume that a String process variable `customer` containing XML exists. It has the following content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -24,7 +24,7 @@ The following provides examples on how Camunda Spin can be used in the process e
 </customer>
 ```
 
-Further documentation about the usage of Spin can be found in the [Camunda Spin Dataformat Reference]({{< ref "/reference/spin/_index.md" >}}).
+Further documentation about the usage of Spin can be found in the [Operaton Spin Dataformat Reference]({{< ref "/reference/spin/_index.md" >}}).
 
 
 # Expression Language Integration
@@ -190,7 +190,7 @@ customerXml matches:
 */
 ```
 
-Retrieving the variable will deserialize the serialized value if it is not cached already. 
+Retrieving the variable will deserialize the serialized value if it is not cached already.
 Please bear in mind that this can pose a security risk if untrusted sources are allowed to store serialized values in process variables that can trigger malicious code execution upon deserialization.
 Consult the [Security Instructions]({{< ref "/user-guide/security.md#variable-values-from-untrusted-sources" >}}) for further information on this.
 

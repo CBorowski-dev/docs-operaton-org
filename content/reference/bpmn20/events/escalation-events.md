@@ -10,7 +10,7 @@ menu:
     pre: "Events catching / throwing escalations."
 ---
 
-Escalation events are events which reference a named escalation. They are mostly used to communicate from a subprocess to an upper process. Unlike an error, an escalation event is non critical and execution continues at the location of throwing. 
+Escalation events are events which reference a named escalation. They are mostly used to communicate from a subprocess to an upper process. Unlike an error, an escalation event is non critical and execution continues at the location of throwing.
 
 <div data-bpmn-diagram="../bpmn/escalation-example"></div>
 
@@ -68,7 +68,7 @@ Two optional attributes can be added to the escalation start event, <code>escala
 * If a start event has no `escalationRef` or `escalationCode` of referenced escalation then another event sub-process with an escalation start event is not supported.
 {{< /note >}}
 
-### Camunda Extensions
+### Operaton Extensions
 
 The following extensions are supported for `escalationEventDefinition`.
 
@@ -114,7 +114,7 @@ Two optional attributes can be added to the escalation boundary event, <code>esc
 * If a boundary event has no `escalationRef` or `escalationCode` of referenced escalation then another escalation boundary event is not supported.
 {{< /note >}}
 
-### Camunda Extensions
+### Operaton Extensions
 
 The following extensions are supported for `escalationEventDefinition`.
 
@@ -142,7 +142,7 @@ The following extensions are supported for `escalationEventDefinition`.
 
 {{< bpmn-symbol type="escalation-intermediate-throw-event" >}}
 
-When process execution arrives at an escalation intermediate throw event, a named escalation is thrown. This escalation can be caught by an escalation boundary event or an event sub-process with an escalation start event which has the same or none escalation code. 
+When process execution arrives at an escalation intermediate throw event, a named escalation is thrown. This escalation can be caught by an escalation boundary event or an event sub-process with an escalation start event which has the same or none escalation code.
 
 <div data-bpmn-diagram="../bpmn/escalation-intermediate-throw-event"></div>
 

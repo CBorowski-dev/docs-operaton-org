@@ -11,7 +11,7 @@ menu:
     pre: "Get more insights about cookie security settings"
 ---
 
-Camundas Web applications use cookies to preserve user sessions and to prevent CSRF attacks. This page explains how these cookies should be configured to increase the security.
+Operatons Web applications use cookies to preserve user sessions and to prevent CSRF attacks. This page explains how these cookies should be configured to increase the security.
 
 The Web applications set the following cookies:
 
@@ -22,9 +22,9 @@ The Web applications set the following cookies:
 
 ## What are the properties supposed to be?
 
-This section describes the purpose of security-related cookie properties. You can find more information about 
+This section describes the purpose of security-related cookie properties. You can find more information about
 [Secure and HttpOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#Secure_and_HttpOnly_cookies)
-as well as 
+as well as
 [SameSite cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#samesite_attribute)
 in Mozilla’s Developer Guide.
 

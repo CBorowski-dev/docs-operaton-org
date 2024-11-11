@@ -23,7 +23,7 @@ More considerations for rolling updates can be found at the bottom of this page.
 
 # What is a Rolling Update?
 
-A rolling update is a process to perform a Camunda update in a cluster. The nodes are updated one by one or in groups.
+A rolling update is a process to perform a Operaton update in a cluster. The nodes are updated one by one or in groups.
 During the update process, it is ensured that at least one node is available to handle incoming requests, guaranteeing availability and minimizing downtime.
 
 # Overview
@@ -38,7 +38,7 @@ It must not necessarily be a separate physical host.
 A rolling update can be orchestrated in a 2 step process:
 
 1. Update the Database Schema,
-2. Update the Camunda libraries on all nodes, one by one or in groups.
+2. Update the Operaton libraries on all nodes, one by one or in groups.
 
 _A 3-node cluster is used in this document for illustration. Obviously, the procedure can be generalized to a `N`-Node cluster._
 
@@ -51,29 +51,29 @@ of the minor version _7.X_.
 # Step by Step
 
 The following sections provide a step-by-step walkthrough of how to perform a rolling update.
-In this example, we use the version `7.X` to signify the Camunda version the cluster is migrated _from_.
-We use `7.Y` to signify the Camunda version the cluster is migrated _to_.
+In this example, we use the version `7.X` to signify the Operaton version the cluster is migrated _from_.
+We use `7.Y` to signify the Operaton version the cluster is migrated _to_.
 
 ## Step 1: Update the Database Schema
 
-Initially, the database schema is at version `7.X` and the Camunda library versions are at `7.X` on all nodes:
+Initially, the database schema is at version `7.X` and the Operaton library versions are at `7.X` on all nodes:
 
 {{< img src="../img/architecture-step1.png" title="Initial Situation" >}}
 
 The first step consists of updating the database schema to version `7.Y`. Information on where to find the update scripts and how to apply them can be found in the documentation on how to perform updates.
-As a result, the database schema version is at `7.Y` while the Camunda library version is still `7.X`:
+As a result, the database schema version is at `7.Y` while the Operaton library version is still `7.X`:
 
 {{< img src="../img/architecture-step2.png" title="Update the Database Schema" >}}
 
 Considerations:
 
-* Applying the database update scripts while not updating the library version (or in other words using a newer version of the database schema with an older version of the library) is possible since Camunda guarantees backwards compatibility of the database schema. (See the _Considerations_ section at the bottom of this page for details.)
+* Applying the database update scripts while not updating the library version (or in other words using a newer version of the database schema with an older version of the library) is possible since Operaton guarantees backwards compatibility of the database schema. (See the _Considerations_ section at the bottom of this page for details.)
 
-* Camunda does however not guarantee that the database schema update script can be applied _on-line_ without issues. Depending on the database and the current load, the script can take a long time to run or may block other transactions from making progress. (See the _Considerations_ section at the bottom of this page for details). Users are strongly encouraged to test the schema update script in a staging environment prior to executing it on a production database.
+* Operaton does however not guarantee that the database schema update script can be applied _on-line_ without issues. Depending on the database and the current load, the script can take a long time to run or may block other transactions from making progress. (See the _Considerations_ section at the bottom of this page for details). Users are strongly encouraged to test the schema update script in a staging environment prior to executing it on a production database.
 
 ## Step 2: Update the Nodes
 
-After the update of the database schema is completed, the Camunda library version can to be updated.
+After the update of the database schema is completed, the Operaton library version can to be updated.
 
 The following steps need to be done for each node or group of nodes.
 
@@ -88,9 +88,9 @@ Once all open requests are processed, the node is successfully isolated and can 
 
 ### 2.2 Update
 
-In this step the Camunda library version is updated on an isolated node. The exact way to achieve this depends on the environment:
+In this step the Operaton library version is updated on an isolated node. The exact way to achieve this depends on the environment:
 
-* When using an embedded process engine, the application bundling the Camunda libraries needs to be re-packaged with the new version of the libraries and re-deployed.
+* When using an embedded process engine, the application bundling the Operaton libraries needs to be re-packaged with the new version of the libraries and re-deployed.
 * When using a shared process engine, the libraries and applications deployed to the application server need to be updated.
 
 After the update is complete, the node can be brought back up.
@@ -107,13 +107,13 @@ In this step an updated node is re-integrated into the cluster. This usually mea
 
 ## Backwards Compatibility of Database Schema
 
-To facilitate updates, Camunda ensures backwards compatibility of the database schema.
+To facilitate updates, Operaton ensures backwards compatibility of the database schema.
 Backwards compatibility makes it possible to operate an older version of the process engine on a newer version of the database schema. This property is crucial in the first step of the rolling update process: after the database has been updated, the process engine libraries are still at the previous version.
 
 ## On-line applicability of Db Migration Script
 
-Note that Camunda does not guarantee that the migration script is applicable on-line (concurrently to in-flight transactions).
-While Camunda does its best effort to ensure this property, it is not guaranteed. It is therefore strongly recommended to _test the database migration script_ on a test database with a similar load to the production database.
+Note that Operaton does not guarantee that the migration script is applicable on-line (concurrently to in-flight transactions).
+While Operaton does its best effort to ensure this property, it is not guaranteed. It is therefore strongly recommended to _test the database migration script_ on a test database with a similar load to the production database.
 
 ## Usage of new Features
 

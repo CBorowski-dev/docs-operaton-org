@@ -10,19 +10,19 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on a Tomcat server in a shared process engine setting. For the entire migration procedure, refer to the [migration guide][migration-guide]. If not already done, make sure to download the [Camunda 7.2 Tomcat distribution](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/tomcat/camunda-bpm-tomcat/).
+The following steps describe how to update the Operaton artifacts on a Tomcat server in a shared process engine setting. For the entire migration procedure, refer to the [migration guide][migration-guide]. If not already done, make sure to download the [Operaton Tomcat distribution](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/tomcat/camunda-bpm-tomcat/).
 
 The update procedure takes the following steps:
 
-1. Update the Camunda 7 core libraries
-2. Update and configure optional Camunda 7 libraries (*optional*)
+1. Update the Operatoncore libraries
+2. Update and configure optional Operatonlibraries (*optional*)
 3. Configure process engines
-4. Update Camunda web applications
+4. Update Operaton web applications
 
 In each of the following steps, the identifiers `$*_VERSION` refer to the current version and the new versions of the artifacts.
 
 
-# 1. Update the Camunda 7 Core Libraries
+# 1. Update the OperatonCore Libraries
 
 Replace the following libraries in the folder `$TOMCAT_HOME/lib/` with their new versions from the folder `$TOMCAT_DISTRIBUTION/lib/`:
 
@@ -48,13 +48,13 @@ If present, remove the following artifacts:
 **Note:** The libraries `camunda-engine-spring-$PLATFORM_VERSION.jar` and `camunda-engine-spring-$PLATFORM_VERSION.jar` should be part of application deployments and therefore not in the global library folder. Make sure your process applications bundle these libraries when you remove them from the global folder.
 
 
-# 2. Update and Configure Optional Camunda 7 Libraries
+# 2. Update and Configure Optional OperatonLibraries
 
-In addition, there are artifacts for Camunda Connect, Camunda Spin, the Freemarker template language and Groovy scripting that may optionally be added to the folder `$TOMCAT_HOME/lib/`. Since all these artifacts add new functionality, the following steps are not required for migration.
+In addition, there are artifacts for Operaton Connect, Operaton Spin, the Freemarker template language and Groovy scripting that may optionally be added to the folder `$TOMCAT_HOME/lib/`. Since all these artifacts add new functionality, the following steps are not required for migration.
 
-## Camunda Connect
+## Operaton Connect
 
-If Camunda Connect is intended to be used, add the following artifacts:
+If Operaton Connect is intended to be used, add the following artifacts:
 
 * `camunda-connect-connectors-all-$CONNECT_VERSION.jar`
 * `camunda-connect-core-$CONNECT_VERSION.jar`
@@ -63,7 +63,7 @@ If Camunda Connect is intended to be used, add the following artifacts:
 * `camunda-commons-utils-$COMMONS_VERSION.jar`
 * `slf4j-api-$SLF4J_VERSION.jar`
 
-In order to activate Camunda Connect functionality for a process engine, a process engine plugin has to be registered in `$TOMCAT_HOME/conf/bpm-platform.xml` as follows:
+In order to activate Operaton Connect functionality for a process engine, a process engine plugin has to be registered in `$TOMCAT_HOME/conf/bpm-platform.xml` as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,9 +82,9 @@ In order to activate Camunda Connect functionality for a process engine, a proce
 </bpm-platform>
 ```
 
-#### Camunda Spin
+#### Operaton Spin
 
-If Camunda Spin is intended to be used, add the following artifacts:
+If Operaton Spin is intended to be used, add the following artifacts:
 
 * `camunda-spin-dataformat-all-$SPIN_VERSION.jar`
 * `camunda-spin-core-$SPIN_VERSION.jar`
@@ -93,7 +93,7 @@ If Camunda Spin is intended to be used, add the following artifacts:
 * `camunda-commons-utils-$COMMONS_VERSION.jar`
 * `slf4j-api-$SLF4J_VERSION.jar`
 
-In order to activate Camunda Spin functionality for a process engine, a process engine plugin has to be registered in `$TOMCAT_HOME/conf/bpm-platform.xml` as follows:
+In order to activate Operaton Spin functionality for a process engine, a process engine plugin has to be registered in `$TOMCAT_HOME/conf/bpm-platform.xml` as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -104,7 +104,7 @@ In order to activate Camunda Spin functionality for a process engine, a process 
     <plugins>
       ... existing plugins ...
       <plugin>
-        <class>org.camunda.spin.plugin.impl.SpinProcessEnginePlugin</class>
+        <class>org.operaton.spin.plugin.impl.SpinProcessEnginePlugin</class>
       </plugin>
     </plugins>
     ...
@@ -121,7 +121,7 @@ If Groovy is to be used as a scripting language, add the following artifacts:
 
 ## Freemarker Integration
 
-If the Camunda integration for Freemarker is intended to be used, add the following artifacts:
+If the Operaton integration for Freemarker is intended to be used, add the following artifacts:
 
 * `camunda-template-engines-freemarker-$TEMPLATE_VERSION.jar`
 * `freemarker-2.3.20.jar`
@@ -154,26 +154,26 @@ As of 7.2, the default behavior of script variables has changed. Script variable
 
 As an alternative, process application developers can migrate script code by replacing all implicit declarations of process variables in their scripts with an explicit call to `execution.setVariable('varName', 'value')`.
 
-## 4. Update Camunda Web Applications
+## 4. Update Operaton Web Applications
 
-#### Update Camunda REST API
+#### Update Operaton REST API
 
-The following steps are required to update the camunda REST API on a Tomcat instance:
+The following steps are required to update the operaton REST API on a Tomcat instance:
 
 1. Undeploy an existing web application with a name like `camunda-engine-rest`
 2. Download the REST API web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/camunda-engine-rest/). Or switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-engine-rest-$PLATFORM_VERSION-tomcat.war`.
 3. Deploy the web application archive to your Tomcat instance.
 
-#### Update Camunda Cockpit, Tasklist, and Admin
+#### Update Operaton Cockpit, Tasklist, and Admin
 
-The following steps are required to update the camunda web applications Cockpit, Tasklist, and Admin on a Tomcat instance:
+The following steps are required to update the operaton web applications Cockpit, Tasklist, and Admin on a Tomcat instance:
 
 1. Undeploy an existing web application with a name like `camunda-webapp`
-2. Download the Camunda web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-tomcat/). Or switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-webapp-tomcat-$PLATFORM_VERSION.war`.
+2. Download the Operaton web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-tomcat/). Or switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-webapp-tomcat-$PLATFORM_VERSION.war`.
 3. Deploy the web application archive to your Tomcat instance.
 
 {{< note title="LDAP Entity Caching" class="info" >}}
-With 7.2, it is possible to enable entity caching for Hypertext Application Language (HAL) requests that the camunda web applications make. This can be especially useful when you use camunda in combination with LDAP. To activate caching, the camunda webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
+With 7.2, it is possible to enable entity caching for Hypertext Application Language (HAL) requests that the operaton web applications make. This can be especially useful when you use operaton in combination with LDAP. To activate caching, the operaton webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
 {{< /note >}}
 
 [configuration-location]: {{< ref "/reference/deployment-descriptors/descriptors/bpm-platform-xml.md" >}}

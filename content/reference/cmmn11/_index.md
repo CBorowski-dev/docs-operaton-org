@@ -14,7 +14,7 @@ menu:
 
 This page provides an overview of the CMMN 1.1 elements and the current coverage of the process engine.
 
-The CMMN editor is disabled in recent versions of Camunda Modeler but can be enabled with a feature flag. For more context and information on how to enable this feature flag in Camunda Modeler, please see [this forum post](https://forum.camunda.org/t/how-to-access-cmmn-in-the-modeler/25127). 
+The CMMN editor is disabled in recent versions of Operaton Modeler but can be enabled with a feature flag. For more context and information on how to enable this feature flag in Operaton Modeler, please see [this forum post](https://forum.camunda.org/t/how-to-access-cmmn-in-the-modeler/25127).
 
 # Coverage
 
@@ -32,7 +32,7 @@ The elements marked in <span class="label label-warning">orange</span> are suppo
       </div>
       <div class="bpmn-symbol-container implemented">
         <a href="{{< ref "/reference/cmmn11/grouping-tasks/stage.md" >}}"><span class="glyphicon glyphicon-eye-open"></span></a>
-        {{< cmmn-symbol type="stage-collapsed-colored" >}}            
+        {{< cmmn-symbol type="stage-collapsed-colored" >}}
       </div>
       <div class="bpmn-symbol-container">
         {{< cmmn-symbol type="plan-fragment" >}}
@@ -44,7 +44,7 @@ The elements marked in <span class="label label-warning">orange</span> are suppo
       <h3>Tasks</h3>
       <div class="bpmn-symbol-container implemented">
         <a href="{{< ref "/reference/cmmn11/tasks/human-task.md" >}}"><span class="glyphicon glyphicon-eye-open"></span></a>
-        {{< cmmn-symbol type="human-task-colored" >}} 
+        {{< cmmn-symbol type="human-task-colored" >}}
       </div>
       <div class="bpmn-symbol-container">
         {{< cmmn-symbol type="manual-task" >}}

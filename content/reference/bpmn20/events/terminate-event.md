@@ -35,7 +35,7 @@ A terminate event is modeled as an end event with an additional definition eleme
 ```
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

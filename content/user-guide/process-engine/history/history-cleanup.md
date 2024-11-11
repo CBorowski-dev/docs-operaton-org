@@ -34,7 +34,7 @@ Note: The exact time at which data is removed depends on a couple of configurati
 
 ### Cleanable instances
 
-The following elements of Camunda history are cleanable:
+The following elements of Operaton history are cleanable:
 
 * Process Instances
 * Decision Instances
@@ -99,7 +99,7 @@ Strengths:
 
 Limitations:
 
-* Can only remove data for which a removal time is set. This is especially not the case for data which has been created with Camunda versions < 7.10.0.
+* Can only remove data for which a removal time is set. This is especially not the case for data which has been created with Operaton versions < 7.10.0.
 * Changing the TTL of a definition only applies to history data that is created in the future. It does not dynamically update the removal time of already written history data. However, it is possible to [Set a Removal Time via Batch Operations]({{< ref "/user-guide/process-engine/batch-operations.md#set-a-removal-time">}}).
 * History data of case instances is not cleaned up.
 
@@ -110,7 +110,7 @@ The *end-time-based cleanup strategy* deletes data whose end time plus TTL has e
 Strengths:
 
 * Changing the TTL of a definition also affects already written history data.
-* Can remove data from any Camunda version.
+* Can remove data from any Operaton version.
 
 Limitations:
 
@@ -220,11 +220,11 @@ If the specific TTL is not set for a batch operation type, then the option `batc
 
 #### Job logs
 
-A history cleanup is always performed by executing a history cleanup job. As with all other jobs, the history cleanup job 
-will produce events that are logged in the historic job log. By default, those entries will stay in the log indefinitely 
+A history cleanup is always performed by executing a history cleanup job. As with all other jobs, the history cleanup job
+will produce events that are logged in the historic job log. By default, those entries will stay in the log indefinitely
 and cleanup must be configured explicitly. Please note that this only works for the [removal-time based history cleanup strategy]({{< ref "/user-guide/process-engine/history/history-cleanup.md#removal-time-strategy">}}).
 
-The `historyCleanupJobLogTimeToLive` property can be used to define a TTL for historic job log entries produced by 
+The `historyCleanupJobLogTimeToLive` property can be used to define a TTL for historic job log entries produced by
 history cleanup jobs. The property accepts values in the ISO-8601 date format. Note that only the notation to define a number of days is allowed.
 
 ```xml
@@ -237,7 +237,7 @@ The process engine reports [runtime metrics]({{< ref "/user-guide/process-engine
 With every assignment of a user task, the related task worker is stored as a pseudonymized, fixed-length value in the `ACT_RU_TASK_METER_LOG` table together with a timestamp. Cleanup for this data needs to
 be configured explicitly if needed.
 
-The `taskMetricsTimeToLive` property can be used to define a TTL for task metrics entries produced by user task assignments. 
+The `taskMetricsTimeToLive` property can be used to define a TTL for task metrics entries produced by user task assignments.
 The property accepts values in the ISO-8601 date format. Note that only the notation to define a number of days is allowed.
 
 ```xml
@@ -329,12 +329,12 @@ The default (and maximum) value is 500. Reduce it if you notice transaction time
 ### Clustered cleanup
 
 In a multi-engine setup, you can configure whether a specific engine should participate in history cleanup or not.
-Please make sure that the same cleanup execution configuration (window, batch size, degree of parallelism) is present 
+Please make sure that the same cleanup execution configuration (window, batch size, degree of parallelism) is present
 on all participating nodes.
 
 #### Cleanup execution participation per node
 
-Sometimes it is necessary to exclude some nodes in a multi-engine setup from performing history cleanup execution, 
+Sometimes it is necessary to exclude some nodes in a multi-engine setup from performing history cleanup execution,
 e. g. to reduce the load on some nodes.
 
 You can disable the history cleanup execution for each node with the following flag:
@@ -342,10 +342,10 @@ You can disable the history cleanup execution for each node with the following f
 <property name="historyCleanupEnabled">false</property>
 ```
 
-When you exclude a node from executing history cleanup, you don't need to specify the configuration properties 
-related to the cleanup execution since the particular node ignores them. 
+When you exclude a node from executing history cleanup, you don't need to specify the configuration properties
+related to the cleanup execution since the particular node ignores them.
 
-**Please Note:** The history cleanup configuration properties that are unrelated to the cleanup execution (e.g., 
-time to live, removal time strategy) still need to be defined among all nodes. 
+**Please Note:** The history cleanup configuration properties that are unrelated to the cleanup execution (e.g.,
+time to live, removal time strategy) still need to be defined among all nodes.
 
 [configuration-options]: {{< ref "/reference/deployment-descriptors/tags/process-engine.md#history-cleanup-configuration-parameters">}}

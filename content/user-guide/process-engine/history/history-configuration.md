@@ -51,7 +51,7 @@ ProcessEngine processEngine = ProcessEngineConfiguration
   .buildProcessEngine();
 ```
 
-It can also be set using Spring XML or a deployment descriptor (bpm-platform.xml, processes.xml). When using the Camunda Wildfly Subsystem, the property can be set through Wildfly configuration (standalone.xml, domain.xml).
+It can also be set using Spring XML or a deployment descriptor (bpm-platform.xml, processes.xml). When using the Operaton Wildfly Subsystem, the property can be set through Wildfly configuration (standalone.xml, domain.xml).
 
 ```xml
 <property name="history">audit</property>
@@ -60,7 +60,7 @@ It can also be set using Spring XML or a deployment descriptor (bpm-platform.xml
 Note that when using the default history backend, the history level is stored in the database and cannot be changed later.
 
 {{< note title="History levels and Cockpit" class="info" >}}
-[Camunda Cockpit]({{< ref "/webapps/cockpit/_index.md" >}}) web application works best with History Level set to `FULL`. "Lower" History Levels will disable certain history-related features.
+[Operaton Cockpit]({{< ref "/webapps/cockpit/_index.md" >}}) web application works best with History Level set to `FULL`. "Lower" History Levels will disable certain history-related features.
 {{< /note >}}
 
 
@@ -117,7 +117,7 @@ The HistoryService exposes the methods `createHistoricProcessInstanceQuery()`,
 `createHistoricExternalTaskLogQuery` and `createHistoricIdentityLinkLogQuery()`
 which can be used for querying history.
 
-Below are a few examples which show some of the possibilities of the query API for history. Full description of the possibilities can be found in the Javadocs, in the `org.camunda.bpm.engine.history` package.
+Below are a few examples which show some of the possibilities of the query API for history. Full description of the possibilities can be found in the Javadocs, in the `org.operaton.bpm.engine.history` package.
 
 **HistoricProcessInstanceQuery**
 
@@ -325,7 +325,7 @@ historyService
   .duration(PeriodUnit.MONTH);
 ```
 
-The supported periods so far are `MONTH` and `QUARTER` from `org.camunda.bpm.engine.query.PeriodUnit`.
+The supported periods so far are `MONTH` and `QUARTER` from `org.operaton.bpm.engine.query.PeriodUnit`.
 
 To narrow down the report query, one can use the following methods from ``HistoricProcessInstanceReport``:
 
@@ -398,7 +398,7 @@ events. The reason is that the process engine can be run on multiple cluster nod
 * in a cluster, events happening in a single process instance may be generated on different nodes
   among which the clock may not be synced accurately down to nanoseconds.
 
-To work around this, the Camunda engine generates sequence numbers which can be used to *partially*
+To work around this, the Operaton engine generates sequence numbers which can be used to *partially*
 sort history events by their occurrence.
 
 At a BPMN level this means that instances of concurrent activities (example: activities on different
@@ -421,6 +421,3 @@ Please note the returned list of historic activity instances in the example is
 only partially sorted, as explained above. It guarantees that related
 activity instances are sorted by their occurrence. The ordering of unrelated
 activity instances is arbitrary and is not guaranteed.
-
-
-

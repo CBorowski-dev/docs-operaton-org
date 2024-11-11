@@ -39,7 +39,7 @@ internally.
   Always use the StrongUuidGenerator for production setups.
 {{< /note >}}
 
-In the [Camunda Full Distributions][2], the
+In the [Operaton Full Distributions][2], the
 StrongUuidGenerator is preconfigured and the default Id Generator used by the process engine.
 
 If you use an embedded process engine configuration and configure the process engine using Spring,
@@ -47,12 +47,12 @@ you need to add the following lines to the Spring configuration to enable the
 `StrongUuidGenerator`:
 
 ```xml
-<bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+<bean id="processEngineConfiguration" class="org.operaton.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
   [...]
 
   <property name="idGenerator">
-    <bean class="org.camunda.bpm.engine.impl.persistence.StrongUuidGenerator" />
+    <bean class="org.operaton.bpm.engine.impl.persistence.StrongUuidGenerator" />
   </property>
 
 </bean>

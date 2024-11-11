@@ -10,28 +10,28 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on a Glassfish 3.1 application server in a shared process engine setting. For the entire procedure, refer to the [update guide][update-guide]. If not already done, make sure to download the [Camunda 7.4 Glassfish distribution](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/glassfish/camunda-bpm-glassfish/).
+The following steps describe how to update the Operaton artifacts on a Glassfish 3.1 application server in a shared process engine setting. For the entire procedure, refer to the [update guide][update-guide]. If not already done, make sure to download the [Operaton Glassfish distribution](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/glassfish/camunda-bpm-glassfish/).
 
 The update procedure takes the following steps:
 
-1. Uninstall the Camunda Applications and Archives
-2. Replace Camunda Core Libraries
-3. Replace Optional Camunda Libraries
-4. Maintain the Camunda 7 Configuration
+1. Uninstall the Operaton Applications and Archives
+2. Replace Operaton Core Libraries
+3. Replace Optional Operaton Libraries
+4. Maintain the OperatonConfiguration
 5. Maintain Process Engine Configuration
 6. Maintain Process Applications
-7. Install the Camunda Archive
+7. Install the Operaton Archive
 8. Install the Web Applications
 
 In each of the following steps, the identifiers `$*_VERSION` refer to the current version and the new versions of the artifacts.
 
-# 1. Uninstall the Camunda Applications and Archives
+# 1. Uninstall the Operaton Applications and Archives
 
-First, uninstall the Camunda web applications, namely the Camunda REST API (artifact name like `camunda-engine-rest`) and the Camunda applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
+First, uninstall the Operaton web applications, namely the Operaton REST API (artifact name like `camunda-engine-rest`) and the Operaton applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
 
-Uninstall the Camunda EAR. Its name should be `camunda-glassfish-ear-$PLATFORM_VERSION.ear`. Then, uninstall the Camunda job executor adapter, called `camunda-jobexecutor-rar-$PLATFORM_VERSION.rar`.
+Uninstall the Operaton EAR. Its name should be `camunda-glassfish-ear-$PLATFORM_VERSION.ear`. Then, uninstall the Operaton job executor adapter, called `camunda-jobexecutor-rar-$PLATFORM_VERSION.rar`.
 
-# 2. Replace Camunda Core Libraries
+# 2. Replace Operaton Core Libraries
 
 After shutting down the server, replace the following libraries in `$GLASSFISH_HOME/glassfish/lib` with their equivalents from `$GLASSFISH_DISTRIBUTION/modules/lib`:
 
@@ -55,12 +55,12 @@ Starting with 7.4, SLF4J is a mandatory dependency. Add the SLF4J libraries (if 
 * `slf4j-api-$SLF4J_VERSION.jar`
 * `slf4j-jdk14-$SLF4J_VERSION.jar`
 
-Camunda needs version slf4j-api-1.7.7 or higher.
-See the User Guide for [Information on Logging in Camunda]({{< ref "/user-guide/logging.md" >}}).
+Operaton needs version slf4j-api-1.7.7 or higher.
+See the User Guide for [Information on Logging in Operaton]({{< ref "/user-guide/logging.md" >}}).
 
-# 3. Replace Optional Camunda Dependencies
+# 3. Replace Optional Operaton Dependencies
 
-In addition to the core libraries, there may be optional artifacts in `$GLASSFISH_HOME/glassfish/lib` for LDAP integration, Camunda Spin, and Groovy scripting. If you use any of these extensions, the following update steps apply:
+In addition to the core libraries, there may be optional artifacts in `$GLASSFISH_HOME/glassfish/lib` for LDAP integration, Operaton Spin, and Groovy scripting. If you use any of these extensions, the following update steps apply:
 
 ## LDAP integration
 
@@ -68,7 +68,7 @@ Copy the following libraries from `$GLASSFISH_DISTRIBUTION/modules/lib` to the f
 
 * `camunda-identity-ldap-$PLATFORM_VERSION.jar`
 
-## Camunda Spin
+## Operaton Spin
 
 Copy the following libraries from `$GLASSFISH_DISTRIBUTION/modules/lib` to the folder `$GLASSFISH_HOME/glassfish/lib`, if present:
 
@@ -80,9 +80,9 @@ Copy the following libraries from `$GLASSFISH_DISTRIBUTION/modules/lib` to the f
 
 * `groovy-all-$GROOVY_VERSION.jar`
 
-# 4. Maintain the Camunda 7 Configuration
+# 4. Maintain the OperatonConfiguration
 
-If you have previously replaced the default Camunda 7 configuration by a custom configuration following any of the ways outlined in the [deployment descriptor reference][configuration-location], it may be necessary to restore this configuration. This can be done by repeating the configuration replacement steps for the updated platform.
+If you have previously replaced the default Operatonconfiguration by a custom configuration following any of the ways outlined in the [deployment descriptor reference][configuration-location], it may be necessary to restore this configuration. This can be done by repeating the configuration replacement steps for the updated platform.
 
 # 5. Maintain Process Engine Configuration
 
@@ -91,7 +91,7 @@ This section describes changes in the platform's default behavior. While the cha
 ## Task Query Expressions
 
 As of 7.4, the default handling of expressions submitted as parameters of task queries has changed. Passing EL expressions in a task query enables execution of arbitrary code when the query is evaluated. The process engine no longer evaluates these expressions by default and throws an exception instead. This behavior can be toggled in the process engine configuration using the properties `enableExpressionsInAdhocQueries` (default `false`) and `enableExpressionsInStoredQueries` (default `true`). To restore the engine's previous behavior, set both flags to `true`. See the user guide on [security considerations for custom code]({{< ref "/user-guide/process-engine/securing-custom-code.md" >}}) for details.
-This is already the default for Camunda 7 versions after and including 7.3.3 and 7.2.8.
+This is already the default for Operatonversions after and including 7.3.3 and 7.2.8.
 
 ## User Operation Log
 
@@ -107,28 +107,28 @@ This section describes changes in behavior of API methods that your process appl
 
 As a consequence of supporting CMMN 1.1, the CMMN model API is now based on the schema of CMMN 1.1. This leads to [limitations]({{< ref "/user-guide/model-api/cmmn-model-api/limitations.md" >}}) when editing CMMN 1.0 models. We therefore recommend to [migrate your CMMN 1.0 models to CMMN 1.1]({{< ref "/reference/cmmn11/migration/10-to-11.md" >}}).
 
-# 7. Install the Camunda Archive
+# 7. Install the Operaton Archive
 
-First, install the Camunda job executor resource adapter, namely the file `$GLASSFISH_DISTRIBUTION/modules/camunda-jobexecutor-rar-$PLATFORM_VERSION.rar`. Then, install the Camunda EAR, i.e., the file `$GLASSFISH_DISTRIBUTION/modules/camunda-glassfish-ear-$PLATFORM_VERSION.ear`.
+First, install the Operaton job executor resource adapter, namely the file `$GLASSFISH_DISTRIBUTION/modules/camunda-jobexecutor-rar-$PLATFORM_VERSION.rar`. Then, install the Operaton EAR, i.e., the file `$GLASSFISH_DISTRIBUTION/modules/camunda-glassfish-ear-$PLATFORM_VERSION.ear`.
 
 # 8. Install the Web Applications
 
 ## REST API
 
-The following steps are required to update the Camunda REST API on a Glassfish instance:
+The following steps are required to update the Operaton REST API on a Glassfish instance:
 
 1. Download the REST API web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/camunda-engine-rest/). Alternatively, switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-engine-rest-$PLATFORM_VERSION.war`.
 2. Deploy the web application archive to your Glassfish instance.
 
 ## Cockpit, Tasklist, and Admin
 
-The following steps are required to update the Camunda web applications Cockpit, Tasklist, and Admin on a Glassfish instance:
+The following steps are required to update the Operaton web applications Cockpit, Tasklist, and Admin on a Glassfish instance:
 
-1. Download the Camunda web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-glassfish/). Alternatively, switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-webapp-glassfish-$PLATFORM_VERSION.war`.
+1. Download the Operaton web application archive from our [Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-glassfish/). Alternatively, switch to the private repository for the enterprise version (User and password from license required). Choose the correct version named `$PLATFORM_VERSION/camunda-webapp-glassfish-$PLATFORM_VERSION.war`.
 2. Deploy the web application archive to your Glassfish instance.
 
 {{< note title="LDAP Entity Caching" class="info" >}}
-It is possible to enable entity caching for Hypertext Application Language (HAL) requests that the Camunda web applications make. This can be especially useful when you use Camunda in combination with LDAP. To activate caching, the Camunda webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
+It is possible to enable entity caching for Hypertext Application Language (HAL) requests that the Operaton web applications make. This can be especially useful when you use Operaton in combination with LDAP. To activate caching, the Operaton webapp artifact has to be modified and the pre-built application cannot be used as is. See the [REST Api Documentation]({{< ref "/reference/rest/overview/hal.md" >}}) for details.
 {{< /note >}}
 
 [configuration-location]: {{< ref "/reference/deployment-descriptors/descriptors/bpm-platform-xml.md" >}}

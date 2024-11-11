@@ -10,27 +10,27 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on an Oracle WebLogic application server in a shared process engine setting. For the entire procedure, refer to the [update guide][update-guide]. If not already done, make sure to download the [Camunda 7.5 Oracle WebLogic distribution](https://artifacts.camunda.com/artifactory/internal/org/camunda/bpm/weblogic/camunda-bpm-weblogic/).
+The following steps describe how to update the Operaton artifacts on an Oracle WebLogic application server in a shared process engine setting. For the entire procedure, refer to the [update guide][update-guide]. If not already done, make sure to download the [Operaton Oracle WebLogic distribution](https://artifacts.camunda.com/artifactory/internal/org/camunda/bpm/weblogic/camunda-bpm-weblogic/).
 
 The update procedure takes the following steps:
 
-1. Uninstall the Camunda Applications and Archives
-2. Replace Camunda Core Libraries
-3. Replace Optional Camunda Dependencies
-4. Maintain the Camunda 7 Configuration
+1. Uninstall the Operaton Applications and Archives
+2. Replace Operaton Core Libraries
+3. Replace Optional Operaton Dependencies
+4. Maintain the OperatonConfiguration
 5. Maintain Process Applications
-6. Install the Camunda Archive
+6. Install the Operaton Archive
 7. Install the Web Applications
 
 In each of the following steps, the identifiers `$*_VERSION` refer to the current version and the new versions of the artifacts.
 
-# 1. Uninstall the Camunda Applications and Archives
+# 1. Uninstall the Operaton Applications and Archives
 
-First, uninstall the Camunda web applications, namely the Camunda REST API (artifact name like `camunda-engine-rest`) and the Camunda applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
+First, uninstall the Operaton web applications, namely the Operaton REST API (artifact name like `camunda-engine-rest`) and the Operaton applications Cockpit, Tasklist and Admin (artifact name like `camunda-webapp`).
 
-Uninstall the Camunda EAR. Its name should be `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
+Uninstall the Operaton EAR. Its name should be `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
 
-# 2. Replace Camunda Core Libraries
+# 2. Replace Operaton Core Libraries
 
 After shutting down the server, replace the following libraries in `$WLS_DOMAIN_HOME/lib` with their equivalents from `$WLS_DISTRIBUTION/modules/lib`:
 
@@ -46,9 +46,9 @@ After shutting down the server, replace the following libraries in `$WLS_DOMAIN_
 * `camunda-commons-typed-values-$COMMONS_VERSION.jar`
 * `camunda-commons-utils-$COMMONS_VERSION.jar`
 
-# 3. Replace Optional Camunda Dependencies
+# 3. Replace Optional Operaton Dependencies
 
-In addition to the core libraries, there may be optional artifacts in `$WLS_DOMAIN_HOME/lib` for LDAP integration, Camunda Spin, and Groovy scripting. If you use any of these extensions, the following update steps apply:
+In addition to the core libraries, there may be optional artifacts in `$WLS_DOMAIN_HOME/lib` for LDAP integration, Operaton Spin, and Groovy scripting. If you use any of these extensions, the following update steps apply:
 
 ## LDAP integration
 
@@ -56,14 +56,14 @@ Copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$
 
 * `camunda-identity-ldap-$PLATFORM_VERSION.jar`
 
-## Camunda Connect
+## Operaton Connect
 
 Copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`, if present:
 
 * `camunda-connect-core-$CONNECT_VERSION.jar`
 
 
-## Camunda Spin
+## Operaton Spin
 
 Copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$WLS_DOMAIN_HOME/lib`, if present:
 
@@ -75,9 +75,9 @@ Copy the following library from `$WLS_DISTRIBUTION/modules/lib` to the folder `$
 
 * `groovy-all-$GROOVY_VERSION.jar`
 
-# 4. Maintain the Camunda 7 Configuration
+# 4. Maintain the OperatonConfiguration
 
-If you have previously replaced the default Camunda 7 configuration by a custom configuration following any of the ways outlined in the [deployment descriptor reference][configuration-location], it may be necessary to restore this configuration. This can be done by repeating the configuration replacement steps for the updated platform.
+If you have previously replaced the default Operatonconfiguration by a custom configuration following any of the ways outlined in the [deployment descriptor reference][configuration-location], it may be necessary to restore this configuration. This can be done by repeating the configuration replacement steps for the updated platform.
 
 # 5. Maintain Process Applications
 
@@ -93,11 +93,11 @@ A new method has been added to the interface of a {{< javadocref page="org/camun
 
 ## Job Handler
 
-The interface of a {{< javadocref page="org/camunda/bpm/engine/impl/jobexecutor/JobHandler.html" text="Job Handler" >}} has changed to support multi-tenancy and separate the parsing of the configuration. 
+The interface of a {{< javadocref page="org/camunda/bpm/engine/impl/jobexecutor/JobHandler.html" text="Job Handler" >}} has changed to support multi-tenancy and separate the parsing of the configuration.
 
-# 7. Install the Camunda Archive
+# 7. Install the Operaton Archive
 
-Install the Camunda EAR, i.e., the file `$WLS_DISTRIBUTION/modules/camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
+Install the Operaton EAR, i.e., the file `$WLS_DISTRIBUTION/modules/camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear`.
 
 # 7. Install the Web Applications
 

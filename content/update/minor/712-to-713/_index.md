@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.12.x` to `7.13.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.12.x` to `7.13.0`. It covers these use cases:
 
 1. For administrators and developers: [Database Updates](#database-updates)
 1. For administrators and developers: [Full Distribution Update](#full-distribution)
@@ -30,20 +30,20 @@ This document guides you through the update from Camunda `7.12.x` to `7.13.0`. I
 1. For Developers: [Changes in Cockpit](#changes-in-cockpit)
 1. For developers: [Deployment-Aware Batch Operations](#deployment-aware-batch-operations)
 1. For developers: [Historic Process Instance Variables on Asynchronous Instantiation](#historic-process-instance-variables-on-asynchronous-instantiation)
-1. For administrators and developers: [Oracle JDBC Driver Removed from Camunda Docker Images](#oracle-jdbc-driver-removed-from-camunda-docker-images)
+1. For administrators and developers: [Oracle JDBC Driver Removed from Operaton Docker Images](#oracle-jdbc-driver-removed-from-camunda-docker-images)
 1. For administrators and developers: [PostgreSQL Support Clarification](#postgresql-support-clarification)
 
-This guide covers mandatory migration steps as well as optional considerations for the initial configuration of new functionality included in Camunda 7.13.
+This guide covers mandatory migration steps as well as optional considerations for the initial configuration of new functionality included in Operaton.
 
 
 # Database Updates
 
-Every Camunda installation requires a database schema update.
+Every Operaton installation requires a database schema update.
 
 ## Procedure
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend executing these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.12_patch_?.sql`.
 
@@ -53,7 +53,7 @@ Every Camunda installation requires a database schema update.
 
     The scripts update the database from one minor version to the next, and change the underlying database structure. So make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.13.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.13.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 
 # Full Distribution
@@ -62,12 +62,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server
+1. Update the Operaton libraries and applications inside the application server
 2. Migrate custom process applications
 
-Before starting, make sure that you have downloaded the Camunda 7.13 distribution for the application server you use. It contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -78,7 +78,7 @@ Please choose the application server you are working with from the following lis
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine-spring`
 * `camunda-engine-cdi`
@@ -102,22 +102,22 @@ If a database other than the default H2 database is used, the following steps mu
 # Spring Boot Starter Update
 
 Starting with version 7.13, the **`camunda-bpm-spring-boot-starter`** library has been migrated into the `camunda-bpm-platform` repository.
-The library version has therefore changed from Camunda Spring Boot Starter (currently at 3.4.x) to the Camunda 7 version (7.13.0).
+The library version has therefore changed from Operaton Spring Boot Starter (currently at 3.4.x) to the Operatonversion (7.13.0).
 The Maven coordinates have not changed otherwise.
 
-Overriding the Camunda version used by the Spring Boot Starter is not necessary anymore. 
-Pick the version of the Starter that resembles the version of Camunda 7 you would like to use.
+Overriding the Operaton version used by the Spring Boot Starter is not necessary anymore.
+Pick the version of the Starter that resembles the version of Operatonyou would like to use.
 
-If you are using Camunda Spring Boot Starter within your Spring Boot application, then you need to:
+If you are using Operaton Spring Boot Starter within your Spring Boot application, then you need to:
 
 1. Check [Version Compatibility Matrix]({{< ref "/user-guide/spring-boot-integration/version-compatibility.md" >}})
 2. Update **Spring Boot Starter** and, when required, Spring Boot versions in your `pom.xml`.
-3. Remove the Camunda 7 version from your `pom.xml` in case you overrode it before (e.g. when using the enterprise version or a patch release).
+3. Remove the Operatonversion from your `pom.xml` in case you overrode it before (e.g. when using the enterprise version or a patch release).
 
 ## Changed Default Application Paths
 
-With this release, the application path of the Spring Boot Webapp Starter & REST API Starter changed. 
-The change aligns the application path with all other Camunda 7 distributions.
+With this release, the application path of the Spring Boot Webapp Starter & REST API Starter changed.
+The change aligns the application path with all other Operatondistributions.
 
 ### REST API
 
@@ -136,11 +136,11 @@ spring.jersey.application-path=/rest
 Old Application Path: `/`\
 New Application Path: `/camunda`
 
-In previous versions, there was a problem when using URL paths like `/api/*` or `/app/*` for your 
-custom resources since these paths were reserved for the Camunda 7 Webapp. For instance, the 
-Camunda 7 Webapp specific CSRF Prevention Filter was applied on these paths and might have 
-interfered with your custom REST endpoints or applications. With the changed application path, you 
-can now use these paths without restrictions and remove any workarounds (e. g. URL whitelisting for 
+In previous versions, there was a problem when using URL paths like `/api/*` or `/app/*` for your
+custom resources since these paths were reserved for the OperatonWebapp. For instance, the
+OperatonWebapp specific CSRF Prevention Filter was applied on these paths and might have
+interfered with your custom REST endpoints or applications. With the changed application path, you
+can now use these paths without restrictions and remove any workarounds (e. g. URL whitelisting for
 the CSRF Prevention Filter).
 
 If you want to change the application path back to the old one, use the following configuration
@@ -150,8 +150,8 @@ property in your `application.yaml` file:
 camunda.bpm.webapp.application-path=/
 ```
 
-**Please Note:** When changing the application path back to `/`, the `/api/*` and `/app/*` are 
-reserved for the Camunda 7 Webapp again.
+**Please Note:** When changing the application path back to `/`, the `/api/*` and `/app/*` are
+reserved for the OperatonWebapp again.
 
 ## New License Key Mechanism
 
@@ -159,7 +159,7 @@ The mechanism for license key pickup (via Spring properties or from the classpat
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.springboot</groupId>
+  <groupId>org.operaton.bpm.springboot</groupId>
   <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
 </dependency>
 ```
@@ -173,11 +173,11 @@ Only Spring Boot applications that use one of the mentioned ways of setting the 
 
 ## Changed Behavior for Custom HistoryEventHandler
 
-Camunda Spring Boot projects now use an instance of `CompositeHistoryEventHandler` by default, which is backed by a list of `HistoryEventHandler`, that you can configure via an engine configuration property called `customHistoryEventHandlers`. To add your custom implementation, simply add it to the list. This list also contains the default handler (`DbHistoryEventHandler`), which writes to the history database tables. If you want to disable it, use the new `enableDefaultDbHistoryEventHandler` engine configuration flag. Setting the flag to false will ensure the `DbHistoryEventHandler` is not included in the `CompositeHistoryEventHandler`.
+Operaton Spring Boot projects now use an instance of `CompositeHistoryEventHandler` by default, which is backed by a list of `HistoryEventHandler`, that you can configure via an engine configuration property called `customHistoryEventHandlers`. To add your custom implementation, simply add it to the list. This list also contains the default handler (`DbHistoryEventHandler`), which writes to the history database tables. If you want to disable it, use the new `enableDefaultDbHistoryEventHandler` engine configuration flag. Setting the flag to false will ensure the `DbHistoryEventHandler` is not included in the `CompositeHistoryEventHandler`.
 
 # External Task Client Update
 
-If you are using the **Camunda External Task Client**, please make sure to:
+If you are using the **Operaton External Task Client**, please make sure to:
 
 1. Check out the [Version Compatibility Matrix]({{< ref "/user-guide/ext-client/compatibility-matrix.md" >}})
 2. Update the version in your `pom.xml` (Java) or `package.json` (NodeJs)
@@ -212,7 +212,7 @@ Job Logs hostname information.
 
 # New Version of Templating Engines (Freemarker, Velocity)
 
-Camunda 7.13 includes version 2.0.0 of the `org.camunda.template-engines` artifacts, in particular `camunda-template-engines-freemarker`, `camunda-template-engines-velocity` and `camunda-template-engines-xquery-saxon`.
+Operaton includes version 2.0.0 of the `org.camunda.template-engines` artifacts, in particular `camunda-template-engines-freemarker`, `camunda-template-engines-velocity` and `camunda-template-engines-xquery-saxon`.
 
 This updates the following template engine versions:
 
@@ -229,13 +229,13 @@ Please note that the new versions of Freemarker and Velocity contain changes tha
 
 # Entirely Replaced FEEL Engine
 
-With this release, we replaced the old FEEL Engine completely. From now on, Camunda 7 uses the 
+With this release, we replaced the old FEEL Engine completely. From now on, Operatonuses the
 [FEEL Scala Engine](https://github.com/camunda/feel-scala) (opens external link) by default.
 You can restore the legacy behavior via a [configuration property][feel-legacy-prop].
 
 ## New Custom Function Mechanism
 
-The FEEL Engine provides an all-new Custom Function mechanism. It is now possible to register Custom 
+The FEEL Engine provides an all-new Custom Function mechanism. It is now possible to register Custom
 Functions programmatically. Please read all about it in the documentation about [Custom FEEL Functions].
 The old way to register a Custom Function is not supported with the new FEEL Engine.
 
@@ -275,18 +275,18 @@ Expression languages defined in the DMN Model (*.dmn file) will override the def
 
 ## New Logger Category
 
-The new FEEL Engine uses the slf4j logging "facade", as defined in the 
-[Camunda docs]({{< ref "/user-guide/logging.md" >}}).
+The new FEEL Engine uses the slf4j logging "facade", as defined in the
+[Operaton docs]({{< ref "/user-guide/logging.md" >}}).
 
-However, since the new FEEL Engine is an [independently maintained project](https://github.com/camunda/feel-scala/), 
-it defines its own logger category. Users that filter the old FEEL Engine logs will need to update 
-their configurations by adding a configuration for the new FEEL Engine logger category 
+However, since the new FEEL Engine is an [independently maintained project](https://github.com/camunda/feel-scala/),
+it defines its own logger category. Users that filter the old FEEL Engine logs will need to update
+their configurations by adding a configuration for the new FEEL Engine logger category
 `org.camunda.feel.FeelEngine`.
 
-For the Camunda-related integration code of the Scala FEEL Engine, the new, 
-`org.camunda.bpm.dmn.feel.scala` logger category was added. The logs under this category will
-cover only the "Scala FEEL Engine"-related operations. For a more general configuration, the old 
-`org.camunda.bpm.dmn.feel` can still be used. If a more fine-grained configuration is needed, the
+For the Operaton-related integration code of the Scala FEEL Engine, the new,
+`org.operaton.bpm.dmn.feel.scala` logger category was added. The logs under this category will
+cover only the "Scala FEEL Engine"-related operations. For a more general configuration, the old
+`org.operaton.bpm.dmn.feel` can still be used. If a more fine-grained configuration is needed, the
 new logger category can be utilized.
 
 ## Differences in the Expression Language
@@ -296,14 +296,14 @@ FEEL Engine has a partial coverage of FEEL 1.1.
 
 Additionally, make sure your FEEL expressions respect the following breaking changes.
 
-### Objects Cannot Be Compared 
+### Objects Cannot Be Compared
 
-Previously it was possible to compare objects when the class of the respective objects implements 
+Previously it was possible to compare objects when the class of the respective objects implements
 `java.lang.Comparable`. Objects cannot be compared with the new FEEL Engine.
 
 ### Spin Java API Cannot Be Called
 
-The handling of Spin-based JSON & XML variables has changed fundamentally. For more information, 
+The handling of Spin-based JSON & XML variables has changed fundamentally. For more information,
 please see the documentation about [FEEL Engine Spin Integration]. The Spin Java API cannot be
 called directly in FEEL Expressions with the new FEEL Engine.
 
@@ -314,19 +314,19 @@ resolved with the new FEEL Engine.
 
 ### Changed Exception Classes
 
-The following exception classes were consolidated to `org.camunda.bpm.dmn.feel.impl.FeelException`:
+The following exception classes were consolidated to `org.operaton.bpm.dmn.feel.impl.FeelException`:
 
-* `org.camunda.bpm.dmn.feel.impl.juel.FeelConvertException`
-* `org.camunda.bpm.dmn.feel.impl.juel.FeelMethodInvocationException`
-* `org.camunda.bpm.dmn.feel.impl.juel.FeelMissingFunctionException`
-* `org.camunda.bpm.dmn.feel.impl.juel.FeelMissingVariableException`
-* `org.camunda.bpm.dmn.feel.impl.juel.FeelSyntaxException`
+* `org.operaton.bpm.dmn.feel.impl.juel.FeelConvertException`
+* `org.operaton.bpm.dmn.feel.impl.juel.FeelMethodInvocationException`
+* `org.operaton.bpm.dmn.feel.impl.juel.FeelMissingFunctionException`
+* `org.operaton.bpm.dmn.feel.impl.juel.FeelMissingVariableException`
+* `org.operaton.bpm.dmn.feel.impl.juel.FeelSyntaxException`
 
 ### Single-Quoted String Literals Not Allowed
 
 Previously, double-quoted as well as single-quoted string literals were allowed.
-The new FEEL Engine is more strict on the specification here. Use double quotes 
-for string literals in expressions. 
+The new FEEL Engine is more strict on the specification here. Use double quotes
+for string literals in expressions.
 
 **Example:** Migrate 'foo' to "foo"
 
@@ -334,8 +334,8 @@ for string literals in expressions.
 
 ### Timezone Information Is Respected
 
-From now on, an exception is thrown when a variable of type `java.util.Date` is compared with the 
-FEEL expression: `date and time("2019-09-12T13:00:00@Europe/Berlin")`. 
+From now on, an exception is thrown when a variable of type `java.util.Date` is compared with the
+FEEL expression: `date and time("2019-09-12T13:00:00@Europe/Berlin")`.
 
 **Ignoring the timezone information is considered as a bug in the old FEEL Engine.**
 
@@ -357,8 +357,8 @@ Please also check out the status of the following known issues when migrating yo
 
 With this release, Cockpit adds support for DMN 1.3, the next version of the DMN standard. If you edit and deploy DMN diagrams in Cockpit, which use earlier versions of DMN, they will automatically be migrated to DMN 1.3.
 
-The Camunda engine already supports the DMN 1.3 namespace by default, so there are no more steps required to migrate.
-Make sure you have the latest version of [Camunda Modeler](https://camunda.com/download/modeler/) installed to edit DMN 1.3 files locally.
+The Operaton engine already supports the DMN 1.3 namespace by default, so there are no more steps required to migrate.
+Make sure you have the latest version of [Operaton Modeler](https://camunda.com/download/modeler/) installed to edit DMN 1.3 files locally.
 
 ## Removal Time Batches are Hierarchical by Default
 
@@ -367,7 +367,7 @@ The default behavior of the `set removal time` batch operations changed to be hi
 # Deployment-Aware Batch Operations
 
 With this release, all [batch operations][] that work on process-related elements, e.g. process instances, are deployment-aware.
-From the list of currently available batch operations, only [Set a Removal Time to Historic Batches][set-removal-time-batch] is not deployment-aware. 
+From the list of currently available batch operations, only [Set a Removal Time to Historic Batches][set-removal-time-batch] is not deployment-aware.
 This is because only the *jobs* of a batch might need deployment-related resources, the batch itself does not and is therefore not bound to a deployment.
 
 Since [Monitor Jobs][] do not need any deployment-related resources anymore with this release as well,
@@ -418,9 +418,9 @@ In Cockpit, starting from 7.13, you will notice a different activity instance id
 
 As you can see in the picture above, the variable log shows the process instance id for the activity instead of the start event activity. The same is valid if you are using the Java and/or REST API.
 
-# Oracle JDBC Driver Removed from Camunda Docker Images
+# Oracle JDBC Driver Removed from Operaton Docker Images
 
-The Docker images for Camunda 7.13 no longer provide an Oracle JDBC driver out of the box. If you relied on this, apply the strategy outlined in https://github.com/camunda/docker-camunda-bpm-platform#database-environment-variables: Add the driver to the container and configure the database settings manually by linking the configuration file into the container.
+The Docker images for Operaton no longer provide an Oracle JDBC driver out of the box. If you relied on this, apply the strategy outlined in https://github.com/camunda/docker-camunda-bpm-platform#database-environment-variables: Add the driver to the container and configure the database settings manually by linking the configuration file into the container.
 
 # PostgreSQL Support Clarification
 
@@ -430,8 +430,8 @@ version numbers, e.g. `9.4`, `9.6`. From PostgreSQL 10, a major version is marke
 `11`, `12`.
 
 As this was only a change to the versioning scheme, the content of the minor releases (e.g. `9.4.6`,
-`9.6.18`, `10.13`, `11.2`, etc.) didn't change. Therefore, we have updated the [Camunda Supported Environments][supported-environments],
-to reflect that Camunda supports all the minor version updates of a major PostgreSQL version.
+`9.6.18`, `10.13`, `11.2`, etc.) didn't change. Therefore, we have updated the [Operaton Supported Environments][supported-environments],
+to reflect that Operaton supports all the minor version updates of a major PostgreSQL version.
 
 Note that this adjustment doesn't change the supported versions of Amazon Aurora PostgreSQL. This is a database
 service built on top of PostgreSQL, and as such, needs to be tested for support separately from PostgreSQL.

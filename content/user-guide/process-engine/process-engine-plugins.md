@@ -11,10 +11,10 @@ menu:
 ---
 
 
-The process engine configuration can be extended through process engine plugins. A process engine plugin is an 
+The process engine configuration can be extended through process engine plugins. A process engine plugin is an
 extension to the [process engine configuration]({{< ref "/user-guide/process-engine/process-engine-bootstrapping.md" >}}).
 
-A plugin must provide an implementation of the 
+A plugin must provide an implementation of the
 {{< javadocref page="org/camunda/bpm/engine/impl/cfg/ProcessEnginePlugin.html" text="ProcessEnginePlugin" >}} interface.
 
 
@@ -22,19 +22,19 @@ A plugin must provide an implementation of the
 
 Process engine plugins can be configured
 
-* in the [Camunda Deployment Descriptors]({{< ref "/reference/deployment-descriptors/_index.md" >}}) (bpm-platform.xml/processes.xml),
+* in the [Operaton Deployment Descriptors]({{< ref "/reference/deployment-descriptors/_index.md" >}}) (bpm-platform.xml/processes.xml),
 * in the [Wildfly configuration file]({{< ref "/user-guide/runtime-container-integration/jboss.md" >}}) (standalone.xml/domain.xml),
 * using [Spring Beans XML]({{< ref "/user-guide/spring-framework-integration/_index.md#configure-a-process-engine-plugin-in-spring" >}}),
-* in the [Camunda Run YAML configuration files]({{< ref "/user-guide/camunda-bpm-run.md#process-engine-plugin-registration" >}})
+* in the [Operaton Run YAML configuration files]({{< ref "/user-guide/camunda-bpm-run.md#process-engine-plugin-registration" >}})
 * programatically.
 
 The following is an example of how to configure a process engine plugin in a bpm-platform.xml file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<bpm-platform xmlns="http://www.camunda.org/schema/1.0/BpmPlatform"
+<bpm-platform xmlns="http://www.operaton.org/schema/1.0/BpmPlatform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.camunda.org/schema/1.0/BpmPlatform http://www.camunda.org/schema/1.0/BpmPlatform ">
+  xsi:schemaLocation="http://www.operaton.org/schema/1.0/BpmPlatform http://www.operaton.org/schema/1.0/BpmPlatform ">
 
   <job-executor>
     <job-acquisition name="default" />
@@ -42,12 +42,12 @@ The following is an example of how to configure a process engine plugin in a bpm
 
   <process-engine name="default">
     <job-acquisition>default</job-acquisition>
-    <configuration>org.camunda.bpm.engine.impl.cfg.JtaProcessEngineConfiguration</configuration>
+    <configuration>org.operaton.bpm.engine.impl.cfg.JtaProcessEngineConfiguration</configuration>
     <datasource>jdbc/ProcessEngine</datasource>
 
     <plugins>
       <plugin>
-        <class>org.camunda.bpm.engine.MyCustomProcessEnginePlugin</class>
+        <class>org.operaton.bpm.engine.MyCustomProcessEnginePlugin</class>
         <properties>
           <property name="boost">10</property>
           <property name="maxPerformance">true</property>

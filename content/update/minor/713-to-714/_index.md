@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.13.x` to `7.14.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.13.x` to `7.14.0`. It covers these use cases:
 
 1. For administrators: [Legal Note](#legal-note)
 1. For administrators and developers: [Database Updates](#database-updates)
@@ -29,14 +29,14 @@ This document guides you through the update from Camunda `7.13.x` to `7.14.0`. I
 1. For developers: [Disable Telemetry Reporter in Tests](#disable-telemetry-reporter-in-tests)
 1. For administrators and developers: [PostgreSQL Support Clarification](#postgresql-support-clarification)
 
-This guide covers mandatory migration steps as well as optional considerations for the initial configuration of new functionality included in Camunda 7.14.
+This guide covers mandatory migration steps as well as optional considerations for the initial configuration of new functionality included in Operaton.
 
 
 # Legal Note
 
-Before you upgrade to a Camunda 7 Runtime version >= 7.14.0-alpha1 (and 7.13.7+, 7.12.12+, 7.11.19+) or activate the telemetry functionality, please make sure that you are authorized to take this step, and that the installation or activation of the [telemetry functionality][engine-config-initializeTelemetry] is not in conflict with any company-internal policies, compliance guidelines, any contractual or other provisions or obligations of your company.
+Before you upgrade to a OperatonRuntime version >= 7.14.0-alpha1 (and 7.13.7+, 7.12.12+, 7.11.19+) or activate the telemetry functionality, please make sure that you are authorized to take this step, and that the installation or activation of the [telemetry functionality][engine-config-initializeTelemetry] is not in conflict with any company-internal policies, compliance guidelines, any contractual or other provisions or obligations of your company.
 
-Camunda cannot be held responsible in the event of unauthorized installation or activation of this function.
+Operaton cannot be held responsible in the event of unauthorized installation or activation of this function.
 
 You can find more details on the telemetry topic in the [general introduction][telemetry].
 
@@ -45,12 +45,12 @@ You can find more details on the telemetry topic in the [general introduction][t
 
 # Database Updates
 
-Every Camunda installation requires a database schema update.
+Every Operaton installation requires a database schema update.
 
 ## Procedure
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend executing these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.13_patch_?.sql`.
 
@@ -60,7 +60,7 @@ Every Camunda installation requires a database schema update.
 
     The scripts update the database from one minor version to the next, and change the underlying database structure. So make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.14.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.14.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 
 # Full Distribution
@@ -69,12 +69,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server
+1. Update the Operaton libraries and applications inside the application server
 2. Migrate custom process applications
 
-Before starting, make sure that you have downloaded the Camunda 7.14 distribution for the application server you use. It contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for the update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -85,7 +85,7 @@ Please choose the application server you are working with from the following lis
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine-spring`
 * `camunda-engine-cdi`
@@ -127,8 +127,8 @@ You can read more about the update in the [JQuery release blog](https://blog.jqu
 
 # Changes to Task Query and Historic Task Query behavior
 
-As of version `7.14.0`, when using the `TaskService`, or the `HistoryService` to execute a Task query or 
-a Historic Task Instance query (or use the  appropriate REST API endpoints), the following methods now 
+As of version `7.14.0`, when using the `TaskService`, or the `HistoryService` to execute a Task query or
+a Historic Task Instance query (or use the  appropriate REST API endpoints), the following methods now
 perform a case-insensitive comparison:
 
 * `TaskQuery#taskDescription(String description);`
@@ -138,22 +138,22 @@ perform a case-insensitive comparison:
 * `HistoricTaskInstanceQuery#taskDescription(String taskDescription);`
 * `HistoricTaskInstanceQuery#taskDescriptionLike(String taskDescriptionLike);`
 
-This was done to make the remaining methods consistent with the behavior in: 
+This was done to make the remaining methods consistent with the behavior in:
 
-* `TaskQuery#taskName(String name)` 
+* `TaskQuery#taskName(String name)`
 * `TaskQuery#taskNameLike(String nameLike)`
 * `TaskQuery#taskNameNotLike(String nameNotLike)`
 * `TaskQuery#taskNameNotEqual(String nameNotEqual)`
- 
+
 where the behavior was already present.
 
-Users that expect a case-sensitive result, will need to adjust their logic, or Task names and descriptions, 
+Users that expect a case-sensitive result, will need to adjust their logic, or Task names and descriptions,
 for this change of behavior.
 
 
 # New Engine Dependency - Connect
 
-Camunda Connect dependency has been added to the process engine (`camunda-engine`) artifact, allowing usage of simple [connectors]({{< ref "/user-guide/process-engine/connectors.md" >}}) in the context of the new [telemetry][] feature. And changes the status of the dependency from optional to required. See below the details:
+Operaton Connect dependency has been added to the process engine (`camunda-engine`) artifact, allowing usage of simple [connectors]({{< ref "/user-guide/process-engine/connectors.md" >}}) in the context of the new [telemetry][] feature. And changes the status of the dependency from optional to required. See below the details:
 
 -- In a case of **Embedded engine** scenario (includes **Spring Boot Starter** setups), there are two new dependencies added to the `camunda-engine`:
 
@@ -162,7 +162,7 @@ Camunda Connect dependency has been added to the process engine (`camunda-engine
 
 ```
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-engine</artifactId>
   <exclusions>
     <exclusion>
@@ -184,7 +184,7 @@ In case you already have a [Connect]({{< ref "/reference/connect/_index.md#maven
 
 
 # Changes to the Cockpit Config File
-The structure of the `config.js` file, located in the `app/cockpit/scripts/` directory of the webapps, changed slightly. It is now a Javascript module. If you have customized the config file, replace the line 
+The structure of the `config.js` file, located in the `app/cockpit/scripts/` directory of the webapps, changed slightly. It is now a Javascript module. If you have customized the config file, replace the line
 ```javascript
 window.camCockpitConf = {
   // ...
@@ -215,7 +215,7 @@ export default {
 }
 ```
 If you do not have custom scripts or Cockpit plugins, you are good to go. Otherwise, continue reading to find out how to migrate your plugins.
- 
+
 # New Frontend Plugin System for Cockpit
 With the 7.14.0 release, we updated the Cockpit frontend plugin system. If you have deployed custom scripts or Cockpit plugins, you need to migrate them if you want to use them in future releases. Cockpit plugins from 7.13 will no longer work in 7.14.
 
@@ -226,15 +226,15 @@ The new plugin system is framework agnostic, so you are free to use any frontend
 
 To continue using AngularJS plugins, you have to change your plugin to use the new interface and bootstrap an AngularJS application. You will also have to bundle AngularJS into your plugins. This is explained in detail in more detail in the [AngularJS example plugin](https://github.com/camunda/camunda-bpm-examples/tree/7.14/cockpit/cockpit-angularjs-search-processes).
 
-As your plugin is now displayed in your own AngularJS app and is decoupled from the Cockpit application, Camunda directives and services are no longer available. If you use one of the following in your plugin, you will have to migrate it.
+As your plugin is now displayed in your own AngularJS app and is decoupled from the Cockpit application, Operaton directives and services are no longer available. If you use one of the following in your plugin, you will have to migrate it.
 
-### Directives 
+### Directives
 <!-- If you used directives prefixed with CAM- -->
-Camunda directives, such as search widgets (`cam-widget-search`) or variable tables (`cam-variable-table`) can no longer be used. You can still include and use UI frameworks such as [UI Bootstrap](https://angular-ui.github.io/bootstrap/), if you also bundle them with your plugin. As a rule of thumb, all widgets prefixed with `cam-` will be unavailable.
+Operaton directives, such as search widgets (`cam-widget-search`) or variable tables (`cam-variable-table`) can no longer be used. You can still include and use UI frameworks such as [UI Bootstrap](https://angular-ui.github.io/bootstrap/), if you also bundle them with your plugin. As a rule of thumb, all widgets prefixed with `cam-` will be unavailable.
 
 ### Services
 <!-- If you used Angular services -->
-As with directives, services you could inject into your AngularJS component are no longer available. Only the services included in documented in the [AngularJS documentation](https://docs.angularjs.org/api) are available by default. Services such as `camAPI` and `Uri` can no longer be injected. You can still make requests against the REST API using the [$http service](https://docs.angularjs.org/api/ng/service/$http) and the API Urls that get passed into the render function. 
+As with directives, services you could inject into your AngularJS component are no longer available. Only the services included in documented in the [AngularJS documentation](https://docs.angularjs.org/api) are available by default. Services such as `camAPI` and `Uri` can no longer be injected. You can still make requests against the REST API using the [$http service](https://docs.angularjs.org/api/ng/service/$http) and the API Urls that get passed into the render function.
 
 If you changed the CSRF-cookie name or use other HTTP-clients such as the `fetch` API, you'll also need to set the headers appropriately. The current CSRF token is always passed into the render function in the second argument as `api.CSRFToken`. The `api.engineApi` corresponds to the root of our [REST API](https://docs.camunda.org/manual/develop/reference/rest/). Check out the [documentation]({{< ref "/webapps/cockpit/extend/plugins.md#attributes-in-detail" >}}) for more details on the render function.
 
@@ -258,7 +258,7 @@ This minor release introduces a new process engine property - `camunda.installat
 
 ```java
 managementService.deleteProperty("camunda.installation.id");
-managementService.setProperty(customCamundaInstallatioId, customCamundaInstallatioIdValue);
+managementService.setProperty(customOperatonInstallatioId, customOperatonInstallatioIdValue);
 // keep in mind to restart the engine afterward
 ```
 
@@ -288,8 +288,8 @@ version numbers, e.g. `9.4`, `9.6`. From PostgreSQL 10, a major version is marke
 `11`, `12`.
 
 As this was only a change to the versioning scheme, the content of the minor releases (e.g. `9.4.6`,
-`9.6.18`, `10.13`, `11.2`, etc.) didn't change. Therefore, we have updated the [Camunda Supported Environments][supported-environments],
-to reflect that Camunda supports all the minor version updates of a major PostgreSQL version.
+`9.6.18`, `10.13`, `11.2`, etc.) didn't change. Therefore, we have updated the [Operaton Supported Environments][supported-environments],
+to reflect that Operaton supports all the minor version updates of a major PostgreSQL version.
 
 Note that this adjustment doesn't change the supported versions of Amazon Aurora PostgreSQL. This is a database
 service built on top of PostgreSQL, and as such, needs to be tested for support separately from PostgreSQL.

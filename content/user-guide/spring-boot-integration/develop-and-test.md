@@ -26,17 +26,17 @@ The plugin ensures exchanging the application context classloader with the class
 
 # Testing
 
-Spring offers extensive support for automated [testing](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testing-introduction). 
+Spring offers extensive support for automated [testing](https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#testing-introduction).
 This is covered through dedicated mocking packages, test runners and annotations.
-When testing Spring and Spring Boot applications, a significant amount of time is 
-required to load the `ApplicationContext`. That is why Spring caches an `ApplicationContext` 
+When testing Spring and Spring Boot applications, a significant amount of time is
+required to load the `ApplicationContext`. That is why Spring caches an `ApplicationContext`
 after a test is finished. This allows for it to be reused in later tests with the same configuration.
 
 ## Context Caching with Process Engines
 
 To use `ApplicationContext` caching with the Process Engine requires some additional configuration.
-This is because the Process Engine needs a statically defined name (if no name is defined, "default" is used), 
-which leads to Spring attempting to create multiple `ApplicationContext`s with Process Engines with the 
+This is because the Process Engine needs a statically defined name (if no name is defined, "default" is used),
+which leads to Spring attempting to create multiple `ApplicationContext`s with Process Engines with the
 same name. This will cause tests to behave incorrectly, or in the worst case, completely fail to load the `ApplicationContext`.
 
 ## Using unique Process Engine/Application names
@@ -53,7 +53,7 @@ in your `@SpringBootTest` annotation:
   // ...other parameters...
   properties = {
     "camunda.bpm.generate-unique-process-engine-name=true",
-    // this is only needed if a SpringBootProcessApplication 
+    // this is only needed if a SpringBootProcessApplication
     // is used for the test
     "camunda.bpm.generate-unique-process-application-name=true",
     "spring.datasource.generate-unique-name=true",
@@ -70,7 +70,7 @@ if you want to deploy and test a Process Application multiple times with multipl
 * The `spring.datasource.generate-unique-name=true` property will generate a new datasource for
 each new `ApplicationContext`. Reused (cached) `ApplicationContext`s will use the same datasource.
 
-{{< note title="" class="warning" >}} 
+{{< note title="" class="warning" >}}
 Be aware that the `generate-unique-process-engine-name` and `process-engine-name` properties are mutually exclusive. Setting them both will result in an exception.
 {{< /note >}}
 
@@ -81,7 +81,7 @@ If a static accessor needs to be used (e.g. processEngines.getProcessEngine(name
   // other parameters
   properties = {
     "camunda.bpm.process-engine-name=foo",
-    // this is only needed if a SpringBootProcessApplication 
+    // this is only needed if a SpringBootProcessApplication
     // is used for the test
     "camunda.bpm.generate-unique-process-application-name=true",
     "spring.datasource.generate-unique-name=true",
@@ -91,25 +91,25 @@ If a static accessor needs to be used (e.g. processEngines.getProcessEngine(name
 ```
 Here, the `camunda.bpm.process-engine-name=foo` will set (a unique name) "foo" as the Process Engine name.
 
-## Camunda Assertions
+## Operaton Assertions
 
-The [Camunda 7 Assertions]({{< ref 
-"/user-guide/testing/_index.md#camunda-assertions" >}}) library is 
-integrated with the Camunda Spring Boot Starter in
+The [OperatonAssertions]({{< ref
+"/user-guide/testing/_index.md#camunda-assertions" >}}) library is
+integrated with the Operaton Spring Boot Starter in
 order to make testing processes in your Spring Boot application easier.
 
 ### Using Assertions with Context Caching
 
-Out of the box, the Camunda 7 Assertions library tries to use the
+Out of the box, the OperatonAssertions library tries to use the
 default engine or the (single) one that is available. Since when using
 Context Caching multiple engines are used in different contexts, binding
-the correct Process Engine to the Camunda Assertions library is required
+the correct Process Engine to the Operaton Assertions library is required
 for both caching and assertions to work correctly. This can be done
 through the following initialization code in the test class:
 
 ```java
   @Autowired
-  ProcessEngine processEngine;  
+  ProcessEngine processEngine;
 
   @Before
   public void setUp() {

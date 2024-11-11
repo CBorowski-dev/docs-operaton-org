@@ -102,7 +102,7 @@ In our example, the following steps might take place:
 {{< img src="../img/repetition-on-completion/state-4.png" >}}
 8. From now on, no more repetitions of *A* can occur.
 
-The transition in which the repetition rule is evaluated can be changed by a Camunda extension attribute named `camunda:repeatOnStandardEvent`. For a task it looks as follows:
+The transition in which the repetition rule is evaluated can be changed by a Operaton extension attribute named `camunda:repeatOnStandardEvent`. For a task it looks as follows:
 
 ```xml
 <definitions>
@@ -196,7 +196,7 @@ In our example, the following steps might take place:
 10. From now on, no more repetitions of *A* or *B* can occur.
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

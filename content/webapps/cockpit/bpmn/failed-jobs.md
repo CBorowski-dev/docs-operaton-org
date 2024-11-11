@@ -21,7 +21,7 @@ Unresolved incidents of a process instance or a sub process instance are indicat
 
 On the [process instance view]({{< ref "/webapps/cockpit/bpmn/process-instance-view.md" >}}), you can use the {{< glyphicon name="repeat" >}} button on the right side to resolve a failed job.
 
-A modal dialog opens where you can: 
+A modal dialog opens where you can:
 
 1. Choose whether the previous due date should be kept or set to an absolute date/time of your choice.
 2. Select the failed jobs to be retried.
@@ -35,7 +35,7 @@ Alternatively, you can change the retries of jobs asynchronously via the [Batch 
 # Bulk Retry
 
 {{< enterprise >}}
-  Please note that this feature is only included in the enterprise edition of Camunda 7, it is not available in the community edition.
+  Please note that this feature is only included in the enterprise edition of Operaton, it is not available in the community edition.
 {{< /enterprise >}}
 
 {{< img src="../../img/cockpit-bulk-retry.png" title="Batch Retry" >}}

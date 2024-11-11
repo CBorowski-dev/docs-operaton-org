@@ -48,10 +48,6 @@ Process `exampleProcess:2`:
 
 <div data-bpmn-diagram="../bpmn/process-instance-migration/example2"></div>
 
-{{< enterprise >}}
-  The Camunda enterprise edition provides a user interface to migrate process instances in [Camunda Cockpit]({{< ref "/webapps/cockpit/bpmn/process-instance-migration.md" >}})
-{{< /enterprise >}}
-
 # Process Instance Migration by Example
 
 We can define a migration plan using the API entrance point `RuntimeService#createMigrationPlan`.
@@ -175,10 +171,10 @@ instance state is preserved when migration is executed.
 When migrating events, it is possible to decide whether the corresponding event
 triggers should be updated or not.  See the [BPMN-specific considerations on
 events]({{< relref "#events" >}}) for details. When generating a migration
-plan, it is possible to define this setting for generated instructions on 
-[User Tasks]({{< relref "#user-task" >}}) containing `timeout` task listeners and 
-between events by using the method `updateEventTrigger`. For example, 
-the following code generates a migration instruction for a boundary event and 
+plan, it is possible to define this setting for generated instructions on
+[User Tasks]({{< relref "#user-task" >}}) containing `timeout` task listeners and
+between events by using the method `updateEventTrigger`. For example,
+the following code generates a migration instruction for a boundary event and
 updates its event trigger during migration.
 
 {{< note title="Conditional Events" class="info" >}}
@@ -198,7 +194,7 @@ MigrationPlan migrationPlan = processEngine.getRuntimeService()
 
 Sometimes it is necessary to add variables after migrating the process instances to a new version
 of the process definition. For example, when the new process model has a new input mapping which
-requires a specific variable which isn't yet present in the migrated process instance. The variables 
+requires a specific variable which isn't yet present in the migrated process instance. The variables
 are set to the process instances' scope.
 
 Please see below how to call the Java API:
@@ -431,13 +427,13 @@ Depending on the type of the activities a process model contains, migration has 
 
 ### User Task
 
-When a user task is migrated, all properties of the task instance (i.e., `org.camunda.bpm.engine.task.Task`) are preserved apart
+When a user task is migrated, all properties of the task instance (i.e., `org.operaton.bpm.engine.task.Task`) are preserved apart
 from the process definition id and task definition key. The task is not reinitialized: Attributes like assignee or name do not change.
 
 #### Timeout Task Listeners
 
 User tasks with attached task listeners of event type `timeout` define persistent event triggers that can be updated or preserved during migration.
-For the associated timers, the considerations of [catching events]({{< relref "#events" >}}) apply here as well. On migration of the user task, 
+For the associated timers, the considerations of [catching events]({{< relref "#events" >}}) apply here as well. On migration of the user task,
 the following semantics are applied:
 
 * If a timeout task listener is found in the source and target process definition based on its `id`, its persistent event trigger (i.e. timer) is migrated
@@ -452,7 +448,7 @@ The considerations for [intermediate catch events]({{< relref "#events" >}}) app
 
 ### External Task
 
-When an active [external task]({{< relref "external-tasks.md" >}}) is migrated, all properties of the external task instance (i.e., `org.camunda.bpm.engine.externaltask.ExternalTask`) are preserved
+When an active [external task]({{< relref "external-tasks.md" >}}) is migrated, all properties of the external task instance (i.e., `org.operaton.bpm.engine.externaltask.ExternalTask`) are preserved
 apart from activity id, process definition key, and process definition id. In particular, this means that attributes like topic and lock state do not change.
 
 It is possible to map activities that are implemented as external tasks to each other even if they have different types. For example, an external send task can be mapped to an external service task.

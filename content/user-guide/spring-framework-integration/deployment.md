@@ -18,7 +18,7 @@ Here's an example:
 
 ```xml
 <bean id="processEngineConfiguration"
-      class="org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration">
+      class="org.operaton.bpm.engine.spring.SpringProcessEngineConfiguration">
   ...
   <property name="deploymentResources"
             value="classpath*:/mytest/autodeploy.*.bpmn20" />
@@ -31,7 +31,7 @@ Here's an example:
 </bean>
 
 <bean id="processEngine"
-      class="org.camunda.bpm.engine.spring.ProcessEngineFactoryBean">
+      class="org.operaton.bpm.engine.spring.ProcessEngineFactoryBean">
   <property name="processEngineConfiguration" ref="processEngineConfiguration" />
 </bean>
 ```

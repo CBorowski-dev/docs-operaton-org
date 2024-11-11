@@ -15,7 +15,7 @@ The conditional event defines an event which is triggered if a given condition i
 It can be used as start event of an event sub process, as intermediate event and boundary event.
 The start and boundary event can be interrupting and non interrupting.
 
-In Camunda, conditional events are triggered with the help of process variables.
+In Operaton, conditional events are triggered with the help of process variables.
 See the [Trigger Conditional Events]({{< relref "#trigger-conditional-events">}}) section for details.
 
 In the following BPMN model, all supported conditional events are used.
@@ -46,7 +46,7 @@ For information about EL expressions, see the [Expression Language]({{< ref "/us
 section. A condition is evaluated every time a variable changes, see the [Trigger Conditional Events]({{< relref "#trigger-conditional-events">}}) section for details.
 
 To prevent the continuous evaluation of a condition, the evaluation can be restricted to specific variable changes.
-For that, the Camunda extension attributes `camunda:variableName` and `camunda:variableEvents` can be used.
+For that, the Operaton extension attributes `camunda:variableName` and `camunda:variableEvents` can be used.
 
 By default, condition evaluation is triggered by any kind of variable change, i.e., create/update/delete of any variable. `variableName` can be used to restrict that to changes of a specific variable. `variableEvents` can be used to restrict the type of change. It is possible to specify more than one variable change event as a comma separated list.
 The attributes can be used in combination.
@@ -242,7 +242,7 @@ If we have started the process above and `UserTask B` and `UserTask A` are activ
 
 If a variable is set in the context of the `SubProcess` instance, then only the conditional boundary event of `UserTask B` is evaluated. The boundary event of `UserTask A` cannot trigger as the variable is not *visible* in its context. The user guide section on [variable scopes and variable visibility]({{< ref "/user-guide/process-engine/variables.md#variable-scopes-and-variable-visibility">}}) provides details on the general concept.
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

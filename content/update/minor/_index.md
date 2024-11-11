@@ -12,7 +12,7 @@ menu:
 
 ---
 
-These documents guide you through the process of updating your application or server installation from one Camunda minor version to the other.
+These documents guide you through the process of updating your application or server installation from one Operaton minor version to the other.
 This applies to any updates of the version number "after the first dot", example: `7.3` to `7.4`.
 
 {{< note title="Do I need to apply every minor version if I missed a few?" class="warning" >}}

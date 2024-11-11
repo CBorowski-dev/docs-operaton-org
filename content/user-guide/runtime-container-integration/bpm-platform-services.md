@@ -1,6 +1,6 @@
 ---
 
-title: 'Camunda 7 Services'
+title: 'OperatonServices'
 weight: 10
 
 menu:
@@ -10,7 +10,7 @@ menu:
 
 ---
 
-To inspect the current state of configured process engines and deployed process applications, the class `org.camunda.bpm.BpmPlatform` offers access to the `ProcessEngineService` and the `ProcessApplicationService`.
+To inspect the current state of configured process engines and deployed process applications, the class `org.operaton.bpm.BpmPlatform` offers access to the `ProcessEngineService` and the `ProcessApplicationService`.
 
 
 # ProcessEngineService

@@ -11,12 +11,12 @@ menu:
 
 ---
 
-Camunda provides a Spring Boot Starter for the External Task Client. This allows you to easily add 
-the External Task Client to your Spring Boot application by adding the following Maven dependency to 
+Operaton provides a Spring Boot Starter for the External Task Client. This allows you to easily add
+the External Task Client to your Spring Boot application by adding the following Maven dependency to
 your `pom.xml` file:
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.springboot</groupId>
+  <groupId>org.operaton.bpm.springboot</groupId>
   <artifactId>camunda-bpm-spring-boot-starter-external-task-client</artifactId>
   <version>{{< minor-version >}}.0</version>
 </dependency>
@@ -25,8 +25,8 @@ your `pom.xml` file:
 Please check out our [External Task Client Spring Boot Starter Examples](https://github.com/camunda/camunda-bpm-examples/tree/{{<minor-version>}}#external-task-client-spring-boot).
 
 The Client can subscribe to one or more topic names that are defined in your BPMN process model.
-When the execution waits in an External Task, the Client executes your custom business logic. 
-For instance, the customer's credit score is checked, and if successful, the External Task 
+When the execution waits in an External Task, the Client executes your custom business logic.
+For instance, the customer's credit score is checked, and if successful, the External Task
 can be marked as completed and the execution proceeds.
 
 # Requirements
@@ -35,18 +35,18 @@ External Task Client Spring Boot Starter requires Java 17.
 
 ## Topic Subscription
 
-The interface which allows implementing the custom business logic and interacting with the Engine is 
-called `ExternalTaskHandler`. A subscription is identified by a topic name and configured with a 
+The interface which allows implementing the custom business logic and interacting with the Engine is
+called `ExternalTaskHandler`. A subscription is identified by a topic name and configured with a
 reference to the `ExternalTaskHandler` bean.
 
-You can subscribe the Client to the topic name `creditScoreChecker` by defining a bean with the return 
+You can subscribe the Client to the topic name `creditScoreChecker` by defining a bean with the return
 type `ExternalTaskHandler` and annotate this bean with:
 
 ```java
 @ExternalTaskSubscription("creditScoreChecker")
 ```
 
-The annotation requires at least the topic name. However, you can apply more configuration options by 
+The annotation requires at least the topic name. However, you can apply more configuration options by
 either referencing the topic name in your `application.yml` file:
 
 ```yaml
@@ -70,7 +70,7 @@ Or, by defining configuration attributes in the annotation:
 )
 ```
 
-Please find the complete list of attributes in the 
+Please find the complete list of attributes in the
 {{< javadocref page="org/camunda/bpm/client/spring/annotation/ExternalTaskSubscription.html" text="Javadocs" >}}.
 
 **Please Note:** A property defined in the `application.yml` file always overrides the respective attribute defined programmatically via annotation.
@@ -85,7 +85,7 @@ Please consider the following complete handler bean example:
 public class CreditScoreCheckerHandler implements ExternalTaskHandler {
 
   @Override
-  public void execute(ExternalTask externalTask, 
+  public void execute(ExternalTask externalTask,
                       ExternalTaskService externalTaskService) {
     // add your business logic here
   }
@@ -129,15 +129,15 @@ There might be situations in which a topic subscription should not be opened imm
 application starts. You can control this via the [`auto-open`](/#auto-open) flag.
 
 The interface `SpringTopicSubscription` allows you to open or close a topic programmatically as soon
-as the subscription has been initialized. The initialization process is triggered as soon as the 
+as the subscription has been initialized. The initialization process is triggered as soon as the
 application is started.
 
-When the subscription has been initialized, a `SubscriptionInitializedEvent` is emitted, and the 
+When the subscription has been initialized, a `SubscriptionInitializedEvent` is emitted, and the
 topic subscription can be opened or closed:
 
 ```java
 @Configuration
-public class SubscriptionInitializedListener 
+public class SubscriptionInitializedListener
     implements ApplicationListener<SubscriptionInitializedEvent> {
 
   @Override
@@ -199,7 +199,7 @@ Available properties:
     <tr>
       <td><code>base-url</code></td>
       <td>
-        <strong>Mandatory:</strong> Base url of the Camunda 7 Runtime
+        <strong>Mandatory:</strong> Base url of the OperatonRuntime
         REST API.
       </td>
       <td></td>
@@ -299,7 +299,7 @@ Available properties:
     <tr>
       <td><code>basic-auth.username</code></td>
       <td>
-        Specifies the username credential of the REST API to be authenticated with. 
+        Specifies the username credential of the REST API to be authenticated with.
       </td>
       <td></td>
     </tr>
@@ -372,7 +372,7 @@ Available properties:
     <tr>
       <td><code>variable-names</code></td>
       <td>
-        Variable names of variables that are supposed to be retrieved. 
+        Variable names of variables that are supposed to be retrieved.
         All variables are retrieved by default.
       </td>
       <td><code>null</code></td>
@@ -475,19 +475,19 @@ Available properties:
 
 #### Logging
 
-To log the Client's internal workings, you can set the level of the logger `org.camunda.bpm.client.spring` to `DEBUG`.
+To log the Client's internal workings, you can set the level of the logger `org.operaton.bpm.client.spring` to `DEBUG`.
 
 You can set the log level in your `application.yml` file as follows:
 
 ```yaml
-logging.level.org.camunda.bpm.client.spring: DEBUG
+logging.level.org.operaton.bpm.client.spring: DEBUG
 ```
 
-For debugging, it might be helpful to increase the level of the logger `org.camunda.bpm.client` as well.
+For debugging, it might be helpful to increase the level of the logger `org.operaton.bpm.client` as well.
 
 ### Request Interceptor
 
-A request interceptor is called whenever the Client performs an HTTP request. You can use this 
+A request interceptor is called whenever the Client performs an HTTP request. You can use this
 extension point, for example, to implement a custom authentication strategy like OAuth 2.0.
 
 You can register one or more request interceptors by defining beans of type `ClientRequestInterceptor`:
@@ -518,7 +518,7 @@ defining a bean of type `PropertySourcesPlaceholderConfigurer`:
 
 ```java
 @Configuration
-public class PropertyPlaceholderConfiguration 
+public class PropertyPlaceholderConfiguration
     extends PropertySourcesPlaceholderConfigurer {
 
   public PropertyPlaceholderConfiguration() {
@@ -556,7 +556,7 @@ You can bootstrap the Client programmatically, which skips the internal creation
 
 ```java
 @Configuration
-public class CustomClientConfiguration { 
+public class CustomClientConfiguration {
 
   @Bean
   public ExternalTaskClient customClient() {
@@ -570,18 +570,18 @@ public class CustomClientConfiguration {
 
 ## Beans
 
-You can define handler beans, but more beans are defined internally, and they are beyond your control. 
+You can define handler beans, but more beans are defined internally, and they are beyond your control.
 However, these beans can be accessed via auto wiring.
 
 ### Client Bean
 
-When not already defined by the user (see [Custom Client](#custom-client)), a bean with the name 
+When not already defined by the user (see [Custom Client](#custom-client)), a bean with the name
 `externalTaskClient` of type `ExternalTaskClient` is constructed.
 
 ### Subscription Bean
 
 Based on a handler bean annotated with `@ExternalTaskSubscription`, a subscription bean of type
-`SpringTopicSubscription` is constructed. The bean name is composed of: 
+`SpringTopicSubscription` is constructed. The bean name is composed of:
 
 ```
 handler bean name + "Subscription"
@@ -605,17 +605,17 @@ creditScoreCheckerHandlerSubscription
 
 ## Spring-only Module
 
-If you want to use Spring instead of Spring Boot, you can add the following Maven dependency 
+If you want to use Spring instead of Spring Boot, you can add the following Maven dependency
 to your `pom.xml` file:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-external-task-client-spring</artifactId>
   <version>{{< minor-version >}}.0</version>
 </dependency>
 ```
 
 To bootstrap the Client, use the class annotation `@EnableExternalTaskClient`. You can find all
-configuration attributes in the 
+configuration attributes in the
 {{< javadocref page="org/camunda/bpm/client/spring/annotation/EnableExternalTaskClient.html" text="Javadocs" >}}.

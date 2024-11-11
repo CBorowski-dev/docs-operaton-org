@@ -274,34 +274,34 @@ processEngine.getManagementService()
   .suspendJobByJobDefinitionId(monitorJobDefinition.getId());
 ```
 
-## Configuration 
+## Configuration
 
-You can configure the number of jobs created by every seed job invocation 
-`batchJobsPerSeed` (default: 100) and the number of invocations per batch 
-execution job `invocationsPerBatchJob` (default: 1) in the 
+You can configure the number of jobs created by every seed job invocation
+`batchJobsPerSeed` (default: 100) and the number of invocations per batch
+execution job `invocationsPerBatchJob` (default: 1) in the
 [process engine configuration][].
 
-The number of invocations per batch execution job can be changed for each batch 
-operation type individually with the help of the process engine configuration property 
-[`invocationsPerBatchJobByBatchType`][invoc-per-batch-job-batch-type]. In case you haven't 
-specified the invocations per batch job by type, the configuration falls back to the global 
+The number of invocations per batch execution job can be changed for each batch
+operation type individually with the help of the process engine configuration property
+[`invocationsPerBatchJobByBatchType`][invoc-per-batch-job-batch-type]. In case you haven't
+specified the invocations per batch job by type, the configuration falls back to the global
 configuration specified via `invocationsPerBatchJob`.
 
 You can configure the property in three ways:
 
 1.  Programmatically with the help of a [Process Engine Plugin][]
-2.  In Spring-based environments via [Spring XML Configuration][spring-xml-config] 
+2.  In Spring-based environments via [Spring XML Configuration][spring-xml-config]
     ```xml
-    <bean id="processEngineConfiguration" 
-          class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
-    
+    <bean id="processEngineConfiguration"
+          class="org.operaton.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+
       <!-- ... -->
-    
+
       <property name="invocationsPerBatchJobByBatchType">
         <map>
           <entry key="process-set-removal-time" value="10" />
           <entry key="historic-instance-deletion" value="3" />
-        
+
           <!-- in case of custom batch operations -->
           <entry key="my-custom-operation" value="7" />
         </map>

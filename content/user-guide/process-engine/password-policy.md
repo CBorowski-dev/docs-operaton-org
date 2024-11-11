@@ -13,7 +13,7 @@ This chapter is about configuring and using a password policy for engine-managed
 
 Since version 7.11.0, the engine comes with a standard password policy that is disabled by default and must be configured to use.
 
-**Note:** This only applies to users that are managed within the Camunda engine. If you use LDAP for your user management a password policy has no effect on these users.
+**Note:** This only applies to users that are managed within the Operaton engine. If you use LDAP for your user management a password policy has no effect on these users.
 
 # Built-In Password Policy
 
@@ -28,11 +28,11 @@ The built-in password policy requires all passwords to meet the following criter
 
 # Customize the Password Policy
 
-You can use the process engine configuration to enable / disable the password policy or plug in a custom policy. See [Process Engine Bootstrapping](../process-engine-bootstrapping) on how to set properties for your Camunda environment.
+You can use the process engine configuration to enable / disable the password policy or plug in a custom policy. See [Process Engine Bootstrapping](../process-engine-bootstrapping) on how to set properties for your Operaton environment.
 
 To enable or disable the password policy checks you need to set the `enablePasswordPolicy` property.
 
-If you want to use a custom password policy you can do this by implementing the `PasswordPolicy` and `PasswordPolicyRule` interfaces from the `org.camunda.bpm.engine.identity` package and provide your implementation to the process engine configuration by setting the `passwordPolicy` property.
+If you want to use a custom password policy you can do this by implementing the `PasswordPolicy` and `PasswordPolicyRule` interfaces from the `org.operaton.bpm.engine.identity` package and provide your implementation to the process engine configuration by setting the `passwordPolicy` property.
 
 ```java
 public class MyPasswordPolicy implements PasswordPolicy {

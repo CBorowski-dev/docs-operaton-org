@@ -44,8 +44,8 @@ export default {
 
 # Localization
 
-Tasklist can be localized. Camunda maintains English and German translation files. 
-You can find and download community maintained translation files at the [Camunda webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
+Tasklist can be localized. Operaton maintains English and German translation files.
+You can find and download community maintained translation files at the [Operaton webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
 
 The localization of Tasklist is contained in the `app/tasklist/locales/` directory. This
 directory contains a separate localization file for every available language. The file name
@@ -76,7 +76,7 @@ available, add it to the list of available locales in the configuration file.
 
 # Custom Scripts
 
-Tasklist allows you to include arbitrary JavaScript files. This allows you to extend Tasklist with custom code. The script file might contain a 
+Tasklist allows you to include arbitrary JavaScript files. This allows you to extend Tasklist with custom code. The script file might contain a
 custom frontend module. Tasklist shares the frontend module structure with [Cockpit Plugins]({{<ref "/webapps/cockpit/extend/plugins.md#structure-of-a-frontend-module" >}}).
 
 Add your files to the `customScripts` property of the `app/tasklist/scripts/config.js` file:
@@ -84,13 +84,13 @@ Add your files to the `customScripts` property of the `app/tasklist/scripts/conf
 ```javascript
 export default {
   // …
-  customScripts: 
+  customScripts:
     ['custom-module/module.js']
 }
 ```
-This includes a `custom-module/module.js` file. The path is relative to the `app/tasklist` folder in the Camunda webapp .war file.
+This includes a `custom-module/module.js` file. The path is relative to the `app/tasklist` folder in the Operaton webapp .war file.
 
-You can find a complete example about how to use `customScripts` to develop a Tasklist Plugin in the [Camunda 7 examples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/tasklist/cats-plugin).
+You can find a complete example about how to use `customScripts` to develop a Tasklist Plugin in the [Operatonexamples repository](https://github.com/camunda/camunda-bpm-examples/tree/master/tasklist/cats-plugin).
 
 
 
@@ -111,7 +111,7 @@ and can override the standard styles.
 
 ```css
 .navbar-brand {
-  /* hides the "Camunda Tasklist" text */
+  /* hides the "Operaton Tasklist" text */
   text-indent: -999em;
   /* put your logo */
   background-image: url(./path/to/the/logo.png);
@@ -125,7 +125,7 @@ and can override the standard styles.
 }
 ```
 
-**Note:** you can also change the app name (*Tasklist*) and vendor (*Camunda*)
+**Note:** you can also change the app name (*Tasklist*) and vendor (*Operaton*)
 by changing the `app/tasklist/scripts/config.js` configuration file as follow:
 
 ```js
@@ -154,7 +154,7 @@ export default {
 
 # Disable Welcome Message for new Users
 
-First-time visitors are shown a message directing them to the camunda welcome page. If you do
+First-time visitors are shown a message directing them to the operaton welcome page. If you do
 not want this message to be shown, you can disable it by adjusting the `config.js` as follows:
 ```javascript
 export default {
@@ -167,10 +167,10 @@ export default {
 
 # Assign Process Instance Id to Task Comments
 
-When creating a Task Comment, the process instance ID is not assigned by default. 
-Queries for comments by process instance ID will not include those comments. 
-When you set the flag `assignProcessInstanceIdToTaskComment` to `true`, Tasklist assigns both the task id 
-and the process instance id to newly created Task Comments. This allows you to query Task Comments by 
+When creating a Task Comment, the process instance ID is not assigned by default.
+Queries for comments by process instance ID will not include those comments.
+When you set the flag `assignProcessInstanceIdToTaskComment` to `true`, Tasklist assigns both the task id
+and the process instance id to newly created Task Comments. This allows you to query Task Comments by
 process instance id and by task id.
 
 ```javascript

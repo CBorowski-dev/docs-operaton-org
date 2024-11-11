@@ -26,13 +26,13 @@ In order to setup LDAP for the JBoss EAP/WildFly Application Server distribution
 Edit the file `standalone.xml` (or `domain.xml`) provided by the JBoss EAP/WildFly Application Server and add the [LDAP Identity Provider Plugin]({{< ref "/user-guide/process-engine/identity-service.md#the-ldap-identity-service" >}}) and the [Administrator Authorization Plugin]({{< ref "/user-guide/process-engine/authorization-service.md#the-administrator-authorization-plugin" >}}).
 
 ```xml
-<subsystem xmlns="urn:org.camunda.bpm.jboss:1.1">
+<subsystem xmlns="urn:org.operaton.bpm.jboss:1.1">
   <process-engines>
     <process-engine name="default" default="true"> ...
       <properties>...</properties>
       <plugins>
         <plugin>
-          <class>org.camunda.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin</class>
+          <class>org.operaton.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin</class>
           <properties>
 
             <property name="serverUrl">ldap://localhost:4334/</property>
@@ -60,7 +60,7 @@ Edit the file `standalone.xml` (or `domain.xml`) provided by the JBoss EAP/WildF
           </properties>
         </plugin>
         <plugin>
-          <class>org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
+          <class>org.operaton.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
           <properties>
             <property name="administratorUserName">admin</property>
           </properties>
@@ -80,8 +80,8 @@ See our user guide for complete documentation on the [LDAP Identity Provider Plu
 ## HAL Resource Caching
 
 If you use LDAP as Identity Provider, you should consider [activating caching]({{< ref "/reference/rest/overview/hal.md#caching-of-hal-relations" >}}) of
-Users and Groups in the Camunda 7 web application. In order to activate this, add the following
-configuration to the `web.xml` file of the Camunda 7 web application
+Users and Groups in the Operatonweb application. In order to activate this, add the following
+configuration to the `web.xml` file of the Operatonweb application
 (`camunda-webapp-wildfly-$PLATFORM_VERSION.war/WEB-INF/lib` or `camunda-webapp-jboss-$PLATFORM_VERSION.war/WEB-INF/lib`):
 
 ```xml
@@ -93,20 +93,20 @@ configuration to the `web.xml` file of the Camunda 7 web application
   <!-- ... -->
 
   <listener>
-    <listener-class>org.camunda.bpm.engine.rest.hal.cache.HalRelationCacheBootstrap</listener-class>
+    <listener-class>org.operaton.bpm.engine.rest.hal.cache.HalRelationCacheBootstrap</listener-class>
   </listener>
 
   <context-param>
-    <param-name>org.camunda.bpm.engine.rest.hal.cache.config</param-name>
+    <param-name>org.operaton.bpm.engine.rest.hal.cache.config</param-name>
     <param-value>
       {
-        "cacheImplementation": "org.camunda.bpm.engine.rest.hal.cache.DefaultHalResourceCache",
+        "cacheImplementation": "org.operaton.bpm.engine.rest.hal.cache.DefaultHalResourceCache",
         "caches": {
-          "org.camunda.bpm.engine.rest.hal.user.HalUser": {
+          "org.operaton.bpm.engine.rest.hal.user.HalUser": {
             "capacity": 100,
             "secondsToLive": 900
           },
-          "org.camunda.bpm.engine.rest.hal.group.HalGroup": {
+          "org.operaton.bpm.engine.rest.hal.group.HalGroup": {
             "capacity": 100,
             "secondsToLive": 900
           }
@@ -121,20 +121,20 @@ configuration to the `web.xml` file of the Camunda 7 web application
 ```
 
 ## Add Custom Engine Plugins
- 
+
 1.  Add an additional engine plugin as a module to the folder $WILDFLY_HOME/modules/
-2.  Add the module dependency to the file `$WILDFLY_HOME/modules/org/camunda/bpm/camunda-engine-plugins/main/module.xml` and set the attribute `export="true"` to make sure that the module is visible in the classpath of Camunda's subsystem
+2.  Add the module dependency to the file `$WILDFLY_HOME/modules/org/camunda/bpm/camunda-engine-plugins/main/module.xml` and set the attribute `export="true"` to make sure that the module is visible in the classpath of Operaton's subsystem
       ```xml
     <module xmlns="urn:jboss:module:1.0"
-            name="org.camunda.bpm.camunda-engine-plugins">
+            name="org.operaton.bpm.camunda-engine-plugins">
       <dependencies>
         <!-- ... -->
-        <module name="org.camunda.bpm.camunda-custom-engine-plugin" export="true" />
+        <module name="org.operaton.bpm.camunda-custom-engine-plugin" export="true" />
       </dependencies>
     </module>
       ```
-      
-    The `module.xml` file is included in the Camunda 7 distribution. If you install Camunda 7 on a vanilla WildFly container, this file needs to be created manually.
+
+    The `module.xml` file is included in the Operatondistribution. If you install Operatonon a vanilla WildFly container, this file needs to be created manually.
 3. [Configure the process engine plugin]({{< ref "/user-guide/runtime-container-integration/jboss.md#extend-a-process-engine-using-process-engine-plugins" >}}) in the standalone.xml/domain.xml configuration file
 
 ## Session Cookie in Webapps
@@ -160,7 +160,7 @@ This can be used with WildFly versions >= 19.1.0.
 
 ## Security-related HTTP headers in Webapps
 
-To customize the configuration of security-related HTTP headers in the web applications its deployment descriptor needs 
+To customize the configuration of security-related HTTP headers in the web applications its deployment descriptor needs
 to be adjusted. You can find it under `WEB-INF/web.xml`.
 
 Please watch out for the following section:
@@ -169,7 +169,7 @@ Please watch out for the following section:
 <filter>
   <filter-name>HttpHeaderSecurity</filter-name>
   <filter-class>
-    org.camunda.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
+    org.operaton.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
   </filter-class>
 </filter>
 
@@ -187,9 +187,9 @@ You can change the default behavior by adding configuration parameters to the se
 <filter>
   <filter-name>HttpHeaderSecurity</filter-name>
   <filter-class>
-    org.camunda.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
+    org.operaton.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
   </filter-class>
-  
+
   <init-param>
     <param-name>contentSecurityPolicyValue</param-name>
     <param-value>
@@ -197,10 +197,10 @@ You can change the default behavior by adding configuration parameters to the se
       default-src 'self' 'unsafe-inline'
     </param-value>
   </init-param>
-  
+
 </filter>
 ...
 ```
 
-Please also see the detailed overview about the 
+Please also see the detailed overview about the
 [HTTP Header Security configuration settings]({{< ref "/webapps/shared-options/header-security.md#how-to-configure" >}}).

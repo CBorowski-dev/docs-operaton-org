@@ -16,12 +16,12 @@ The REST API ships with an implementation of [HTTP Basic Authentication](http://
 <filter>
   <filter-name>camunda-auth</filter-name>
   <filter-class>
-    org.camunda.bpm.engine.rest.security.auth.ProcessEngineAuthenticationFilter
+    org.operaton.bpm.engine.rest.security.auth.ProcessEngineAuthenticationFilter
   </filter-class>
   <async-supported>true</async-supported>
   <init-param>
     <param-name>authentication-provider</param-name>
-    <param-value>org.camunda.bpm.engine.rest.security.auth.impl.HttpBasicAuthenticationProvider</param-value>
+    <param-value>org.operaton.bpm.engine.rest.security.auth.impl.HttpBasicAuthenticationProvider</param-value>
   </init-param>
 </filter>
 <filter-mapping>
@@ -36,7 +36,7 @@ In the pre-built distributions, the engine authentication is switched off by def
 
 Note that HTTP Basic Authentication *does not provide encryption* and should be secured by an SSL connection.
 
-The authentication provider is exchangeable. You can implement the interface `org.camunda.bpm.engine.rest.security.auth.AuthenticationProvider` to provide another authentication method and change the filter's initialization parameter accordingly.
+The authentication provider is exchangeable. You can implement the interface `org.operaton.bpm.engine.rest.security.auth.AuthenticationProvider` to provide another authentication method and change the filter's initialization parameter accordingly.
 
 # RESTEasy Specifics
 
@@ -54,7 +54,7 @@ Example: If the RESTEasy configuration is
   </filter-class>
   <init-param>
       <param-name>javax.ws.rs.Application</param-name>
-      <param-value>org.camunda.bpm.engine.rest.impl.application.DefaultApplication</param-value>
+      <param-value>org.operaton.bpm.engine.rest.impl.application.DefaultApplication</param-value>
   </init-param>
 </filter>
 <filter-mapping>

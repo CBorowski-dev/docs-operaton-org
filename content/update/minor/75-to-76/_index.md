@@ -21,7 +21,7 @@ menu:
     }
 </style>
 
-This document guides you through the update from Camunda `7.5.x` to `7.6.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.5.x` to `7.6.0`. It covers these use cases:
 
 1. For administrators and developers: [Database Update]({{< relref "#database-updates" >}})
 2. For administrators and developers: [Full Distribution Update]({{< relref "#full-distribution" >}})
@@ -29,7 +29,7 @@ This document guides you through the update from Camunda `7.5.x` to `7.6.0`. It 
 4. For administrators: [Updating a Tasklist Translation File]({{< relref "#tasklist-translation-file" >}})
 5. For administrators and developers: [Application with Embedded Process Engine Update]({{< relref "#application-with-embedded-process-engine" >}})
 
-This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Camunda 7.6.
+This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Operaton.
 
 Noteworthy new Features and Changes in 7.6:
 
@@ -45,7 +45,7 @@ Noteworthy new Features and Changes in 7.6:
 * The isExecutable attribute is mandatory
 
 <blockquote class="upgrade-guide-quote">
- By default, the <i>isExecutable</i> attribute of a process is <i>false</i>. In Camunda 7.6, process definitions without the <i>isExecutable</i> attribute or with the attribute set to <i>false</i> are not deployed to the engine. <b>So every process which should be executed needs this attribute in the process definition to be deployed</b>. Old processes which are deployed on an earlier version are also deployed without this attribute.
+ By default, the <i>isExecutable</i> attribute of a process is <i>false</i>. In Operaton, process definitions without the <i>isExecutable</i> attribute or with the attribute set to <i>false</i> are not deployed to the engine. <b>So every process which should be executed needs this attribute in the process definition to be deployed</b>. Old processes which are deployed on an earlier version are also deployed without this attribute.
 </blockquote>
 
 * Manual activation rule defaults changed
@@ -68,12 +68,12 @@ The namespace for DMN 1.1 was changed after our 7.4.0 Release. The official name
 
 # Database Updates
 
-Every Camunda installation requires a database schema update.
+Every Operaton installation requires a database schema update.
 
 ## Procedure
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend to execute these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.5_patch_?.sql`.
 
@@ -83,7 +83,7 @@ Every Camunda installation requires a database schema update.
 
     The scripts update the database from one minor version to the next, and change the underlying database structure. So make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.6.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.6.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 # Full Distribution
 
@@ -91,12 +91,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server
+1. Update the Operaton libraries and applications inside the application server
 2. Migrate custom process applications
 
-Before starting, make sure that you have downloaded the Camunda 7.6 distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -107,11 +107,11 @@ Please choose the application server you are working with from the following lis
 
 ### Wildfly 10
 
-The pre-built Camunda 7.6 distribution ships with Wildfly 10.1.0, whereas 7.5 ships with Wildfly 10.0.0. Camunda 7.6 is supported on Wildfly 8.2 and 10.0 such that a Wildfly update is not required when migrating from 7.5 to 7.6.
+The pre-built Operaton distribution ships with Wildfly 10.1.0, whereas 7.5 ships with Wildfly 10.0.0. Operaton is supported on Wildfly 8.2 and 10.0 such that a Wildfly update is not required when migrating from 7.5 to 7.6.
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine-spring`
 * `camunda-engine-cdi`
@@ -162,4 +162,4 @@ This section describes changes in the engine's default behavior. While the chang
 
 ### Custom Mapping of the Decision Result
 
-With Camunda 7.6, the type of the decision result has changed from `DmnDecisionTableResult` to `DmnDecisionResult`. If the decision result of a business rule task or a decision task is processed by an `ExecutionListener` or a `CaseExecutionListener` (i.e., [custom decision result mapping]({{< ref "/user-guide/process-engine/decisions/bpmn-cmmn.md#custom-mapping-of-the-decision-result" >}})), then the listener has to adjusted to use the new result type. Since the type is semantically equal and provides the same methods, only the type of the result has to be changed.
+With Operaton, the type of the decision result has changed from `DmnDecisionTableResult` to `DmnDecisionResult`. If the decision result of a business rule task or a decision task is processed by an `ExecutionListener` or a `CaseExecutionListener` (i.e., [custom decision result mapping]({{< ref "/user-guide/process-engine/decisions/bpmn-cmmn.md#custom-mapping-of-the-decision-result" >}})), then the listener has to adjusted to use the new result type. Since the type is semantically equal and provides the same methods, only the type of the result has to be changed.

@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.1.x` to `7.2.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.1.x` to `7.2.0`. It covers these use cases:
 
 1. For administrators and developers: [Database Updates]({{< relref "#database-updates" >}})
 2. For administrators and developers: [Full Distribution Update]({{< relref "#full-distribution" >}})
@@ -21,13 +21,13 @@ This document guides you through the update from Camunda `7.1.x` to `7.2.0`. It 
 4. For developers: [Migrating Task Forms]({{< relref "#task-forms" >}})
 5. For developers: [Migrating Cockpit Plugins]({{< relref "#cockpit-plugins" >}})
 
-This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Camunda 7.2.
+This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Operaton.
 
 Noteworthy new Features in 7.2:
 
-* **CMMN:** [Case Management Model And Notation][cmmn-ref] (CMMN) is a modelling standard similar to BPMN that focuses on human-centric processes. Camunda 7.2 implements this standard and therefore extends the database schema during update. If you do not plan to use CMMN, these tables will stay empty.
-* **Spin/Connect:** Camunda [Spin][spin-ref] and [Connect][connect-ref] are optional Camunda extensions that ease the use of text-based data formats and connectivity in processes. Spin and Connect are separate modules that have to be explicitly added to and configured in an existing installation. This guide shows you how to enable/disable the usage of Spin and Connect.
-* **Freemarker:** This optional Camunda extension provides a [scripting engine for the templating language Freemarker][freemarker-ref] that allows to use Freemarker as scripts in process constructs.
+* **CMMN:** [Case Management Model And Notation][cmmn-ref] (CMMN) is a modelling standard similar to BPMN that focuses on human-centric processes. Operaton implements this standard and therefore extends the database schema during update. If you do not plan to use CMMN, these tables will stay empty.
+* **Spin/Connect:** Operaton [Spin][spin-ref] and [Connect][connect-ref] are optional Operaton extensions that ease the use of text-based data formats and connectivity in processes. Spin and Connect are separate modules that have to be explicitly added to and configured in an existing installation. This guide shows you how to enable/disable the usage of Spin and Connect.
+* **Freemarker:** This optional Operaton extension provides a [scripting engine for the templating language Freemarker][freemarker-ref] that allows to use Freemarker as scripts in process constructs.
 
 Before migrating, decide whether you additionally want to enable Spin/Connect and Freemarker. Based on this decision, you may have to carry out additional migration steps.
 
@@ -37,7 +37,7 @@ Before migrating, decide whether you additionally want to enable Spin/Connect an
 [freemarker-ref]: {{< ref "/user-guide/process-engine/templating.md" >}}
 
 {{< note title="No Rolling Updates" class="warning" >}}
-It is not possible to migrate process engines from Camunda 7.1 to 7.2 in a rolling fashion. This means, it is not possible to run process engines of version 7.1 and 7.2 in parallel with the same database configuration. The reason is that a 7.1 engine may not be able to execute process instances that have been previously executed by a 7.2 engine, as these may use features that were not available yet in 7.1.
+It is not possible to migrate process engines from Operaton to 7.2 in a rolling fashion. This means, it is not possible to run process engines of version 7.1 and 7.2 in parallel with the same database configuration. The reason is that a 7.1 engine may not be able to execute process instances that have been previously executed by a 7.2 engine, as these may use features that were not available yet in 7.1.
 {{< /note >}}
 
 # Database Updates
@@ -45,7 +45,7 @@ It is not possible to migrate process engines from Camunda 7.1 to 7.2 in a rolli
 The first step consists in updating the database.
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend to execute these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.1_patch_?.sql`.
 
@@ -56,7 +56,7 @@ The first step consists in updating the database.
 
     The scripts update the database from one minor version to the next one and change the underlying database structure, so make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.1.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.1.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 # Full Distribution
 
@@ -64,12 +64,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update Camunda Libraries and Applications inside the application server
+1. Update Operaton Libraries and Applications inside the application server
 2. Migrate custom Process Applications
 
-Before starting, make sure that you have downloaded the Camunda 7.3 distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -81,7 +81,7 @@ Please choose the application server you are working with from the following lis
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies have to be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies have to be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine`
 * `camunda-bpmn-model`
@@ -120,7 +120,7 @@ As an alternative, script code can be migrated by replacing all implicit declara
 
 # Embedded Task Forms
 
-Embedded form support has been redesigned in Camunda 7.2 and existing forms must be migrated.
+Embedded form support has been redesigned in Operaton and existing forms must be migrated.
 
 > Documentation on embedded forms support in 7.2 can be found in the [Embedded Forms Reference]({{< ref "/reference/forms/embedded-forms/_index.md" >}})
 

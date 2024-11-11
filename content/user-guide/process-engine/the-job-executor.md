@@ -40,7 +40,7 @@ When using a **shared process engine**, the default is reversed: if you do not s
 
 # Job Executor in a Unit Test
 
-For unit testing scenarios it is cumbersome to work with this background component. Therefore the Java API offers to query for (`ManagementService.createJobQuery`) and execute jobs (`ManagementService.executeJob`) *by hand*, which allows to control job execution from within a unit test. 
+For unit testing scenarios it is cumbersome to work with this background component. Therefore the Java API offers to query for (`ManagementService.createJobQuery`) and execute jobs (`ManagementService.executeJob`) *by hand*, which allows to control job execution from within a unit test.
 
 # Job Creation
 
@@ -98,7 +98,7 @@ Job priorities can be specified in the BPMN model as well as overridden at runti
 
 ### Priorities in BPMN XML
 
-Job Priorities can be assigned at the process or the activity level. To achieve this the Camunda extension attribute `camunda:jobPriority` can be used.
+Job Priorities can be assigned at the process or the activity level. To achieve this the Operaton extension attribute `camunda:jobPriority` can be used.
 
 For specifying the priority, both constant values and [expressions]({{< ref "/user-guide/process-engine/expression-language.md" >}}) are supported. When using a constant value, the same priority is assigned to all instances of the process or activity. Expressions, on the other hand, allow assigning a different priority to each instance of the process or activity. Expression must evaluate to a number in the Java `long` range.
 The concrete value can be the result of a complex calculation and be based on user-provided data (resulting from a task form or other sources).
@@ -377,7 +377,7 @@ To avoid job starvation, make sure to have no gaps between Job Executor priority
 This feature is particularly useful if you want to separate multiple types of jobs from each other. For example, short-running, urgent jobs with high priority and long-running jobs that are not urgent but should finish eventually. Setting up a Job Executor priority range for both types will ensure that long-running jobs can not block urgent ones.
 
 ## Backoff Strategy
-The Job Executor uses a backoff strategy to avoid acquisition conflicts in clusters and to reduce the database load when no jobs are due. The second point may result in a delay between job creation and job execution as the job acquisition by default doubles the delay to the next acquisition run. 
+The Job Executor uses a backoff strategy to avoid acquisition conflicts in clusters and to reduce the database load when no jobs are due. The second point may result in a delay between job creation and job execution as the job acquisition by default doubles the delay to the next acquisition run.
 The default maximum wait time is 60 seconds. You can decrease the delay by setting the configuration parameter `maxWait` to a value lower than 60000 milliseconds.
 
 # Job Execution
@@ -392,9 +392,9 @@ In the scenario of an embedded process engine, the default implementation for th
 ## Failed Jobs
 
 Upon failure of job execution, e.g., if a service task invocation throws an exception, a job will be retried a number of times (by default 2 so that the job is tried three times in total).
-It is not immediately retried and added back to the acquisition queue, but the value of the RETRIES&#95; column is decreased and the executor unlocks the job. 
-The process engine thus performs bookkeeping for failed jobs. The unlocking also includes erasing the time LOCK&#95;EXP&#95;TIME&#95; and the owner of the lock LOCK&#95;OWNER&#95; 
-by setting both entries to `null`. Subsequently, the failed job will automatically be retried once the job is acquired for execution. Once the number of retries 
+It is not immediately retried and added back to the acquisition queue, but the value of the RETRIES&#95; column is decreased and the executor unlocks the job.
+The process engine thus performs bookkeeping for failed jobs. The unlocking also includes erasing the time LOCK&#95;EXP&#95;TIME&#95; and the owner of the lock LOCK&#95;OWNER&#95;
+by setting both entries to `null`. Subsequently, the failed job will automatically be retried once the job is acquired for execution. Once the number of retries
 is exhausted (the value of the RETRIES&#95; column equals 0), the job is not executed any more and the engine stops at this job, signaling that it cannot proceed.
 
 {{< note title="" class="info" >}}
@@ -427,16 +427,16 @@ By default, a failed job will be retried three times and the retries are perform
 
 The configuration follows the [ISO_8601 standard for repeating time intervals](http://en.wikipedia.org/wiki/ISO_8601#Repeating_intervals). In the example, `R5/PT5M` means that the maximum number of retries is 5 (`R5`) and the delay of retry is 5 minutes (`PT5M`).
 
-The Camunda engine allows you to configure this setting for the following specific elements:
+The Operaton engine allows you to configure this setting for the following specific elements:
 
 * [Activities (tasks, call activities, subprocesses)]({{< relref "#use-a-custom-job-retry-configuration-for-activities" >}})
 * [Events]({{< relref "#use-a-custom-job-retry-configuration-for-events" >}})
 * [Multi-Instance Activities ]({{< relref "#use-a-custom-job-retry-configuration-for-multi-instance-activities" >}})
 
 
-#### Use a Custom Job Retry Configuration for Activities 
+#### Use a Custom Job Retry Configuration for Activities
 
-As soon as the retry configuration is enabled, it can be applied to tasks, call activities, embedded subprocesses and transactions subprocesses. For instance, the job retry in a task can be configured in the Camunda engine in the BPMN 2.0 XML as follows:
+As soon as the retry configuration is enabled, it can be applied to tasks, call activities, embedded subprocesses and transactions subprocesses. For instance, the job retry in a task can be configured in the Operaton engine in the BPMN 2.0 XML as follows:
 
 ```xml
 <definitions xmlns:camunda="http://camunda.org/schema/1.0/bpmn">
@@ -458,7 +458,7 @@ You can also set an expression as in the retry configuration. For example:
 
 The LOCK&#95;EXP&#95;TIME&#95; is used to define when the job can be executed again, meaning the failed job will automatically be retried once the LOCK&#95;EXP&#95;TIME&#95; date is expired.
 
-#### Use a Custom Job Retry Configuration for Events 
+#### Use a Custom Job Retry Configuration for Events
 
 The job retries can also be configured for the following events:
 
@@ -489,7 +489,7 @@ Reminder: a retry may be required if there are any failures during the transacti
 
 #### Use a Custom Job Retry Configuration for Multi-Instance Activities
 
-If the retry configuration is set for a multi-instance activity then the configuration is applied to the [multi-instance body]({{< ref "/user-guide/process-engine/transactions-in-processes.md#asynchronous-continuations-of-multi-instance-activities" >}}). Additionally, the retries of the inner activities can also be configured using the extension element as child of the `multiInstanceLoopCharacteristics` element. 
+If the retry configuration is set for a multi-instance activity then the configuration is applied to the [multi-instance body]({{< ref "/user-guide/process-engine/transactions-in-processes.md#asynchronous-continuations-of-multi-instance-activities" >}}). Additionally, the retries of the inner activities can also be configured using the extension element as child of the `multiInstanceLoopCharacteristics` element.
 
 The following example defines the retries of a multi-instance service task with asynchronous continuation of the multi-instance body and the inner activity. If a failure occur during one of the five parallel instances then the job of the failed instance will be retried up to 3 times with a delay of 5 seconds. In case all instances ended successful and a failure occur during the transaction which follows the task, the job will be retried up to 5 times with a delay of 5 minutes.
 
@@ -539,7 +539,7 @@ If the user decides to increase the retry number during retries, the last interv
 You can configure an custom retry configuration by adding the `customPostBPMNParseListeners` property and specify your custom `FailedJobParseListener` to the process engine configuration:
 
 ```xml
-<bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+<bean id="processEngineConfiguration" class="org.operaton.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
   <!-- Your defined properties! -->
   ...
   <property name="customPostBPMNParseListeners">
@@ -621,7 +621,7 @@ In the case of a single, application-embedded process engine, the job executor s
 
 There is a single job table that the engine adds jobs to and the acquisition consumes from. Creating a second embedded engine would therefore create another acquisition thread and execution thread-pool.
 
-In larger deployments however, this quickly leads to a poorly manageable situation. When running Camunda 7 on Tomcat or an application server, the platform allows to declare multiple process engines shared by multiple process applications. With respect to job execution, one job acquisition may serve multiple job tables (and thus process engines) and a single thread-pool for execution may be used.
+In larger deployments however, this quickly leads to a poorly manageable situation. When running Operatonon Tomcat or an application server, the platform allows to declare multiple process engines shared by multiple process applications. With respect to job execution, one job acquisition may serve multiple job tables (and thus process engines) and a single thread-pool for execution may be used.
 
 {{< img src="../img/job-executor-multiple-engines.png" title="Multiple Engines" >}}
 
@@ -630,7 +630,7 @@ See the platform-specific information in the [Runtime Container Integration]({{<
 
 Different job acquisitions can also be configured differently, e.g. to meet business requirements like SLAs. For example, the acquisition's timeout when no more executable jobs are present can be configured differently per acquisition.
 
-To which job acquisition a process engine is assigned can be specified in the declaration of the engine, so either in the `processes.xml` deployment descriptor of a process application or in the Camunda 7 descriptor. The following is an example configuration that declares a new engine and assigns it to the job acquisition named `default`, which is created when the platform is bootstrapped.
+To which job acquisition a process engine is assigned can be specified in the declaration of the engine, so either in the `processes.xml` deployment descriptor of a process application or in the Operatondescriptor. The following is an example configuration that declares a new engine and assigns it to the job acquisition named `default`, which is created when the platform is bootstrapped.
 
 ```xml
 <process-engine name="newEngine">
@@ -639,12 +639,12 @@ To which job acquisition a process engine is assigned can be specified in the de
 </process-engine>
 ```
 
-Job acquisitions have to be declared in Camunda 7's deployment descriptor, see [the container-specific configuration options]({{< ref "/user-guide/runtime-container-integration/_index.md" >}}).
+Job acquisitions have to be declared in Operaton's deployment descriptor, see [the container-specific configuration options]({{< ref "/user-guide/runtime-container-integration/_index.md" >}}).
 
 
 # Cluster Setups
 
-When running Camunda 7 in a cluster, there is a distinction between *homogeneous* and *heterogeneous* setups. We define a cluster as a set of network nodes that all run Camunda 7 against the same database (at least for one engine on each node). In the *homogeneous* case, the same process applications (and thus custom classes like JavaDelegates) are deployed to all of the nodes, as depicted below.
+When running Operatonin a cluster, there is a distinction between *homogeneous* and *heterogeneous* setups. We define a cluster as a set of network nodes that all run Operatonagainst the same database (at least for one engine on each node). In the *homogeneous* case, the same process applications (and thus custom classes like JavaDelegates) are deployed to all of the nodes, as depicted below.
 
 {{< img src="../img/homogeneous-cluster.png" title="Homogeneous Cluster" >}}
 

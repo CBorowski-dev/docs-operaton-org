@@ -14,7 +14,7 @@ menu:
 
 
 {{< enterprise >}}
-Please note that this feature is only included in the enterprise edition of Camunda 7, it is not available in the community edition.
+Please note that this feature is only included in the enterprise edition of Operaton, it is not available in the community edition.
 {{< /enterprise >}}
 
 {{< img src="../../img/migration/step1_overview.png" title="Process Instance Migration" >}}
@@ -98,7 +98,7 @@ When you click on the **Add Variable** button, a modal dialog opens where you ca
 
 {{< img src="../../img/migration/step2_validation.png" title="Set variables for migration – variable validation" >}}
 
-The Engine validates the variable against the migration plan validation rules and Cockpit displays the result for each variable in the **Valid** column of the table. 
+The Engine validates the variable against the migration plan validation rules and Cockpit displays the result for each variable in the **Valid** column of the table.
 If a variable invalidates the migration plan, Cockpit opens a popover with the respective validation errors.
 
 {{< img src="../../img/migration/step2_edit.png" title="Set variables for migration – edit variable" >}}
@@ -109,7 +109,7 @@ You can still edit the variables you have just added. For instance, if a variabl
 
 {{< img src="../../img/migration/step3.png" title="Select instances for migration" >}}
 
-After finishing the **Set Variables** step, click **Select Instances** to proceed to instance selection. 
+After finishing the **Set Variables** step, click **Select Instances** to proceed to instance selection.
 
 Initially, all instances of the source process definition version are displayed. You can use the filter bar above the list of instances to filter the displayed instances. You can select specific instances or click on the **Query** radio button to select all instances matching the filter.
 

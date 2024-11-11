@@ -12,16 +12,16 @@ menu:
 ---
 
 Testing BPMN processes, CMMN cases (and also DMN decisions) is just as important as testing code.
-This section explains how to write unit tests and integration tests with Camunda and explains some best practice and guidelines.
+This section explains how to write unit tests and integration tests with Operaton and explains some best practice and guidelines.
 
 
 # Unit Tests
 
-Camunda 7 provides helper classes to write unit tests for JUnit versions 3, 4 and 5.
+Operaton provides helper classes to write unit tests for JUnit versions 3, 4 and 5.
 
 ## JUnit 5
 
-Camunda version 7.17.0+ ships with a {{< javadocref page="org/camunda/bpm/engine/test/junit5/ProcessEngineExtension.html" text="JUnit 5 extension" >}} that provides access to the process engine and services through getter methods.
+Operaton version 7.17.0+ ships with a {{< javadocref page="org/camunda/bpm/engine/test/junit5/ProcessEngineExtension.html" text="JUnit 5 extension" >}} that provides access to the process engine and services through getter methods.
 
 The extensions process engine is configured by the default configuration file called `camunda.cfg.xml`, which needs to be placed on the classpath. A custom configuration file can be passed to the extension when creating the `ProcessEngineExtension` object.
 
@@ -29,7 +29,7 @@ If you want to use the JUnit 5  `ProcessEngineExtension`, you need to add the fo
 
 ```xml
     <dependency>
-      <groupId>org.camunda.bpm</groupId>
+      <groupId>org.operaton.bpm</groupId>
       <artifactId>camunda-bpm-junit5</artifactId>
       <version>{{< minor-version >}}.0</version>
       <scope>test</scope>
@@ -100,7 +100,7 @@ public class MyBusinessProcessTest {
       .createStandaloneInMemProcessEngineConfiguration()
       .setJdbcUrl("jdbc:h2:mem:camunda;DB_CLOSE_DELAY=1000")
       .buildProcessEngine();
-  
+
   @RegisterExtension
   ProcessEngineExtension extension = ProcessEngineExtension
       .builder()
@@ -182,7 +182,7 @@ The annotation is supported for [JUnit 3]({{< relref "#junit-3" >}}) and [JUnit 
 
 ## Specify the required History Level
 
-If a test requires a specific history level (e.g., because it uses the HistoryService) then you can annotate the test class or method with {{< javadocref page="org/camunda/bpm/engine/test/RequiredHistoryLevel.html" text="@RequiredHistoryLevel" >}} and specify the required history level (e.g., "activity", "full"). Before the test is run, it checks the current history level of the process engine and skip the test if the history level is lower than the specified one.  
+If a test requires a specific history level (e.g., because it uses the HistoryService) then you can annotate the test class or method with {{< javadocref page="org/camunda/bpm/engine/test/RequiredHistoryLevel.html" text="@RequiredHistoryLevel" >}} and specify the required history level (e.g., "activity", "full"). Before the test is run, it checks the current history level of the process engine and skip the test if the history level is lower than the specified one.
 
 A JUnit 4 style test can look as follows:
 
@@ -204,13 +204,13 @@ public class MyBusinessProcessTest {
     HistoricVariableInstance variable = historyService
       .createHistoricVariableInstanceQuery()
       .singleResult();
-      
+
     assertEquals("value", variable.getValue());
   }
 }
 ```
 
-The annotation is supported for [JUnit 3]({{< relref "#junit-3" >}}) and [JUnit 4]({{< relref "#junit-4" >}}) style of testing. Note that a skipped test is marked as passed for JUnit 3 style tests since JUnit 3 doesn't support skipping of tests.  
+The annotation is supported for [JUnit 3]({{< relref "#junit-3" >}}) and [JUnit 4]({{< relref "#junit-4" >}}) style of testing. Note that a skipped test is marked as passed for JUnit 3 style tests since JUnit 3 doesn't support skipping of tests.
 
 ## Debug Unit Tests
 
@@ -241,9 +241,9 @@ You can now see the engine database and use it to understand how and why your un
 {{< img src="img/api-test-debug-h2-tables.png" title="API Test Debugging" >}}
 
 
-# Camunda Assertions
+# Operaton Assertions
 
-Additional to normal JUnit assertions, [Camunda 7 Assert](https://github.com/camunda/camunda-bpm-platform/tree/{{< minor-version >}}.0/test-utils/assert) adds a fluent API for asserting typical scenarios in a process integrating with [AssertJ](https://joel-costigliola.github.io/assertj/).
+Additional to normal JUnit assertions, [Operaton Assert](https://github.com/camunda/camunda-bpm-platform/tree/{{< minor-version >}}.0/test-utils/assert) adds a fluent API for asserting typical scenarios in a process integrating with [AssertJ](https://joel-costigliola.github.io/assertj/).
 
 ```java
 assertThat(processInstance).isWaitingAt("UserTask_InformCustomer");
@@ -252,11 +252,11 @@ assertThat(task()).hasCandidateGroup("Sales").isNotAssigned();
 
 You can find a more extensive guide with examples under [Assert Examples]({{< ref "/user-guide/testing/assert-examples.md" >}}).
 
-To use Camunda 7 Assert, add the following dependency to your `pom.xml`:
+To use Operaton Assert, add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm</groupId>
+  <groupId>org.operaton.bpm</groupId>
   <artifactId>camunda-bpm-assert</artifactId>
   <version>${version.camunda}</version> <!-- set correct version here -->
   <scope>test</scope>
@@ -274,23 +274,23 @@ Also, you will have to add the AssertJ library to your dependencies. Make sure t
 </dependency>
 ```
 
-If Camunda 7 Assert is used in combination with [Spring Boot](https://spring.io/projects/spring-boot) or the 
-[Camunda Spring Boot Starter](https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/), 
+If Operaton Assert is used in combination with [Spring Boot](https://spring.io/projects/spring-boot) or the
+[Operaton Spring Boot Starter](https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/),
 the AssertJ dependency will be present in your project already.
 
 ## Assertions Version Compatibility
 
-Each version of Camunda 7 Assert is bound to a specific version of Camunda 7 and AssertJ. Only these default combinations are recommended (and supported) by Camunda.
-Nevertheless, each version of Camunda 7 Assert can be combined with newer patch versions of the Camunda 7 engine, though such combinations must be thoroughly tested before being used in production.
-All versions prior to 3.0.0 belong to the community extension are not part of the official Camunda 7 product support.
-With Camunda 7.17.0 the project was moved into the [Camunda 7 repository](https://github.com/camunda/camunda-bpm-platform) and will use the same versioning as Camunda 7 in the future.
+Each version of Operaton Assert is bound to a specific version of Operaton and AssertJ. Only these default combinations are recommended (and supported) by Operaton.
+Nevertheless, each version of Operaton Assert can be combined with newer patch versions of the Operaton engine, though such combinations must be thoroughly tested before being used in production.
+All versions prior to 3.0.0 belong to the community extension are not part of the official Operaton product support.
+With Operaton the project was moved into the [Operaton repository](https://github.com/camunda/camunda-bpm-platform) and will use the same versioning as Operaton in the future.
 
 <table class="table table-striped">
   <tr>
-    <th>Camunda 7 Assert artifact</th>
+    <th>Operaton Assert artifact</th>
     <th>AssertJ version</th>
-    <th>Camunda 7 Assert version</th>
-    <th>Camunda 7 version</th>
+    <th>Operaton Assert version</th>
+    <th>Operaton version</th>
   </tr>
   <tr>
     <td>camunda-bpm-assert</td>
@@ -423,7 +423,7 @@ With Camunda 7.17.0 the project was moved into the [Camunda 7 repository](https:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.extension</groupId>
+  <groupId>org.operaton.bpm.extension</groupId>
   <artifactId>camunda-bpm-assert</artifactId>
   <version>1.x</version> <!-- set correct version here -->
   <scope>test</scope>
@@ -435,7 +435,7 @@ For these versions, use the following Maven coordinates:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.extension</groupId>
+  <groupId>org.operaton.bpm.extension</groupId>
   <artifactId>camunda-bpm-assert</artifactId>
   <version>2.x</version> <!-- set correct version here -->
   <scope>test</scope>
@@ -446,7 +446,7 @@ For these versions, use the following Maven coordinates:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.assert</groupId>
+  <groupId>org.operaton.bpm.assert</groupId>
   <artifactId>camunda-bpm-assert</artifactId>
   <version>${version.camunda-assert}</version> <!-- set correct version here -->
   <scope>test</scope>
@@ -455,9 +455,9 @@ For these versions, use the following Maven coordinates:
 
 ## Migration from a version prior to 7.17.0
 
-In order to migrate from an earlier Camunda 7 Assert version to a version 7.17.0 or higher, the following points have to be considered:
+In order to migrate from an earlier Operaton Assert version to a version 7.17.0 or higher, the following points have to be considered:
 
-* The groupId for Maven dependencies has changed, it is now `org.camunda.bpm`. Project dependencies have to be adjusted accordingly.
+* The groupId for Maven dependencies has changed, it is now `org.operaton.bpm`. Project dependencies have to be adjusted accordingly.
 * There might be multiple artifacts available for a specific version as shown in the compatibility overview above. The artifact that matches the other project dependencies has to be chosen by `artifactId` and `version`.
 * The inheritance from AssertJ's `Assertions` has been cut. In case AssertJ assertions are used in test code besides BPM Assert assertions, the imports have to be adjusted to also include:
 
@@ -469,9 +469,9 @@ import static org.assertj.core.api.Assertions.*;
 
 There are a couple of well documented and heavily used community extensions that can make testing much more productive and fun.
 
-## Camunda Scenario Tests
+## Operaton Scenario Tests
 
-[Camunda-bpm-assert-scenario](https://github.com/camunda/camunda-bpm-assert-scenario/) enables you to write more robust test suites. The idea is, that you only have to adapt your tests if your process models changes in a way that affects the tested behavior. It concentrates much less on the concrete path through a given process model, but on the external effects the path through the model has.
+[Operaton-bpm-assert-scenario](https://github.com/camunda/camunda-bpm-assert-scenario/) enables you to write more robust test suites. The idea is, that you only have to adapt your tests if your process models changes in a way that affects the tested behavior. It concentrates much less on the concrete path through a given process model, but on the external effects the path through the model has.
 
 ```java
 @Test
@@ -487,9 +487,9 @@ public void testHappyPath() {
 }
 ```
 
-## Camunda Test Coverage
+## Operaton Test Coverage
 
-[Camunda-bpm-process-test-coverage](https://github.com/camunda/camunda-bpm-process-test-coverage/) visualises test process pathes and checks your process model coverage ratio. Running typical JUnit tests leaves html files in the build output.
+[Operaton-bpm-process-test-coverage](https://github.com/camunda/camunda-bpm-process-test-coverage/) visualises test process pathes and checks your process model coverage ratio. Running typical JUnit tests leaves html files in the build output.
 
 
 # Resolving Beans Without Spring/CDI
@@ -508,8 +508,8 @@ Now the named bean is exposed and can be used within the process:
 
 In the case, that mocked beans must be resolvable during process deployment (e.g. bean expression in timer start event definition),
 one should make sure, that they are registered before the deployment happens. E.g. when used in combination with
-`@Deployment` annotation, beans should not be registered in `@Before` method, but rather the separate test rule can be created, that registers beans on startup, 
-and chained before `ProcessEngineRule`. 
+`@Deployment` annotation, beans should not be registered in `@Before` method, but rather the separate test rule can be created, that registers beans on startup,
+and chained before `ProcessEngineRule`.
 
 **The mocked beans feature should be used for testing purposes only.** Beans that are stored with `Mocks` are exclusively available within the respective storing thread as it is based on `ThreadLocal`. In most productive environments, it is not possible to access mocked beans during process execution due to the reason that jobs are executed by the multi-threaded Job Executor. Since the [Job Executor is disabled in unit test scenarios]({{< ref "/user-guide/process-engine/the-job-executor.md#job-executor-in-a-unit-test" >}}), the thread of process execution is the same that creates mocked bean instances.
 
@@ -521,7 +521,7 @@ The feature to [start a process instance at a set of activities]({{< ref "/user-
 
 ## Scoping Tests
 
-BPMN processes, CMMN cases and DMN decisions do not exist in isolation. Consider the example of a BPMN process: firstly, the process itself is executed by the Camunda engine which requires a database. Next, the process is "not just the process". It can contain expressions, scripts and often calls out to custom Java classes which may in turn again call out to services, either locally or remotely. To test the process, all these things need to be present, otherwise the test cannot work.
+BPMN processes, CMMN cases and DMN decisions do not exist in isolation. Consider the example of a BPMN process: firstly, the process itself is executed by the Operaton engine which requires a database. Next, the process is "not just the process". It can contain expressions, scripts and often calls out to custom Java classes which may in turn again call out to services, either locally or remotely. To test the process, all these things need to be present, otherwise the test cannot work.
 
 Setting all of this up just to run a unit test is expensive. This is why, in practice, it makes sense to apply a concept which we call test scoping. Scoping the test means limiting the amount of infrastructure required to run the test. Things outside of the scope of the test are mocked.
 
@@ -529,7 +529,7 @@ Setting all of this up just to run a unit test is expensive. This is why, in pra
 
 This is best explained using an example. Assume you are building a typical Java EE application containing a BPMN process. The process uses Java Expression Language (EL) for conditions, it invokes Java Delegate implementations as CDI beans, these beans may in turn call out to the actual business logic implemented as EJBs. The business logic uses JPA for maintaining additional business objects in a secondary database. It also sends out messages using JMS to interact with external systems and has a nice web UI. The application runs inside a Java EE application server like Wildfly.
 
-To test this application, all components, including the application server itself, need to be present and the external systems need to process the JMS messages. This makes it hard to write focused tests. However, by looking at the process itself, we find that there are many aspects of it that we can test without having the complete infrastructure in place. For example, if the process data is present, the Expression Language conditions can usually be tested without any additional infrastructure. This already allows asserting that the process "takes the right turn" at a gateway given a set of input data. Next, if the EJBs are mocked, the delegation logic can be included in such tests as well. This allows asserting that wiring of the delegation logic is correct, that it performs correct data transformation and mapping and that it invokes the business logic with the correct parameters. Given that the Camunda engine can work with an in-memory database, it now becomes possible to test the BPMN process "in isolation", as a unit test and assert its local functional correctness. The same principle can be applied to the next "outer layers" of the system, including the business logic and external systems.
+To test this application, all components, including the application server itself, need to be present and the external systems need to process the JMS messages. This makes it hard to write focused tests. However, by looking at the process itself, we find that there are many aspects of it that we can test without having the complete infrastructure in place. For example, if the process data is present, the Expression Language conditions can usually be tested without any additional infrastructure. This already allows asserting that the process "takes the right turn" at a gateway given a set of input data. Next, if the EJBs are mocked, the delegation logic can be included in such tests as well. This allows asserting that wiring of the delegation logic is correct, that it performs correct data transformation and mapping and that it invokes the business logic with the correct parameters. Given that the Operaton engine can work with an in-memory database, it now becomes possible to test the BPMN process "in isolation", as a unit test and assert its local functional correctness. The same principle can be applied to the next "outer layers" of the system, including the business logic and external systems.
 
 The following drawing shows a schematic representation of what this looks like for our example of a Java EE application:
 

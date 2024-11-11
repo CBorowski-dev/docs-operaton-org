@@ -78,7 +78,7 @@ Note: The first symbol denotes seconds, not minutes as in normal Unix cron.
 The recurring time duration option is better suited for handling relative timers, which are calculated in respect to some particular point in time (e.g., the time when a user task was started), while cron expressions can handle absolute timers - which is particularly useful for timer start events.
 
 ### Modify a Time Cycle
-A timer's repeat cycle can be controlled via the {{< restref page="setJobDuedate" text="REST API" tag="Job" >}} or by calling the ManagementService. By setting the due date of a timer, it is possible to change the point in time when a timer is executed. 
+A timer's repeat cycle can be controlled via the {{< restref page="setJobDuedate" text="REST API" tag="Job" >}} or by calling the ManagementService. By setting the due date of a timer, it is possible to change the point in time when a timer is executed.
 
 ```java
 managementService.setJobDuedate(String jobId, Date newDuedate)
@@ -137,9 +137,9 @@ After this job is executed, the next jobs will be created with adjusted time cyc
 {{< /note >}}
 ## Handling of Timezones
 
-The configuration `2022-03-11T12:13:14` does not specify a time zone. At runtime, such a date is interpreted in the local time zone of the JVM executing the process. This can be problematic in various cases, such as when running multiple Camunda nodes in different time zones or when you cannot assume the time zone the platform runs in. Furthermore, there can be glitches with respect to daylight saving time (DST). If in doubt, specify the time in UTC (e.g., `2022-03-11T12:13:14Z`) or with a UTC-relative offset (e.g., `2022-03-11T12:13:14+01`).
+The configuration `2022-03-11T12:13:14` does not specify a time zone. At runtime, such a date is interpreted in the local time zone of the JVM executing the process. This can be problematic in various cases, such as when running multiple Operaton nodes in different time zones or when you cannot assume the time zone the platform runs in. Furthermore, there can be glitches with respect to daylight saving time (DST). If in doubt, specify the time in UTC (e.g., `2022-03-11T12:13:14Z`) or with a UTC-relative offset (e.g., `2022-03-11T12:13:14+01`).
 
-## Camunda Extensions
+## Operaton Extensions
 
 <table class="table table-striped">
   <tr>

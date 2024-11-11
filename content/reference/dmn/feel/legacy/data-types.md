@@ -14,12 +14,12 @@ aliases: [reference/dmn11/feel/legacy/data-types/]
 ---
 
 {{< note title="Heads Up!" class="info" >}}
-This page provides information on the legacy FEEL Engine, that was used before the 
+This page provides information on the legacy FEEL Engine, that was used before the
 current <a href="{{< ref "/user-guide/dmn-engine/feel/_index.md" >}}">Scala-based FEEL Engine</a>
-was integrated into Camunda 7.
+was integrated into Operaton.
 {{< /note >}}
 
-The Camunda DMN engine supports the following FEEL data types.
+The Operaton DMN engine supports the following FEEL data types.
 
 # String
 
@@ -32,7 +32,7 @@ support only the equal [comparison] operator.
 
 {{< img src="../../img/integer-type.png" title="Integer" class="no-lightbox" >}}
 
-FEEL supports numeric types like integer. In the Camunda DMN engine the
+FEEL supports numeric types like integer. In the Operaton DMN engine the
 following numeric types are available:
 
 - integer
@@ -52,7 +52,7 @@ supports the equal [comparison] operator.
 
 {{< img src="../../img/date-type.png" title="Date" class="no-lightbox" >}}
 
-FEEL supports date types. In the Camunda DMN engine the following date types
+FEEL supports date types. In the Operaton DMN engine the following date types
 are available:
 
 - date and time

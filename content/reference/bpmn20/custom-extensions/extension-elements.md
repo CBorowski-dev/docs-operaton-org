@@ -1,6 +1,6 @@
 ---
 
-title: 'Camunda BPMN Extension Elements'
+title: 'Operaton BPMN Extension Elements'
 weight: 10
 
 menu:
@@ -8,7 +8,7 @@ menu:
     name: "Extension Elements"
     identifier: "bpmn-extensions-elements"
     parent: "bpmn-extensions"
-    pre: "Reference of Camunda Extension Attributes for BPMN."
+    pre: "Reference of Operaton Extension Attributes for BPMN."
 
 ---
 
@@ -21,7 +21,7 @@ The following attributes are extension attributes for the `camunda` namespace `h
   <tr>
     <th>Description</th>
     <td colspan="2">
-      The configuration of a camunda connector.
+      The configuration of a operaton connector.
     </td>
   </tr>
   <tr>
@@ -1209,7 +1209,7 @@ The following attributes are extension attributes for the `camunda` namespace `h
     <td></td>
     <td colspan="2">
       If the parent <code>camunda:properties</code> element is directly added as an extension element,
-      for example by the camunda Modeler, only the attributes <code>name</code> and <code>value</code>
+      for example by the operaton Modeler, only the attributes <code>name</code> and <code>value</code>
       are used.
     </td>
   </tr>
@@ -1376,8 +1376,8 @@ The following attributes are extension attributes for the `camunda` namespace `h
   <tr>
     <th>Constraints</th>
     <td colspan="2">
-      The <code>event</code> attribute is required and must be one of the task events: 
-      <code>create</code>, <code>assignment</code>, <code>update</code>, 
+      The <code>event</code> attribute is required and must be one of the task events:
+      <code>create</code>, <code>assignment</code>, <code>update</code>,
       <code>complete</code>, <code>delete</code> or <code>timeout</code>
     </td>
   </tr>

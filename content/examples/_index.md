@@ -10,9 +10,9 @@ menu:
 
 ---
 
-Completed the <a href="/get-started">Getting Started Guides</a>? Now discover what you can build with Camunda 7.
+Completed the <a href="/get-started">Getting Started Guides</a>? Now discover what you can build with Operaton.
 
-This page collects links to hands-on examples around Camunda 7.
+This page collects links to hands-on examples around Operaton.
 
-* [Examples](https://github.com/camunda/camunda-bpm-examples) (On Github)
-* [Camunda Consulting Examples](https://github.com/camunda/camunda-consulting) (On Github)
+* [Operaton Examples](https://github.com/operaton/operaton-engine-examples) (On Github)
+* [Camunda Examples](https://github.com/camunda/camunda-bpm-examples) (On Github)

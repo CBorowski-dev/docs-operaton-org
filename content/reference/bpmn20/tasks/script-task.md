@@ -41,7 +41,7 @@ For general information about scripting in the process engine, please see the [S
 
 {{< note title="Supported Script Languages" class="info" >}}
 
-Camunda 7 should work with most of the JSR-223 compatible script engine implementations. We test integration for Groovy, JavaScript, JRuby and Jython. See the <a href="{{< ref "/introduction/third-party-libraries/_index.md#process-engine" >}}">Third Party Dependencies</a> section of the <a href="{{< ref "/user-guide/_index.md" >}}">User Guide</a> for more details.
+Operatonshould work with most of the JSR-223 compatible script engine implementations. We test integration for Groovy, JavaScript, JRuby and Jython. See the <a href="{{< ref "/introduction/third-party-libraries/_index.md#process-engine" >}}">Third Party Dependencies</a> section of the <a href="{{< ref "/user-guide/_index.md" >}}">User Guide</a> for more details.
 
 {{< /note >}}
 
@@ -73,7 +73,7 @@ It's also possible to set process variables in a script. Variables can be set by
 
 ## Enabling auto-storing of Script Variables
 
-By setting the property `autoStoreScriptVariables` to `true` in the process engine configuration, the process engine will automatically store all _global_ script variables as process variables. This was the default behavior in Camunda 7.0 and 7.1 but it only reliably works for the Groovy scripting language (see the [Set autoStoreScriptVariables][autostore-variables] section of the [Migration Guide]({{< ref "/update/_index.md" >}}) for more information).
+By setting the property `autoStoreScriptVariables` to `true` in the process engine configuration, the process engine will automatically store all _global_ script variables as process variables. This was the default behavior in Operaton but it only reliably works for the Groovy scripting language (see the [Set autoStoreScriptVariables][autostore-variables] section of the [Migration Guide]({{< ref "/update/_index.md" >}}) for more information).
 
 To use this feature, you have to
 
@@ -81,7 +81,7 @@ To use this feature, you have to
 * prefix all script variables that should not be stored as script variables using the `def` keyword: `def sum = 0`. In this case the variable `sum` will not be stored as process variable.
 
 {{< note title="Groovy-Support only" class="info" >}}
-The configuration flag <code>autoStoreScriptVariables</code> is only supported for Groovy Script Tasks. If enabled for other script languages, 
+The configuration flag <code>autoStoreScriptVariables</code> is only supported for Groovy Script Tasks. If enabled for other script languages,
 it is not guaranteed which variables will be exported by the script engine. For
 example, Ruby will not export any of the script variables at all.
 {{< /note >}}
@@ -107,7 +107,7 @@ Note that when you use <code>camunda:resultVariable</code> in a multi-instance c
 {{< /note >}}
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

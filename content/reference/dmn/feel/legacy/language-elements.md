@@ -14,12 +14,12 @@ aliases: [reference/dmn11/feel/legacy/language-elements/]
 ---
 
 {{< note title="Heads Up!" class="info" >}}
-This page provides information on the legacy FEEL Engine, that was used before the 
+This page provides information on the legacy FEEL Engine, that was used before the
 current <a href="{{< ref "/user-guide/dmn-engine/feel/_index.md" >}}">Scala-based FEEL Engine</a>
-was integrated into Camunda 7.
+was integrated into Operaton.
 {{< /note >}}
 
-The Camunda DMN engine supports FEEL for [input entries]. The FEEL term for
+The Operaton DMN engine supports FEEL for [input entries]. The FEEL term for
 expression in input entries are simple unary tests. These simple unary tests
 test an input value against an expression and return either `true` if the test
 is satisfied or `false` otherwise. The expression can contain different
@@ -28,7 +28,7 @@ elements which are described in this sections.
 # Comparison
 
 FEEL simple unary tests support the following comparison operators. Please
-note that the equals operator is empty and *not* `=`. Also, a non equal operator such as `!=` 
+note that the equals operator is empty and *not* `=`. Also, a non equal operator such as `!=`
 does *not* exist. To express this, [negation] has to be used.
 
 <table class="table table-striped">
@@ -124,7 +124,7 @@ range specifies if the start and end value is included in the range.
 # Disjunction
 
 A FEEL simple unary test can be specified as conjunction of expressions. These
-expressions have to either have [comparisons] or [ranges]. The test is `true` if 
+expressions have to either have [comparisons] or [ranges]. The test is `true` if
 at least one of conjunct expressions is `true`.
 
 Examples:
@@ -169,7 +169,7 @@ Examples:
 
 # Date Functions
 
-FEEL simple unary tests provide functions to create [date types]. The Camunda
+FEEL simple unary tests provide functions to create [date types]. The Operaton
 DMN engine supports the following date functions:
 
 - `date and time("...")`: Creates a date and time value from a String with the

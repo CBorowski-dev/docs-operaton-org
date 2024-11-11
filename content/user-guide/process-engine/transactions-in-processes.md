@@ -201,7 +201,7 @@ or integrate with a platform transaction manager.
 If the process engine is configured to perform standalone transaction management, it always opens a
 new transaction for each command which is executed. To configure the process engine to use
 standalone transaction management, use the
-`org.camunda.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration`:
+`org.operaton.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration`:
 
 ```java
 ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration()
@@ -234,10 +234,10 @@ integrate with
   JPA entity managers in Java EE),
 * Other transactional resources such as secondary datasources, messaging systems or other
   transactional middleware like the web services stack.
-  
+
 {{< note title="" class="warning" >}}
   When you configure a transaction manager, make sure that it actually manages the data source that
-  you have configured for the process engine. If that is not the case, the data source works in auto-commit mode. 
+  you have configured for the process engine. If that is not the case, the data source works in auto-commit mode.
   This can lead to inconsistencies in the database, because transaction commits and rollbacks are no longer performed.
 {{< /note >}}
 
@@ -252,26 +252,26 @@ will create a Process Engine Context. The Context caches database
 entities, so that multiple operations on the same entity do not
 result in multiple database queries. This also means that the changes
 to these entities are accumulated and are flushed to the database
-as soon as the Command returns. However, it should be noted that the 
+as soon as the Command returns. However, it should be noted that the
 current transaction may be committed at a later time.
 
 If a Process Engine Command is nested into another Command, i.e. a Command
-is executed within another command, the default behaviour is to reuse the 
-existing Process Engine Context. This means that the nested Command will 
+is executed within another command, the default behaviour is to reuse the
+existing Process Engine Context. This means that the nested Command will
 have access to the same cached entities and the changes made to them.
 
 When the nested Command is to be executed in a new transaction, a new Process
-Engine Context needs to be created for its execution. In this case, the nested 
-Command will use a new cache for the database entities, independent of the 
+Engine Context needs to be created for its execution. In this case, the nested
+Command will use a new cache for the database entities, independent of the
 previous (outer) Command cache. This means that, the changes in the cache of
 one Command are invisible to the other Command and vice versa. When the nested
-Command returns, the changes are flushed to the database independently of the 
+Command returns, the changes are flushed to the database independently of the
 Process Engine Context of the outer Command.
 
 The `ProcessEngineContext` utility class can be used to declare to
 the Process Engine that a new Process Engine Context needs to be created
 in order for the database operations in a nested Process Engine Command
-to be separated in a new transaction. The following `Java` code example 
+to be separated in a new transaction. The following `Java` code example
 shows how the class can be used:
 
 ```java
@@ -279,7 +279,7 @@ try {
 
   // declare new Process Engine Context
   ProcessEngineContext.requiresNew();
-  
+
   // call engine APIs
   execution.getProcessEngineServices()
     .getRuntimeService()
@@ -293,11 +293,11 @@ try {
 
 # Optimistic Locking
 
-The Camunda Engine can be used in multi threaded applications. In such a setting, when multiple threads interact with the process engine concurrently, it can happen that these threads attempt to do changes to the same data. For example: two threads attempt to complete the same User Task at the same time (concurrently). Such a situation is a conflict: the task can be completed only once.
+The Operaton Engine can be used in multi threaded applications. In such a setting, when multiple threads interact with the process engine concurrently, it can happen that these threads attempt to do changes to the same data. For example: two threads attempt to complete the same User Task at the same time (concurrently). Such a situation is a conflict: the task can be completed only once.
 
-Camunda Engine uses a well known technique called "Optimistic Locking" (or Optimistic Concurrently Control) to detect and resolve such situations.
+Operaton Engine uses a well known technique called "Optimistic Locking" (or Optimistic Concurrently Control) to detect and resolve such situations.
 
-This section is structured in two parts: The first part introduces Optimistic Locking as a concept. You can skip this section in case you are already familiar with Optimistic Locking as such. The second part explains the usage of Optimistic Locking in Camunda.
+This section is structured in two parts: The first part introduces Optimistic Locking as a concept. You can skip this section in case you are already familiar with Optimistic Locking as such. The second part explains the usage of Optimistic Locking in Operaton.
 
 ## What is Optimistic Locking?
 
@@ -314,7 +314,7 @@ Assume we have a database table with the following entry:
       <th>Version</th>
       <th>Name</th>
       <th>Address</th>
-      <th>...</th>      
+      <th>...</th>
     </tr>
     <tr>
       <td>8</td>
@@ -360,11 +360,11 @@ However, since pessimistic locks are exclusive, concurrency is reduced, degradin
 * [\[1\] Wikipedia: Optimistic concurrency control](https://en.wikipedia.org/wiki/Optimistic_concurrency_control)
 * [\[2\] Stackoverflow: Optimistic vs. Pessimistic Locking](http://stackoverflow.com/questions/129329/optimistic-vs-pessimistic-locking)
 
-## Optimistic Locking in Camunda
+## Optimistic Locking in Operaton
 
-Camunda uses Optimistic Locking for concurrency control. If a concurrency conflict is detected, 
-an exception is thrown and the transaction is rolled back. Conflicts are detected when _UPDATE_ or _DELETE_ statements are executed. 
-The execution of delete or update statements return an affected rows count. 
+Operaton uses Optimistic Locking for concurrency control. If a concurrency conflict is detected,
+an exception is thrown and the transaction is rolled back. Conflicts are detected when _UPDATE_ or _DELETE_ statements are executed.
+The execution of delete or update statements return an affected rows count.
 If this count is equal to zero, it indicates that the row was previously updated or deleted.
 In such cases a conflict is detected and an `OptimisticLockingException` is thrown.
 
@@ -384,7 +384,7 @@ Job execution can also cause an `OptimisticLockingException` to be thrown. Since
 
 In case the current Command is triggered by the Job Executor, `OptimisticLockingException`s are handled automatically using retries. Since this exception is expected to occur, it does not decrement the retry count.
 
-If the current Command is triggered by an external API call, the Camunda Engine rolls back the current transaction to the last save point (wait state). Now the user has to decide how the exception should be handled, if the transaction should be retried or not. Also consider that even if the transaction was rolled back, it may have had non-transactional side effects which have not been rolled back.
+If the current Command is triggered by an external API call, the Operaton Engine rolls back the current transaction to the last save point (wait state). Now the user has to decide how the exception should be handled, if the transaction should be retried or not. Also consider that even if the transaction was rolled back, it may have had non-transactional side effects which have not been rolled back.
 
 To control the scope of transactions, explicit save points can be added before and after activities using Asynchronous Continuations.
 
@@ -416,5 +416,5 @@ There are several solutions to this problem, the most common one is eventual con
 
 ### Internal Implementation Details
 
-Most of the Camunda Engine database tables contain a column called `REV_`. This column represents the revision version.
+Most of the Operaton Engine database tables contain a column called `REV_`. This column represents the revision version.
 When reading a row, data is read at a given "revision". Modifications (UPDATEs and DELETEs) always attempt to update the revision which was read by the current command. Updates increment the revision. After executing a modification statement, the affected rows count is checked. If the count is `1` it is deduced that the version read was still current when executing the modification. In case the affected rows count is `0`, other transaction modified the same data while this transaction was running. This means that a concurrency conflict is detected and this transaction must not be allowed to commit. Subsequently, the transaction is rolled back (or marked rollback-only) and an `OptimisticLockingException` is thrown.

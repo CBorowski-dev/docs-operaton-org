@@ -16,7 +16,7 @@ available:
 
 # LDAP
 
-If you connect Camunda 7 with the LDAP identity service, you have read-only access to the users and groups. Create new users and groups via the LDAP system, but not in the admin application. Find more information about how to configure the process engine in order to use the LDAP identity service [here]({{< ref "/user-guide/process-engine/identity-service.md#the-ldap-identity-service" >}}).
+If you connect Operatonwith the LDAP identity service, you have read-only access to the users and groups. Create new users and groups via the LDAP system, but not in the admin application. Find more information about how to configure the process engine in order to use the LDAP identity service [here]({{< ref "/user-guide/process-engine/identity-service.md#the-ldap-identity-service" >}}).
 
 # Logo and header color
 
@@ -26,7 +26,7 @@ and can override the standard styles.
 
 ```css
 .navbar-brand {
-  /* hides the "Camunda Admin" text */
+  /* hides the "Operaton Admin" text */
   text-indent: -999em;
   /* put your logo */
   background-image: url(./path/to/the/logo.png);
@@ -40,7 +40,7 @@ and can override the standard styles.
 }
 ```
 
-**Note:** you can also change the app name (*Admin*) and vendor (*Camunda*)
+**Note:** you can also change the app name (*Admin*) and vendor (*Operaton*)
 by changing the `app/admin/scripts/config.js` configuration file as follow:
 
 ```js
@@ -55,8 +55,8 @@ export default {
 
 # Localization
 
-Admin can be localized. Camunda maintains English and German translation files. 
-You can find and download community maintained translation files at the [Camunda webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
+Admin can be localized. Operaton maintains English and German translation files.
+You can find and download community maintained translation files at the [Operaton webapp translations repository](https://github.com/camunda/camunda-webapp-translations).
 
 The localization of Admin is contained in the `app/admin/locales/` directory. This
 directory contains a separate localization file for every available language. The file name
@@ -75,7 +75,7 @@ export default {
   "locales": {
     "availableLocales": ["en", "de"],
     "fallbackLocale": "en"
-  } 
+  }
 }
 ```
 
@@ -85,7 +85,7 @@ available, add it to the list of available locales in the configuration file.
 
 # Custom scripts
 
-Admin allows you to include arbitrary JavaScript files. This allows you to extend admin with custom code. The script file might contain a 
+Admin allows you to include arbitrary JavaScript files. This allows you to extend admin with custom code. The script file might contain a
 custom frontend module. Admin shares the frontend module structure with [Cockpit Plugins]({{<ref "/webapps/cockpit/extend/plugins.md#structure-of-a-frontend-module" >}}).
 
 Add your files to the `customScripts` property of the `app/admin/scripts/config.js` file:
@@ -93,11 +93,11 @@ Add your files to the `customScripts` property of the `app/admin/scripts/config.
 ```javascript
 export default {
   // …
-  customScripts: 
+  customScripts:
     ['custom-module/module.js']
 }
 ```
-This includes a `custom-module/module.js` file. The path is relative to the `app/admin` folder in the Camunda webapp .war file.
+This includes a `custom-module/module.js` file. The path is relative to the `app/admin` folder in the Operaton webapp .war file.
 
 # Change CSRF cookie name
 
@@ -115,7 +115,7 @@ export default {
 
 # Disable welcome message for new users
 
-First-time visitors are shown a message directing them to the Camunda welcome page. If you do
+First-time visitors are shown a message directing them to the Operaton welcome page. If you do
 not want this message to be shown, you can disable it by adjusting the `config.js` as follows:
 
 ```javascript

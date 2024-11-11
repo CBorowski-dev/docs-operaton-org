@@ -17,8 +17,8 @@ The JSON datatype supports reading JSON from Strings or Readers.
 # Reading JSON from a String:
 
 ```java
-import static org.camunda.spin.Spin.*;
-import static org.camunda.spin.DataFormats.*;
+import static org.operaton.spin.Spin.*;
+import static org.operaton.spin.DataFormats.*;
 
 SpinJsonNode json = S("{\"customer\": \"Kermit\"}", json());
 ```
@@ -28,7 +28,7 @@ The second paramter `json()` hints Spin to use the JSON data format for parsing 
 Alternatively, you can directly use the `JSON(...)` function:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"customer\": \"Kermit\"}");
 ```
@@ -41,8 +41,8 @@ String values that represent JSON primitive values can also be read. For example
 Spin also supports reading JSON from an instance of `java.io.Reader`:
 
 ```java
-import static org.camunda.spin.Spin.*;
-import static org.camunda.spin.DataFormats.*;
+import static org.operaton.spin.Spin.*;
+import static org.operaton.spin.DataFormats.*;
 
 SpinJsonNode json = S(reader, json());
 ```
@@ -50,7 +50,7 @@ SpinJsonNode json = S(reader, json());
 The `JSON(...)` method also supports readers. The following example shows how to read JSON from a file (error handling ommitted):
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 FileInputStream fis = new FileInputStream("/tmp/customer.json");
 InputStreamReader reader = new InputStreamReader(fis, "utf-8");
@@ -74,7 +74,7 @@ To fetch properties from the JSON tree you can use `.prop("name")`. This will re
 in Java:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"customer\": \"Kermit\"}");
 SpinJsonNode customerProperty = json.prop("customer");
@@ -122,7 +122,7 @@ You can also fetch a list of items if your property is an array of data.
 in Java:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"customer\": \[\"Kermit\", \"Waldo\"\]}");
 SpinJsonNode customerProperty = json.prop("customer");
@@ -148,7 +148,7 @@ Spin allows us to use the `.fieldNames()` method to fetch the names of all child
 in Java:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"customer\": \[\"Kermit\", \"Waldo\"\]}");
 ArrayList fieldNames = json.fieldNames();
@@ -181,7 +181,7 @@ or one of the 2 following container types:
     Example in Java:
 
     ```java
-    import static org.camunda.spin.Spin.*;
+    import static org.operaton.spin.Spin.*;
 
     SpinJsonNode json = JSON("{\"customer\": \[\"Kermit\", \"Waldo\"\]}");
     ArrayList<Object> list = new ArrayList<Object>();
@@ -203,7 +203,7 @@ or one of the 2 following container types:
     Example in Java:
 
     ```java
-    import static org.camunda.spin.Spin.*;
+    import static org.operaton.spin.Spin.*;
 
     SpinJsonNode json = JSON("{\"customer\": \[\"Kermit\", \"Waldo\"\]}");
     Map<String, Object> object = new HashMap<String, Object>();
@@ -236,7 +236,7 @@ For more details see the following examples for Javascript and Java.
 Java:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"customer\": \"Kermit\", \"language\": \"en\"}");
 List<String> listOfNames = new ArrayList<String>();
@@ -300,7 +300,7 @@ So let's see how we can manipulate this list in some examples.
 ## Example 1 - Get the Index of 'testdata2' and the Last Occurrence of '1':
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"test-array\" : [\"testdata1\",\"testdata2\",1,2,true,1,false,1]}");
 SpinJsonNode list = json.prop("test-array");
@@ -320,7 +320,7 @@ var j = list.lastIndexOf(1); // Should be '7'
 ## Example 2 - Add and Remove Data to/from the list:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinJsonNode json = JSON("{\"test-array\" : [\"testdata1\",\"testdata2\",1,2,true,1,false,1]}");
 SpinJsonNode list = json.prop("test-array");

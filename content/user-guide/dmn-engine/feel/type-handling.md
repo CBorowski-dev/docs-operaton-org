@@ -12,19 +12,19 @@ menu:
 
 ---
 
-This documentation covers supported types of variable values when used in a FEEL expression and 
+This documentation covers supported types of variable values when used in a FEEL expression and
 supported output types.
 
-In DMN, when defining a `typeRef` attribute on a **Variable**, **Input** or **Output** element, the 
-DMN Engine tries to convert the result value of the corresponding **Literal Expression**, 
-**Input Expression** or the **Output Entry**. When no `typeRef` attribute is specified, the DMN 
-Engine passes the return value of the FEEL Engine directly without any conversion. Please see the 
-documentation about [Supported Data Types in DMN] to learn more about the `typeRef` attribute. 
+In DMN, when defining a `typeRef` attribute on a **Variable**, **Input** or **Output** element, the
+DMN Engine tries to convert the result value of the corresponding **Literal Expression**,
+**Input Expression** or the **Output Entry**. When no `typeRef` attribute is specified, the DMN
+Engine passes the return value of the FEEL Engine directly without any conversion. Please see the
+documentation about [Supported Data Types in DMN] to learn more about the `typeRef` attribute.
 
 The FEEL Engine might support more types than listed below. However, this page defines
 which of the types are known for being...
 
-* ...well integrable in Camunda 7
+* ...well integrable in Operaton
 * ...covered by automated tests
 
 ## Supported Variable Value Types
@@ -45,10 +45,10 @@ The variable value types listed in this section can be handled by the FEEL Engin
 
 ### Spin Types
 
-* `org.camunda.spin.json.SpinJsonNode`
-* `org.camunda.spin.xml.SpinXmlElement`
+* `org.operaton.spin.json.SpinJsonNode`
+* `org.operaton.spin.xml.SpinXmlElement`
 
-For more information about the Camunda Spin integration, please see the documentation about 
+For more information about the Operaton Spin integration, please see the documentation about
 [FEEL Engine Spin Integration].
 
 ## Return Types
@@ -56,13 +56,13 @@ For more information about the Camunda Spin integration, please see the document
 The table displays:
 
 * Which return value of a FEEL Expression maps to which Java type
-* Which Camunda 7 specific variable type is assigned for the respective Java type
+* Which Operatonspecific variable type is assigned for the respective Java type
 
 <table class="table table-striped">
   <tr>
     <th>FEEL Expression Example</th>
     <th>FEEL Engine Return Type</th>
-    <th>Camunda Variable Type</th>
+    <th>Operaton Variable Type</th>
   </tr>
   <tr>
     <td><code>null</code></td>
@@ -142,7 +142,7 @@ The table displays:
   </tr>
 </table>
 
-\* Since the FEEL Engine is based on the [Scala Library], a Scala-specific implementation type for 
+\* Since the FEEL Engine is based on the [Scala Library], a Scala-specific implementation type for
 `Map` and `List` is used
 
 [Supported Data Types in DMN]: {{< ref "/user-guide/dmn-engine/data-types.md#supported-data-types" >}}

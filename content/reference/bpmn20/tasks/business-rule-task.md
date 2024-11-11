@@ -16,10 +16,10 @@ A Business Rule Task is used to synchronously execute one or more rules. It is a
 {{< bpmn-symbol type="business-rule-task" >}}
 
 
-# Using Camunda DMN Engine
+# Using Operaton DMN Engine
 
-You can use the Camunda DMN engine integration to evaluate a DMN decision. You have
-to specify the decision key to evaluate as the `camunda:decisionRef` attribute. Additionally, 
+You can use the Operaton DMN engine integration to evaluate a DMN decision. You have
+to specify the decision key to evaluate as the `camunda:decisionRef` attribute. Additionally,
 the `camunda:decisionRefBinding` specifies which version of the decision should be evaluated.
 Valid values are:
 
@@ -131,7 +131,7 @@ information on this please see the [Service Tasks]({{< relref "service-task.md" 
 In addition to the above, a Business Rule Task can be implemented via the [External Task]({{< ref "/user-guide/process-engine/external-tasks.md" >}}) mechanism where an external system polls the process engine for work to do. See the section on [Service Tasks]({{< relref "service-task.md#external-tasks" >}}) for more information about how to configure an external task.
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

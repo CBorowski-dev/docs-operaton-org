@@ -84,18 +84,18 @@ When this task is completed, the second inclusive gateway joins the two executio
 Note that an inclusive gateway does not need to be 'balanced' (i.e., a matching number of incoming/outgoing sequence flows for corresponding inclusive gateways). An inclusive gateway will simply wait for all incoming sequence flows and create a concurrent path of execution for each outgoing sequence flow, not influenced by other constructs in the process model.
 
 
-# Camunda-specific behavior 
+# Operaton-specific behavior
 
-Note that in Camunda's implementation of the inclusive gateway, the following holds: 
+Note that in Operaton's implementation of the inclusive gateway, the following holds:
 
-* If the join waits for a token, but that token takes a different turn in the process 
-  so that it can no longer reach the join (e.g. because of a boundary event interrupting 
+* If the join waits for a token, but that token takes a different turn in the process
+  so that it can no longer reach the join (e.g. because of a boundary event interrupting
   the flow), then the join will not trigger.
 * The join will trigger when:
-  * it received a number of tokens greater or equal to the number of incoming sequence 
-    flows. The tokens do not necessarily need to reach the gateway through different 
+  * it received a number of tokens greater or equal to the number of incoming sequence
+    flows. The tokens do not necessarily need to reach the gateway through different
     sequence flows.
-  * it received a number of tokens smaller than the number of incoming sequence flows 
+  * it received a number of tokens smaller than the number of incoming sequence flows
     and there are no more tokens that can arrive at the gateway.
 
 The following examples show under which conditions an inclusive gateway will trigger a join:
@@ -103,9 +103,9 @@ The following examples show under which conditions an inclusive gateway will tri
 1. In the following scenario, `Parallel Gateway 1` creates three execution tokens, but
    only two sequence flows join in the inclusive gateway. In this scenario, the inclusive
    gateway **will trigger** even with only two tokens since the tokens from `Task 1` and `Task 2`
-   were joined in a single token by `Parallel Gateway 2`. 
+   were joined in a single token by `Parallel Gateway 2`.
    <div data-bpmn-diagram="../bpmn/inclusive_gateway_scenario_1"></div>
-   
+
 1. In this scenario, `Parallel Gateway 1` creates two execution tokens, and
    three sequence flows join in the inclusive gateway. In this scenario, the inclusive
    gateway **will trigger** with three tokens since `Parallel Gateway 2` splits the single
@@ -124,14 +124,14 @@ The following examples show under which conditions an inclusive gateway will tri
    `Inclusive Gateway 2` and wait for the gateway to trigger. However, the
    `Inclusive Gateway 2` **will not trigger** a join until `User Task 1` is completed and
    the second token arrives at the gateway. As a result, the `Inclusive Gateway 2` will trigger
-   only once instead of two times. According to the BPMN 2.0 specification, since both tokens pass 
+   only once instead of two times. According to the BPMN 2.0 specification, since both tokens pass
    the same sequence flow (true), the inclusive gateway should trigger twice. Finally, due to this
    behavior, only one instance of `User Task 2` will need to be completed instead of the expected two.
    In cases like this one, it is recommended to use an [`Exclusive Gateway`]({{< ref "/reference/bpmn20/gateways/exclusive-gateway.md" >}})
    instead of the `Inclusive Gateway 1`.
    <div data-bpmn-diagram="../bpmn/inclusive_gateway_scenario_4"></div>
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

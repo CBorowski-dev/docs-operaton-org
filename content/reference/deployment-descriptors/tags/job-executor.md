@@ -98,7 +98,7 @@ The following example shows a job executor XML snippet:
       </p>
       <p>
         <strong>Example:</strong>
-        <code>&lt;job-executor-class&gt;org.camunda.bpm.example.MyJobExecutor&lt;/job-executor-class&gt;</code>
+        <code>&lt;job-executor-class&gt;org.operaton.bpm.example.MyJobExecutor&lt;/job-executor-class&gt;</code>
       </p>
     </td>
   </tr>

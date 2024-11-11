@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" id="sid-31b6df50-1424-4cce-92f0-28dbdf34026c" targetNamespace="http://www.signavio.com/bpmn20" exporter="Camunda Modeler" exporterVersion="3.3.5" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" id="sid-31b6df50-1424-4cce-92f0-28dbdf34026c" targetNamespace="http://www.signavio.com/bpmn20" exporter="Operaton Modeler" exporterVersion="3.3.5" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <process id="sid-23660efe-97a9-4ff6-a4a7-6ee4e6fa2ce6" isExecutable="false">
-    <startEvent id="sid-E9CADEFF-D7D4-4780-BDFE-26BAEBCFF2D9" name="Hunger&#10;noticed">
+    <startEvent id="sid-E9CADEFF-D7D4-4780-BDFE-26BAEBCFF2D9" name="Hunger
+&#10;noticed">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="userstory" metaValue="[]" />
@@ -118,7 +119,8 @@
       <outgoing>sid-19B29333-6427-4F75-8FC8-108778B3985C</outgoing>
       <messageEventDefinition id="sid-33999df4-9df6-4b6f-b28f-b9ffa5ce5cc6" />
     </boundaryEvent>
-    <endEvent id="sid-C1CD91E3-75AA-440D-851A-EA52DAF95FC0" name="Hunger&#10;satisfied">
+    <endEvent id="sid-C1CD91E3-75AA-440D-851A-EA52DAF95FC0" name="Hunger
+&#10;satisfied">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff" />
         <signavio:signavioMetaData metaKey="userstory" metaValue="[]" />

@@ -12,7 +12,7 @@ menu:
 
 ---
 
-The Camunda DMN engine can be used as a library in a custom application. To achieve this,
+The Operaton DMN engine can be used as a library in a custom application. To achieve this,
 add the `camunda-engine-dmn` artifact to the classpath of the application and then
 configure and build a decision engine instance. This section provides the
 required maven coordinates to add the DMN engine as a dependency to your
@@ -20,7 +20,7 @@ project. It then shows how to configure and build a new DMN engine instance.
 
 # Maven Coordinates
 
-The Camunda DMN engine is released to Maven Central.
+The Operaton DMN engine is released to Maven Central.
 
 Start by importing the [`camunda-engine-dmn` BOM](/get-started/apache-maven/#camunda-dmn-engine-bom)
 to ensure correct dependency management.
@@ -279,7 +279,7 @@ The following expression types exist:
 - *Output Entry*: Used to specify the output of a rule in a decision
   table. The default language for output entries in the DMN engine is
   `FEEL`.
-  
+
 The default expression language of a [DMN decision literal expression] can also be configured, the default in the DMN engine is `FEEL`.
 
 Read more about the default expressions in the corresponding [section][expressions].

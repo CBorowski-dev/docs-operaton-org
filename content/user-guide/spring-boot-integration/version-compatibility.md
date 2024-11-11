@@ -11,20 +11,20 @@ menu:
 
 ---
 
-Each version of the Camunda Spring Boot Starter is bound to a specific version of Camunda 7 and Spring Boot. 
-Only these default combinations are recommended (and supported) by Camunda.
+Each version of the Operaton Spring Boot Starter is bound to a specific version of Operatonand Spring Boot.
+Only these default combinations are recommended (and supported) by Operaton.
 Other combinations must be thoroughly tested before being used in production.
 
 {{< note title="Heads Up" class="info" >}}
-  Starting with version 7.13.0, Camunda 7 and its compatible Spring Boot Starter always share the same version.
-  Also, the Camunda 7 version used in the Spring Boot Starter doesn't have to be overridden anymore. Simply pick
-  the version of the Starter that resembles the version of Camunda 7 you want to use.
+  Starting with version 7.13.0, Operatonand its compatible Spring Boot Starter always share the same version.
+  Also, the Operatonversion used in the Spring Boot Starter doesn't have to be overridden anymore. Simply pick
+  the version of the Starter that resembles the version of Operatonyou want to use.
 {{< /note >}}
 
 <table class="table table-striped">
   <tr>
     <th>Spring Boot Starter version</th>
-    <th>Camunda 7 version</th>
+    <th>Operatonversion</th>
     <th>Spring Boot version</th>
   </tr>
   <tr>
@@ -147,7 +147,7 @@ Other combinations must be thoroughly tested before being used in production.
 \* For these versions, use the following Maven coordinates:
 ```
 <dependency>
-  <groupId>org.camunda.bpm.extension</groupId>
+  <groupId>org.operaton.bpm.extension</groupId>
   <artifactId>camunda-bpm-spring-boot-starter</artifactId>
   <version>1.x</version> <!-- set correct version here -->
 </dependency>
@@ -156,13 +156,13 @@ Other combinations must be thoroughly tested before being used in production.
 \*\* For these versions, use the following Maven coordinates:
 ```
 <dependency>
-  <groupId>org.camunda.bpm.extension.springboot</groupId>
+  <groupId>org.operaton.bpm.extension.springboot</groupId>
   <artifactId>camunda-bpm-spring-boot-starter</artifactId>
   <version>2.x</version> <!-- set correct version here -->
 </dependency>
 ```
 
-\*\*\* For these versions, all listed Spring Boot versions are supported 
+\*\*\* For these versions, all listed Spring Boot versions are supported
 while the oldest one is used by default. If you want to use a newer supported version,
 configure `dependencyManagement` in your application, e.g. add the following when using Maven:
 ```

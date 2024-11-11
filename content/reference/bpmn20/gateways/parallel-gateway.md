@@ -22,7 +22,7 @@ The functionality of the parallel gateway is based on the incoming and outgoing 
 *   join: all concurrent executions arriving at the parallel gateway wait at the gateway until an execution has arrived for each of the incoming sequence flows. Then the process continues past the joining gateway.
 
 {{< note title="Limitation" class="warning" >}}
-  Note that in Camunda's implementation of the parallel gateway, the gateway triggers as soon as the following holds: The number of arrived tokens is equal to the number of incoming sequence flows. It is not required that a token arrives on *every* incoming flow.
+  Note that in Operaton's implementation of the parallel gateway, the gateway triggers as soon as the following holds: The number of arrived tokens is equal to the number of incoming sequence flows. It is not required that a token arrives on *every* incoming flow.
 {{< /note >}}
 
 Note that a parallel gateway can have both fork and join behaviors, if there are multiple incoming and outgoing sequence flows for the same parallel gateway. In that case, the gateway will first join all incoming sequence flows, before splitting into multiple concurrent paths of executions.
@@ -87,7 +87,7 @@ Note that a parallel gateway does not need to be 'balanced' (i.e., a matching nu
 <div data-bpmn-diagram="../bpmn/parallel-gateway-unbalanced"></div>
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

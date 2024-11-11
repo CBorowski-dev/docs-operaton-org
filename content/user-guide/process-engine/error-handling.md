@@ -103,7 +103,7 @@ Having a failed jobs list instead of using the "normal" task list feels like a m
 # Exception codes
 
 Sometimes an API call doesn't succeed because a problem occurs. The Java programming model uses exceptions
-to handle these situations. Exceptions that occur on the process engine's application level are 
+to handle these situations. Exceptions that occur on the process engine's application level are
 of the type `{{< javadocref page="org/camunda/bpm/engine/ProcessEngineException.html" text="ProcessEngineException" >}}`.
 
 Here are two examples of everyday situations in which the engine throws a `ProcessEngineException`:
@@ -111,30 +111,30 @@ Here are two examples of everyday situations in which the engine throws a `Proce
 1. You cannot start a process instance since the variable's value is too long.
 2. Two users in parallel complete the same task.
 
-You can read the exception message to understand the reason for a `ProcessEngineException`. However, 
-sometimes the message of the top-level exception is too generic. In these situations, the cause might 
+You can read the exception message to understand the reason for a `ProcessEngineException`. However,
+sometimes the message of the top-level exception is too generic. In these situations, the cause might
 contain a more insightful exception message. Traversing through exception causes might be tedious.
 Also, causes are unavailable when an error occurs on the REST API level.
 
-While reading the error message might help users to understand the root cause of the problem, 
+While reading the error message might help users to understand the root cause of the problem,
 evaluating exception messages in an automated way is not a good idea since:
 
-* The message might change with newer versions. 
-* Relying on fragments of the message can be error-prone. 
+* The message might change with newer versions.
+* Relying on fragments of the message can be error-prone.
 
-This is why we introduced static exception codes your business logic can rely on to determine specific 
-problems and react accordingly. 
+This is why we introduced static exception codes your business logic can rely on to determine specific
+problems and react accordingly.
 
 You can access error codes via Java as well as [REST API]({{< ref "/reference/rest/overview/_index.md#exception-codes" >}}).
 
 ## Built-in codes
 
-We identified common situations in which the engine throws an exception and assigned a built-in 
+We identified common situations in which the engine throws an exception and assigned a built-in
 error code to the exception. You can look up the built-in codes in the [Categories, ranges, and codes](#categories-ranges-and-codes) section.
 
 ## Custom codes
 
-Sometimes you may want to assign codes to specific errors Camunda hasn't covered so far.
+Sometimes you may want to assign codes to specific errors Operaton hasn't covered so far.
 You can either define custom codes from delegation code or by [registering your custom `ExceptionCodeProvider`](#register-a-custom-code-provider).
 
 ### Delegation code
@@ -145,10 +145,10 @@ Learn more on how to assign a custom error code to an exception in the documenta
 
 You can configure the exception error codes feature in your [process engine configuration]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#exception-codes" >}}):
 
-* To disable the exception codes feature entirely, set the flag <code>disableExceptionCode</code> 
+* To disable the exception codes feature entirely, set the flag <code>disableExceptionCode</code>
   in your process engine configuration to <code>true</code>.
 * To disable the built-in exception code provider, set the flag <code>disableBuiltinExceptionCodeProvider</code>
-  in your process engine configuration to <code>true</code>. Disabling the built-in exception code 
+  in your process engine configuration to <code>true</code>. Disabling the built-in exception code
   provider allows overriding the [reserved code range](#reserved-code-range) with your custom exception codes.
 
 ### Register a Custom Code Provider
@@ -160,14 +160,14 @@ engineConfig.setCustomExceptionCodeProvider(new ExceptionCodeProvider() {
 
   @Override
   public Integer provideCode(ProcessEngineException processEngineException) {
-    // Put your business logic here to determine the 
+    // Put your business logic here to determine the
     // error code in case a process engine exception was thrown.
     return 22_222;
   }
 
   @Override
   public Integer provideCode(SQLException sqlException) {
-    // Put your business logic here to determine the 
+    // Put your business logic here to determine the
     // error code in case a sql exception was thrown.
     return 33_333;
   }
@@ -241,5 +241,5 @@ In the table below, you will find an overview of all categories, ranges, and cod
 
 ### Reserved code range
 
-The codes <= 19,999 and >= 40,000 are reserved for built-in codes. If you disable the built-in code provider, 
+The codes <= 19,999 and >= 40,000 are reserved for built-in codes. If you disable the built-in code provider,
 you can also use the reserved code range for your custom codes.

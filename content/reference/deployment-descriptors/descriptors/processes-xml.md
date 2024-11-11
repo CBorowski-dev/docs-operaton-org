@@ -19,7 +19,7 @@ See the [processes.xml]({{< ref "/user-guide/process-applications/the-processes-
 
 # Xml Schema Namespace
 
-The namespace for the processes.xml file is `http://www.camunda.org/schema/1.0/ProcessApplication`. The XSD file can be found in the `camunda-engine.jar` file.
+The namespace for the processes.xml file is `http://www.operaton.org/schema/1.0/ProcessApplication`. The XSD file can be found in the `camunda-engine.jar` file.
 
 
 # Empty processes.xml
@@ -31,7 +31,7 @@ The `processes.xml` may be left blank (can be empty). In this case, default valu
 
 ```xml
 <process-application
-  xmlns="http://www.camunda.org/schema/1.0/ProcessApplication"
+  xmlns="http://www.operaton.org/schema/1.0/ProcessApplication"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <process-archive name="loan-approval">
@@ -49,7 +49,7 @@ The `processes.xml` may be left blank (can be empty). In this case, default valu
 # Syntax Reference
 
 <table class="table table-striped">
-  <tr>  
+  <tr>
     <th>Tag name</th>
     <th>Parent tag name</th>
     <th>Required?</th>

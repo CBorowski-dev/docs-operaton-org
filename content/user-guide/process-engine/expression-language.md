@@ -10,25 +10,25 @@ menu:
 
 ---
 
-Camunda 7 supports the Unified Expression Language (EL), specified by the [Jakarta Expression
+Operatonsupports the Unified Expression Language (EL), specified by the [Jakarta Expression
 Language 4.0 standard][JakartaEL]. To do so, it maintains a custom version of the open source [JUEL][] implementation.
 
-Note, compared to EL 4.0 this JUEL implementation has the following limitations: 
+Note, compared to EL 4.0 this JUEL implementation has the following limitations:
 
 
 - Initializing collections directly within expressions (e.g., `${[1,2,3]}`) is NOT supported.
 
 - Lambda expressions (e.g., inline functions `${((x,y)->x+y)(3,4)}`) are NOT supported.
 
-- Referencing static fields (e.g., `${Boolean.TRUE}`), static functions (e.g., `${Integer.parseInt("123")}`), and enums (e.g., `${Thread.State.TERMINATED}`) are NOT supported. 
+- Referencing static fields (e.g., `${Boolean.TRUE}`), static functions (e.g., `${Integer.parseInt("123")}`), and enums (e.g., `${Thread.State.TERMINATED}`) are NOT supported.
 
 - The Assignment Operator `(A=B)`, the String Concatenation Operator `(A+=B)`, and the Semicolon Operator `(A ; B)` are NOT supported.
 
-To get more general information about the usage of Expression Language, 
-please read the [official documentation][]. It provides examples that give a good overview of 
+To get more general information about the usage of Expression Language,
+please read the [official documentation][]. It provides examples that give a good overview of
 the syntax of expressions.
 
-Within Camunda 7, EL can be used in many circumstances to evaluate small script-like
+Within Operaton, EL can be used in many circumstances to evaluate small script-like
 expressions. The following table provides an overview of the BPMN elements which support
 usage of EL.
 
@@ -86,7 +86,7 @@ usage of EL.
 
 ## Delegation Code
 
-Besides Java code, Camunda 7 also supports the evaluation of expressions as delegation code. For
+Besides Java code, Operatonalso supports the evaluation of expressions as delegation code. For
 general information about delegation code, see the corresponding
 [section]({{< ref "/user-guide/process-engine/delegation-code.md" >}}).
 
@@ -170,7 +170,7 @@ For usage of expression language on conditional events, see the following exampl
 
 ## inputOutput Parameters
 
-With the Camunda `inputOutput` extension element you can map an `inputParameter` or `outputParameter`
+With the Operaton `inputOutput` extension element you can map an `inputParameter` or `outputParameter`
 with expression language.
 
 Inside the expression some special variables are available which enable the access of the current
@@ -181,7 +181,7 @@ The following example shows an `inputParameter` which uses expression language t
 a bean.
 
 ```xml
-  <serviceTask id="task" camunda:class="org.camunda.bpm.example.SumDelegate">
+  <serviceTask id="task" camunda:class="org.operaton.bpm.example.SumDelegate">
     <extensionElements>
       <camunda:inputOutput>
         <camunda:inputParameter name="x">
@@ -376,9 +376,9 @@ of the task.
 ```
 
 
-## Built-In Camunda Spin Functions
+## Built-In Operaton Spin Functions
 
-If the Camunda Spin process engine plugin is activated, the Spin functions `S`,
+If the Operaton Spin process engine plugin is activated, the Spin functions `S`,
 `XML` and `JSON` are also available inside of an expression. See the [Data Formats section][spin-section] for a detailed explanation.
 
 ```xml

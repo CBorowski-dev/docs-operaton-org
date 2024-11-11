@@ -45,7 +45,7 @@ As conditions or event triggers, sentries may define the following elements:
 
 # OnPart
 
-OnParts are defined on lifecycle transitions for plan items or case file items. As the Camunda engine does not currently support case file items, it is only possible to use *plan item OnParts*. A sentry with an OnPart can be defined as follows:
+OnParts are defined on lifecycle transitions for plan items or case file items. As the Operaton engine does not currently support case file items, it is only possible to use *plan item OnParts*. A sentry with an OnPart can be defined as follows:
 
 ```xml
 <sentry id="Sentry_1">
@@ -56,15 +56,15 @@ OnParts are defined on lifecycle transitions for plan items or case file items. 
 ```
 
 
-A `planItemOnPart` must always reference a plan item by the attribute `sourceRef`. This plan item must be contained by the same stage the sentry is defined in. The child element `standardEvent` can the identifier of any lifecycle transition from that plan item's lifecycle and that is supported by the camunda engine. Note that different plan item definitions define different lifecycles. For details on valid lifecycle transitions, see the [Lifecycles]({{< ref "/reference/cmmn11/concepts/lifecycle.md" >}}) section.
+A `planItemOnPart` must always reference a plan item by the attribute `sourceRef`. This plan item must be contained by the same stage the sentry is defined in. The child element `standardEvent` can the identifier of any lifecycle transition from that plan item's lifecycle and that is supported by the operaton engine. Note that different plan item definitions define different lifecycles. For details on valid lifecycle transitions, see the [Lifecycles]({{< ref "/reference/cmmn11/concepts/lifecycle.md" >}}) section.
 
-As an alternative to `sourceRef`, the CMMN specification allows to define an attribute `sentryRef` responsible for referencing another sentry such that the onPart is fulfilled when the plan item that sentry references performs the *exit* state transition. This attribute is currently not supported by the Camunda engine.
+As an alternative to `sourceRef`, the CMMN specification allows to define an attribute `sentryRef` responsible for referencing another sentry such that the onPart is fulfilled when the plan item that sentry references performs the *exit* state transition. This attribute is currently not supported by the Operaton engine.
 
 Note that it is possible to have any number of OnParts which allows to combine multiple events. All OnParts must be fulfilled for a sentry to occur, i.e., specifying multiple OnParts is a conjunction of multiple events. An OnPart is fulfilled as soon as the element it is defined on performs the specified lifecycle transition. It is irrelevant whether this element performs any other subsequent lifecycle transitions.
 
 # IfPart
 
-An IfPart defines an additional condition that is checked when all OnParts of the sentry are fulfilled. Only if the IfPart evaluates to `true`, the sentry is fulfilled. In Camunda, a sentry with an IfPart looks as follows:
+An IfPart defines an additional condition that is checked when all OnParts of the sentry are fulfilled. Only if the IfPart evaluates to `true`, the sentry is fulfilled. In Operaton, a sentry with an IfPart looks as follows:
 
 ```xml
 <sentry id="Sentry_1">
@@ -85,17 +85,17 @@ In addition to variable names, the identifier `caseExecution` can be used to acc
   </ifPart>
 </sentry>
 ```
-The CMMN specification allows to reference a case file item by the sentry attribute `contextRef`. This attribute is not supported by the Camunda engine and therefore ignored.
+The CMMN specification allows to reference a case file item by the sentry attribute `contextRef`. This attribute is not supported by the Operaton engine and therefore ignored.
 
 The engine evaluates IfParts at every lifecycle transition of a plan item contained in the sentry's stage. That means, if an IfPart is not satisfied immediately when all OnParts have occurred, the sentry may still occur at any later lifecycle transition.
 
-# Camunda Extensions
+# Operaton Extensions
 
 # VariableOnPart
 
 VariableOnParts are defined on lifecycle transitions of a variable. Sentry with VariableOnPart is evaluated when the variable undergoes a transition (create or delete or update).
 A sentry can have more than one variableOnPart and can have at most one `variable event` each.
-In Camunda, a sentry with a variableOnPart looks as follows
+In Operaton, a sentry with a variableOnPart looks as follows
 
 ```
 <sentry id="Sentry_1">
@@ -103,8 +103,8 @@ In Camunda, a sentry with a variableOnPart looks as follows
     <camunda:variableOnPart variableName = "variable_1">
       <camunda:variableEvent>create</camunda:variableEvent>
     </camunda:variableOnPart>
-  </extensionElements>	
-</sentry>  
+  </extensionElements>
+</sentry>
 ```
 In the above example, sentry is evaluated when the `create` event on the variable `variable_1` occurs.
 

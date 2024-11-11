@@ -10,9 +10,9 @@ menu:
 
 ---
 
-For [supported environments]({{<relref "../../../introduction/supported-environments.md#container-managed-process-engine-and-camunda-cockpit-tasklist-admin">}}), Camunda 7 provides server modules that integrate the Job Execution with the application server's managed threadpools. If you are using one of those environments, it is recommended to use the integration provided with it. 
+For [supported environments]({{<relref "../../../introduction/supported-environments.md#container-managed-process-engine-and-camunda-cockpit-tasklist-admin">}}), Operatonprovides server modules that integrate the Job Execution with the application server's managed threadpools. If you are using one of those environments, it is recommended to use the integration provided with it.
 
-The descriptions on this page apply to the use case where there is *no* existing resource-aware implementation provided. In those cases, using managed resources provided by the application server is recommended over using unmanaged resources. In order for the integration to work, a JEE 7+ compliant application server is required. 
+The descriptions on this page apply to the use case where there is *no* existing resource-aware implementation provided. In those cases, using managed resources provided by the application server is recommended over using unmanaged resources. In order for the integration to work, a JEE 7+ compliant application server is required.
 
 # ManagedJobExecutor
 
@@ -32,7 +32,7 @@ public class EngineBuilder {
   // Inject the ManagedExecutorService from the application server
   @Resource
   private ManagedExecutorService managedExecutorService;
-  
+
   private ProcessEngine processEngine;
   private ManagedJobExecutor managedJobExecutor;
 
@@ -41,18 +41,18 @@ public class EngineBuilder {
   	// Create a new ManagedJobExecutor
   	managedJobExecutor = new ManagedJobExecutor(this.managedExecutorService);
 
-  	// Create a process engine configuration 
+  	// Create a process engine configuration
     ProcessEngineConfigurationImpl engineConfiguration = ...
 
     // Other configuration
 
     // Use the ManagedJobExecutor
     engineConfiguration.setJobExecutor(managedJobExecutor);
-    
+
     // Build the process engine
     processEngine = engineConfiguration.buildProcessEngine();
   }
-  
+
   @PreDestroy
   public void stopEngine() {
     // Ensure the engine and job executor are shutdown as well

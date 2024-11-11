@@ -12,7 +12,7 @@ menu:
 ---
 
 {{< note title="Plugin Compatibility" class="info" >}}
-Please note that we updated the frontend plugin interface with Camunda Runtime 7.14. Plugins written for Camunda Runtime 7.13 and earlier might no longer work with Camunda Runtime 7.14. Checkout the [update guide]({{< ref "/update/minor/713-to-714" >}}) for more details.
+Please note that we updated the frontend plugin interface with Operaton Runtime 7.14. Plugins written for Operaton Runtime 7.13 and earlier might no longer work with Operaton Runtime 7.14. Checkout the [update guide]({{< ref "/update/minor/713-to-714" >}}) for more details.
 {{< /note >}}
 
 Cockpit defines a plugin concept to add own functionality without being forced to extend or hack the Cockpit web application. You can add plugins at various plugin points, e.g., the processes dashboard as shown in the following example:
@@ -45,7 +45,7 @@ The basic skeleton of a Cockpit plugin looks as follows:
     |   |   |       └── MyPlugin.java                                     (1)
     |   |   └── resources/
     |   |       ├── META-INF/services/
-    |   |       |   └── org.camunda.bpm.cockpit.plugin.spi.CockpitPlugin  (2)
+    |   |       |   └── org.operaton.bpm.cockpit.plugin.spi.CockpitPlugin  (2)
     |   |       ├── org/my/plugin/queries/                                (6)
     |   |       |   └── sample.xml
     |   |       └── plugin-webapp/MyPlugin/                               (7)
@@ -112,14 +112,14 @@ This file can also be included standalone as a [custom script]({{< ref "/webapps
 
 * `priority`: Number, describes in which order the plugins at the same pluginPoint will be mounted. For certain Plugin points (like `cockpit.navigation`), a negative priority hides the entry in a dropdown. How this is handled depends on the Plugin Point.
 
-* `render`: Function, the heart of your Plugin. Arguments are (`DOMNode`|`BPMNioViewerInstance`, additionalData (`Object`)). Using the DOM node, you can render your plugin into the DOM.  
-The second argument contains API endpoints and CSRF cookie information, as well as constants like a `processDefinitionId`. The `api` key is always present and contains  
+* `render`: Function, the heart of your Plugin. Arguments are (`DOMNode`|`BPMNioViewerInstance`, additionalData (`Object`)). Using the DOM node, you can render your plugin into the DOM.
+The second argument contains API endpoints and CSRF cookie information, as well as constants like a `processDefinitionId`. The `api` key is always present and contains
   * `engine`: the engine name
   * `CSRFToken`: the current CSRF token for your requests
   * `baseApi`, `adminApi`, `cockpitApi`, `engineApi`: The paths to different API endpoints. The engineApi corresponds to the [Rest Api]({{< ref "/reference/rest" >}})
 The details of which data is passed into the plugin can be found at the [plugin point reference](#plugin-points).
 
-* `result`: Function, only available in data plugins. Argument is a (`Promise`). 
+* `result`: Function, only available in data plugins. Argument is a (`Promise`).
 
 * `unmount`: Optional function which is called when the Plugin is unmounted. Use this to cleanup any listeners you or your Framework might have registered.
 
@@ -152,11 +152,11 @@ In this example we deactivate the cancel action in the Cockpit process instance 
 ```
 
 # Legacy Plugins
-Plugins created for Camunda 7.13 or earlier can be included for compatibility. To achieve this, simply prefix your Plugin ID with `legacy-`. The AngularJS module name for the entry module will be `cockpit.plugin.legacy-*`.
+Plugins created for Operaton or earlier can be included for compatibility. To achieve this, simply prefix your Plugin ID with `legacy-`. The AngularJS module name for the entry module will be `cockpit.plugin.legacy-*`.
 
 Please note that all Plugins with this prefix will be included using the 7.13 plugin mechanism. You cannot create new Plugins with IDs starting with `legacy`.
 
-For more details about legacy Plugins, check out the legacy [Plugin documentation](https://docs.camunda.org/manual/7.13/webapps/cockpit/extend/plugins/). Please note that this link will take you to the documentation of Camunda **7.13** .
+For more details about legacy Plugins, check out the legacy [Plugin documentation](https://docs.camunda.org/manual/7.13/webapps/cockpit/extend/plugins/). Please note that this link will take you to the documentation of Operaton **7.13** .
 
 # Plugin points
 
@@ -169,7 +169,7 @@ For more information on creating and configuring your own plugin, please see [Ho
 
 ## Data
 
-**Data Plugin Points** have a `#result` function that gets the response data as a promise of a called REST endpoint passed. 
+**Data Plugin Points** have a `#result` function that gets the response data as a promise of a called REST endpoint passed.
 The `#result` function is called when the respective HTTP request is performed.
 The first argument of the `#result` function is a (`Promise`).
 

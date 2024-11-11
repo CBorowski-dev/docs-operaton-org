@@ -12,7 +12,7 @@ menu:
 
 The REST API uses the default date format `yyyy-MM-dd'T'HH:mm:ss.SSSZ`, which
 represents a date with milliseconds and timezone information, e.g.,
-`2016-01-25T13:33:42.165+0100`. 
+`2016-01-25T13:33:42.165+0100`.
 
 If you add a date as a GET request parameter, remember the URL encoding, e.g. `2016-01-25T13:33:42.165%2b0100`.
 
@@ -21,7 +21,7 @@ A custom date format can be configured in the `web.xml`
 file of the REST API. To do so, the ServletContextListener
 `CustomJacksonDateFormatListener` has to be added. The custom date format
 can be specified by the context parameter
-`org.camunda.bpm.engine.rest.jackson.dateFormat`.
+`org.operaton.bpm.engine.rest.jackson.dateFormat`.
 
 For example, if the date format should not contain milliseconds and timezone
 information (`yyyy-MM-dd'T'HH:mm:ss`) the following configuration can be
@@ -39,12 +39,12 @@ To achieve this, you can edit the `WEB-INF/web.xml` file as follows:
 
   <listener>
     <listener-class>
-      org.camunda.bpm.engine.rest.CustomJacksonDateFormatListener
+      org.operaton.bpm.engine.rest.CustomJacksonDateFormatListener
     </listener-class>
   </listener>
 
   <context-param>
-    <param-name>org.camunda.bpm.engine.rest.jackson.dateFormat</param-name>
+    <param-name>org.operaton.bpm.engine.rest.jackson.dateFormat</param-name>
     <param-value>yyyy-MM-dd'T'HH:mm:ss</param-value>
   </context-param>
 
@@ -53,11 +53,11 @@ To achieve this, you can edit the `WEB-INF/web.xml` file as follows:
 ```
 
 With this configuration the REST API will return dates with millisecond
-precision and timezone information. Also, new dates with milliseconds and timezone information 
+precision and timezone information. Also, new dates with milliseconds and timezone information
 can be submitted to the REST API without losing these details.
 
 {{< note title="Webapps compatibility" class="warning" >}}
-Be aware that, to be able to use the Camunda webapps, the date format must correspond to the following:
+Be aware that, to be able to use the Operaton webapps, the date format must correspond to the following:
 
 `yyyy-MM-dd['T'HH:mm[:ss[.SSS[Z]]]]`
 

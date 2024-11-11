@@ -107,8 +107,8 @@ A JSON object with the following properties:
     <td>code</td>
     <td>Number</td>
     <td>
-        The code allows your client application to identify the error in an automated fashion. 
-        You can look up the meaning of all built-in codes and learn how to add custom codes in the 
+        The code allows your client application to identify the error in an automated fashion.
+        You can look up the meaning of all built-in codes and learn how to add custom codes in the
         <a href="{{< ref "/user-guide/process-engine/error-handling.md#exception-codes" >}}">User Guide</a>.
     </td>
   </tr>
@@ -195,8 +195,8 @@ A JSON object with the following properties:
     <td>code</td>
     <td>Number</td>
     <td>
-        The code allows your client application to identify the error in an automated fashion. 
-        You can look up the meaning of all built-in codes and learn how to add custom codes in the 
+        The code allows your client application to identify the error in an automated fashion.
+        You can look up the meaning of all built-in codes and learn how to add custom codes in the
         <a href="{{< ref "/user-guide/process-engine/error-handling.md#exception-codes" >}}">User Guide</a>.
     </td>
   </tr>
@@ -351,14 +351,14 @@ is exceeded, an exception is thrown which results in an HTTP status code 400.
 
 ## Exception codes
 
-Whenever an error occurs, the REST API exposes a property `"code"` with a numeric code as value in 
-the response body of the failed request. Like this, your client application can handle the error in 
-a reliable and automated fashion. The `type` property might be too coarse-grained, and the `message` 
-property might change with newer versions. 
+Whenever an error occurs, the REST API exposes a property `"code"` with a numeric code as value in
+the response body of the failed request. Like this, your client application can handle the error in
+a reliable and automated fashion. The `type` property might be too coarse-grained, and the `message`
+property might change with newer versions.
 
-You can look up the meaning of all built-in codes and learn how to add custom codes in the 
+You can look up the meaning of all built-in codes and learn how to add custom codes in the
 [User Guide]({{< ref "/user-guide/process-engine/error-handling.md#exception-codes" >}}).
 
 # Authentication
 
-The REST API ships with an implementation of [HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). By default it is switched off (in the rest-api web application and therefore also in the pre-built Camunda 7 distributions). You can activate it by adding a servlet filter as described in the [Authentication]({{< ref "/reference/rest/overview/authentication.md" >}}) section.
+The REST API ships with an implementation of [HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication). By default it is switched off (in the rest-api web application and therefore also in the pre-built Operatondistributions). You can activate it by adding a servlet filter as described in the [Authentication]({{< ref "/reference/rest/overview/authentication.md" >}}) section.

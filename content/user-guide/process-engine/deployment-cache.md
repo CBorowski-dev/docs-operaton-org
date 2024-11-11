@@ -15,7 +15,7 @@ All process definitions are cached (after they have been parsed) to avoid pollin
 
 # Customize the maximum Capacity of the Cache
 
-If one has many process definitions, the cache might occupy a large amount of memory and the capacity of the working memory may reach its limits. Therefore, after the maximum capacity is reached the least recently used process definition entry is evicted from the cache to satisfy the capacity condition. However, if one still meets out of memory issues, it can be necessary to lower the maximum capacity of the cache. 
+If one has many process definitions, the cache might occupy a large amount of memory and the capacity of the working memory may reach its limits. Therefore, after the maximum capacity is reached the least recently used process definition entry is evicted from the cache to satisfy the capacity condition. However, if one still meets out of memory issues, it can be necessary to lower the maximum capacity of the cache.
 
 By changing the maximum capacity, the configuration effects all of the following cache components:
 
@@ -23,15 +23,15 @@ By changing the maximum capacity, the configuration effects all of the following
  * Case definition
  * Decision definition
  * Decision requirements definition
-   
+
 In the process engine configuration one can specify the maximum capacity of the cache. The default value is *1000*. When the process engine is created, this property will be set and all resources will be scanned and deployed accordingly. As an example the maximum capacity could be set to *120* as follows:
 
 ```xml
-<bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+<bean id="processEngineConfiguration" class="org.operaton.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 	<!-- Your property definitions! -->
 					....
-					
-	<property name="cacheCapacity" value="120" />  
+
+	<property name="cacheCapacity" value="120" />
 </bean>
 ```
 
@@ -46,7 +46,7 @@ One can do this by implementing the Cache interface from *org.camunda.util.commo
 
 ```java
 public class MyCacheImplementation<K, V> implements Cache<K, V> {
-	
+
 	// implement interface methods and your own cache logic here
 }
 ```
@@ -62,20 +62,16 @@ public class MyCacheFactory extends CacheFactory {
   }
 }
 ```
-    
+
 The factory is used to provide the cache implementation for different cache components such as the process definition or the case definition. Once this is done, one can use the process engine configuration where one can specify a set of resources. When the process engine is created, all those resources will be scanned and deployed. In the given example the custom cache factory could now be deployed as follows:
 
 ```xml
-<bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+<bean id="processEngineConfiguration" class="org.operaton.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 	<!-- Your property definitions! -->
 					....
 
 	<property name="cacheFactory">
-			<bean class="org.camunda.bpm.engine.test.api.cfg.MyCacheFactory" />
+			<bean class="org.operaton.bpm.engine.test.api.cfg.MyCacheFactory" />
 	</property>
 </bean>
 ```
-
-
-
-

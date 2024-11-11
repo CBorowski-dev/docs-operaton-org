@@ -13,28 +13,28 @@ menu:
 ---
 
 
-This section will describe how you can install Camunda and its components on Oracle WebLogic.
+This section will describe how you can install Operaton and its components on Oracle WebLogic.
 
 {{< note title="Reading this Guide" class="info" >}}
 This guide uses a number of variables to denote common path names and constants.
 
 * `$WLS_DOMAIN_HOME` points to the Oracle WebLogic application server domain directory (typically something like `/opt/oracle/WebLogic/domains/mydomain`).
-* `$PLATFORM_VERSION` denotes the version of Camunda you want to or have installed, e.g. `7.X.Y`.
-* `$WLS_DISTRIBUTION` represents the downloaded Camunda distribution for the Oracle WebLogic Application Server, e.g., `camunda-ee-oracle-wls-$PLATFORM_VERSION.zip`.
+* `$PLATFORM_VERSION` denotes the version of Operaton you want to or have installed, e.g. `7.X.Y`.
+* `$WLS_DISTRIBUTION` represents the downloaded Operaton distribution for the Oracle WebLogic Application Server, e.g., `camunda-ee-oracle-wls-$PLATFORM_VERSION.zip`.
 
-The distribution is available at the [Camunda enterprise release page](https://downloads.camunda.cloud/enterprise-release/camunda-bpm/oracle-wls/).
+The distribution is available at the [Operaton enterprise release page](https://downloads.camunda.cloud/enterprise-release/camunda-bpm/oracle-wls/).
 You will be asked to enter the credentials you received during the trial or subscription process.
 {{< /note >}}
 
 
 # Setup
 
-Before you can install the Camunda components, you need to perform a number of required setup steps.
+Before you can install the Operaton components, you need to perform a number of required setup steps.
 
 
 ## Resource Configuration
 
-Camunda 7 requires a set of resources that need to be configured at the application server level:
+Operatonrequires a set of resources that need to be configured at the application server level:
 
 * One or multiple datasources to be used by the engine.
 * A work manager for the job executor.
@@ -44,7 +44,7 @@ Camunda 7 requires a set of resources that need to be configured at the applicat
 
 In the default configuration of the distribution, the database schema and all required tables are automatically created in an H2 database when the engine starts up for the first time. If you do not want to use the H2 database, you have to
 
-* Create a database schema for Camunda yourself.
+* Create a database schema for Operaton yourself.
 * Install the database schema to create all required tables and default indices using our [database schema installation guide]({{< ref "/installation/database-schema.md" >}}).
 
 When you create the tables manually, then you have to configure the engine to **not** create tables at startup by setting the `databaseSchemaUpdate` property to `false` (or, in case you are using Oracle, to `noop`). In WebLogic, this is done in the `bpm-platform.xml`, located in the `$WLS_HOME\modules\camunda-oracle-weblogic-ear-$VERSION.ear\camunda-oracle-weblogic-service.jar\META-INF\` folder.
@@ -52,7 +52,7 @@ When you create the tables manually, then you have to configure the engine to **
 
 ## JDBC/Datasource Configuration
 
-Camunda uses one or multiple process engines. Use the Oracle WebLogic Server Administration Console for the configuration of the datasources.
+Operaton uses one or multiple process engines. Use the Oracle WebLogic Server Administration Console for the configuration of the datasources.
 The JNDI name of the datasource must be equal to the name used in the datasource-Element of the process engine(s) configured in the bpm-platform.xml.
 
 
@@ -60,7 +60,7 @@ The JNDI name of the datasource must be equal to the name used in the datasource
 
 The default JNDI name is `jdbc/ProcessEngine`
 
-The following screenshot shows the mandatory configuration of a datasource for Camunda:
+The following screenshot shows the mandatory configuration of a datasource for Operaton:
 
 {{< img src="../img/datasource-jndi.png" title="JNDI Name" >}}
 
@@ -70,7 +70,7 @@ In this section we explain how to add a datasource using the Oracle WebLogic Ser
 2. Navigate to the **"Domain Structure / YOUR_DOMAIN / Services / Data Sources"** page.
 3. Click the **"New"** Button and select **"Generic Data Source"**.
 4. On the next page, enter a name for the datasource.
-5. Enter the required JNDI Name **"jdbc/ProcessEngine"**, which is **mandatory** for Camunda.
+5. Enter the required JNDI Name **"jdbc/ProcessEngine"**, which is **mandatory** for Operaton.
 6. Continue to the next pages and fill in your database credentials.
 7. When you finished the creation of the datasource, click the **"Finish"** Button to complete the installation.
 8. Check the box in front of your datasource and test if it works.
@@ -80,12 +80,12 @@ Note that you can configure multiple datasources used by different process engin
 
 # Required Components
 
-The following steps are required to deploy Camunda onto an Oracle WebLogic server.
+The following steps are required to deploy Operaton onto an Oracle WebLogic server.
 
 
-## Install Camunda Domain Libraries
+## Install Operaton Domain Libraries
 
-The domain libraries include the Camunda engine and some utility JARs. The domain libraries must be visible to both Camunda as well as all process applications.
+The domain libraries include the Operaton engine and some utility JARs. The domain libraries must be visible to both Operaton as well as all process applications.
 
 The domain libraries can be found in the lib folder of the distribution:
 
@@ -108,9 +108,9 @@ Restart the Oracle WebLogic Server after this operation.
 You can change the location of the domain libraries with the `-Dweblogic.ext.dirs`
 [startup option](https://docs.oracle.com/middleware/12213/wls/START/overview.htm#START-GUID-69C7DB81-B1C5-4BCB-ADCF-2F44B66DD9F8).
 
-## Install Camunda Modules
+## Install Operaton Modules
 
-Camunda includes one module in the modules folder of the distribution:
+Operaton includes one module in the modules folder of the distribution:
 
 ```
 camunda-ee-oracle-wls-$PLATFORM_VERSION.zip
@@ -118,11 +118,11 @@ camunda-ee-oracle-wls-$PLATFORM_VERSION.zip
       |-- camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear
 ```
 
-The `camunda-oracle-weblogic-ear` is a Java EE application providing the Camunda services. It contains an embedded JCA Resource Adapter, the camunda-oracle-weblogic-rar, which provides the jobexecutor service to Camunda 7.
+The `camunda-oracle-weblogic-ear` is a Java EE application providing the Operaton services. It contains an embedded JCA Resource Adapter, the camunda-oracle-weblogic-rar, which provides the jobexecutor service to Operaton.
 It must be installed to your Oracle WebLogic Application Server.
 
 
-## Install the Camunda Application
+## Install the Operaton Application
 
 In this section, we explain how the camunda-oracle-weblogic-ear module can be installed using the Oracle WebLogic Server Administration Console.
 The installation process is composed of two steps:
@@ -138,11 +138,11 @@ First the `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear` RAR file must be i
 1. Open the Oracle WebLogic Server Administration Console.
 2. Navigate to the **"Domain structure / YOUR_DOMAIN / Deployments"** page.
 3. Select the **"Install"** button.
-4. Using the File Browser, select the `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear` from the modules folder of Camunda for Oracle WebLogic Application Server distribution and continue to the **"Next"** page.
+4. Using the File Browser, select the `camunda-oracle-weblogic-ear-$PLATFORM_VERSION.ear` from the modules folder of Operaton for Oracle WebLogic Application Server distribution and continue to the **"Next"** page.
 5. Select **"Install this deployment as an application"** and continue to the **"Next"** page.
 6. Fill in `camunda-bpm-platform` as name for the enterprise application deployment.
 {{< note title="Heads Up!" class="info" >}}
-The names of the [JNDI Bindings for Camunda Services]({{< ref "/user-guide/runtime-container-integration/jndi-bindings-for-bpmn-platform-services.md" >}}) consist of the name of the enterprise application deployment.
+The names of the [JNDI Bindings for Operaton Services]({{< ref "/user-guide/runtime-container-integration/jndi-bindings-for-bpmn-platform-services.md" >}}) consist of the name of the enterprise application deployment.
 
 **Please note:** If you change the name of the enterprise application deployment, the JNDI names change as well.
 {{< /note >}}
@@ -184,7 +184,7 @@ This section describes how to install optional components onto an Oracle WebLogi
 
 ## Cockpit, Tasklist and Admin
 
-The web application archive that contains Camunda Cockpit and Tasklist resides under `webapps/camunda-webapp-ee-wls-$PLATFORM_VERSION.war` in the Oracle WebLogic Application Server distribution archive.
+The web application archive that contains Operaton Cockpit and Tasklist resides under `webapps/camunda-webapp-ee-wls-$PLATFORM_VERSION.war` in the Oracle WebLogic Application Server distribution archive.
 
 In this section we explain how to install the WAR file using the Oracle WebLogic Server Administration Console:
 
@@ -204,7 +204,7 @@ You can check if everything went well by accessing Cockpit, Tasklist and Admin v
 
 ## REST API
 
-The Camunda REST API WAR file resides under `webapps/camunda-engine-rest-$PLATFORM_VERSION-wls.war` in the Oracle WebLogic Application Server distribution archive.
+The Operaton REST API WAR file resides under `webapps/camunda-engine-rest-$PLATFORM_VERSION-wls.war` in the Oracle WebLogic Application Server distribution archive.
 
 In this section we explain how to install the WAR file using the Oracle WebLogic Server Administration Console:
 

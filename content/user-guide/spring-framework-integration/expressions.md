@@ -18,7 +18,7 @@ When using the `ProcessEngineFactoryBean`, by default, all expressions and scrip
 
 ```xml
 <bean id="processEngineConfiguration"
-      class="org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration">
+      class="org.operaton.bpm.engine.spring.SpringProcessEngineConfiguration">
   ...
   <property name="beans">
     <map>
@@ -28,7 +28,7 @@ When using the `ProcessEngineFactoryBean`, by default, all expressions and scrip
 </bean>
 
 <bean id="printer"
-      class="org.camunda.bpm.engine.spring.test.transaction.Printer" />
+      class="org.operaton.bpm.engine.spring.test.transaction.Printer" />
 ```
 
 # Using Spring Beans in expressions
@@ -39,19 +39,19 @@ The exposed beans can be used in expressions. For example, the `SpringTransactio
 <definitions id="definitions" ...>
 
   <process id="helloProcess" isExecutable="true">
-  
+
     <startEvent id="start" />
     <sequenceFlow id="flow1" sourceRef="start" targetRef="print" />
-    
-    <serviceTask id="print" 
+
+    <serviceTask id="print"
                  camunda:expression="#{printer.printMessage(execution)}" />
     <sequenceFlow id="flow2" sourceRef="print" targetRef="userTask" />
-    
+
     <userTask id="userTask" />
     <sequenceFlow id="flow3" sourceRef="userTask" targetRef="end" />
-    
+
     <endEvent id="end" />
-    
+
   </process>
 
 </definitions>
@@ -75,7 +75,7 @@ And the Spring bean configuration (also shown above) looks like this:
   ...
 
   <bean id="printer"
-        class="org.camunda.bpm.engine.spring.test.transaction.Printer" />
+        class="org.operaton.bpm.engine.spring.test.transaction.Printer" />
 </beans>
 ```
 
@@ -83,7 +83,7 @@ And the Spring bean configuration (also shown above) looks like this:
 
 In a shared process engine deployment scenario, you have a process engine which dispatches to multiple applications. In this case, there is not a single Spring application context but each application may maintain its own application context. The process engine cannot use a single expression resolver for a single application context but must delegate to the appropriate process application, depending on which process is currently being executed.
 
-This functionality is provided by the `org.camunda.bpm.engine.spring.application.SpringProcessApplicationElResolver`. This class is a `ProcessApplicationElResolver` implementation delegating to the local application context. Expression resolving then works in the following way:
+This functionality is provided by the `org.operaton.bpm.engine.spring.application.SpringProcessApplicationElResolver`. This class is a `ProcessApplicationElResolver` implementation delegating to the local application context. Expression resolving then works in the following way:
 
 1. The shared process engine checks which process application corresponds to the process it is currently executing.
 2. It then delegates to that process application for resolving expressions.
@@ -101,8 +101,8 @@ When using `ProcessEngineFactoryBean`, all Spring beans are accessible in Groovy
 <beans ...>
   ...
 
-  <bean id="testbean" 
-        class="org.camunda.bpm.engine.spring.test.scripttask.Testbean" />
+  <bean id="testbean"
+        class="org.operaton.bpm.engine.spring.test.scripttask.Testbean" />
 </beans>
 ```
 Where Testbean looks like this:

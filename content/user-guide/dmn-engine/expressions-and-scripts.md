@@ -26,7 +26,7 @@ As shown in the [decision table] and [decision literal expression] reference, fo
   table is applicable
 - *Output Entry*: returns a value which is added to the output of a matched rule
   of the decision table
-- *Literal Expression*: used to determine the value of a decision literal expression 
+- *Literal Expression*: used to determine the value of a decision literal expression
 
 You can read more on this in the [DMN 1.3 reference][decision table]. In
 the DMN 1.3 XML, expressions can be found in the XML
@@ -34,7 +34,7 @@ elements `inputExpression`, `inputEntry`, `outputEntry` and `literalExpression`:
 
 ```xml
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
-  
+
   <decision id="decision" name="Decision">
     <decisionTable>
       <input id="input">
@@ -61,17 +61,17 @@ elements `inputExpression`, `inputEntry`, `outputEntry` and `literalExpression`:
     <!-- the literal expression determines the value of this decision -->
     <literalExpression>
       <text>a + b</text>
-    </literalExpression> 
+    </literalExpression>
   </decision>
-  
+
 </definitions>
 ```
 
 # Supported Expression Languages
 
-The Camunda DMN engine supports two expression languages out of the box:
+The Operaton DMN engine supports two expression languages out of the box:
 
-- `JUEL`: A Camunda-maintained [implementation][juel] of the Java [Unified Expression Language][EL]
+- `JUEL`: A Operaton-maintained [implementation][juel] of the Java [Unified Expression Language][EL]
 - `FEEL`: The Friendly Enough Expression Language of the [DMN 1.2] standard.
 
 Depending on the JDK you use, there may also be a `Javascript` implementation
@@ -131,9 +131,9 @@ DMN engine are as follows:
 - *Input Entry*: `FEEL`
 - *Output Entry*: `FEEL`
 - *Literal Expression*: `FEEL`
- 
+
 {{< note title="Legacy Behavior" class="info" >}}
-You can find how to go back to the legacy behavior, where `JUEL` was used for input expressions, 
+You can find how to go back to the legacy behavior, where `JUEL` was used for input expressions,
 output entries and literal expressions [here]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#dmnFeelEnableLegacyBehavior" >}}).
 {{< /note >}}
 
@@ -161,7 +161,7 @@ It is also possible to set the language for each expression individually using t
 
 ```xml
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
-  
+
   <decision id="decision" name="Decision">
     <decisionTable>
       <input id="input">
@@ -183,12 +183,12 @@ It is also possible to set the language for each expression individually using t
       </rule>
     </decisionTable>
   </decision>
-  
+
   <decision id="decision2" name="Decision 2">
     <!-- use groovy for this literal expression -->
     <literalExpression expressionLanguage="groovy">
       <text>a + b</text>
-    </literalExpression> 
+    </literalExpression>
   </decision>
 
 </definitions>

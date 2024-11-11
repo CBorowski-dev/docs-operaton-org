@@ -74,7 +74,7 @@ task, please refer to the [CMMN 1.1 reference][decision task].
 # The Decision Result
 
 The output of the decision, also called decision result, is a complex object of
-type `DmnDecisionResult`. Generally, it is a list of key-value pairs. 
+type `DmnDecisionResult`. Generally, it is a list of key-value pairs.
 
 If the decision is implemented as [decision table] then each entry in the list represents one matched rule. The output entries of this
 rule are represented by the key-value pairs. The key of a pair is specified by
@@ -88,7 +88,7 @@ get the result of a matched rule. The rule results provide methods from the
 `Map` interface and also convenience methods like `getSingleEntry()` or
 `getFirstEntry()`.
 
-If the decision result contains only a single output value (e.g., evaluating a decision literal expression) then 
+If the decision result contains only a single output value (e.g., evaluating a decision literal expression) then
 the value can be retrieved from the result using the `getSingleEntry()` method
 which combines `getSingleResult()` and `getSingleEntry()`.
 
@@ -268,7 +268,7 @@ listener which is attached to the decision task.
 <decisionTask id="decisionTask" decisionRef="myDecision">
   <extensionElements>
     <camunda:caseExecutionListener event="complete"
-      class="org.camunda.bpm.example.MyDecisionResultListener" />
+      class="org.operaton.bpm.example.MyDecisionResultListener" />
   </extensionElements>
 </decisionTask>
 ```
@@ -310,7 +310,7 @@ The same problems can occur by using a custom output variable mapping since
 `DmnDecisionResult` has methods that return the same collections as the
 predefined mappers. Additionally, it is not recommended to save a
 `DmnDecisionResult` or a `DmnDecisionResultEntries` as process/case variable because
-the underlying implementation can change in a new version of Camunda 7.
+the underlying implementation can change in a new version of Operaton.
 
 To prevent any of these problems, you should use primitive variables only.
 Alternatively, you can use a custom object for serialization that you control
@@ -326,7 +326,7 @@ calling task. The variables are provided through a read-only variable context.
 
 As a shorthand, process/case variables can be directly referenced by name in
 expressions. For example, if a process variable `foo` exists, then this
-variable can be used in an input expression, input entry and output entry of a decision table 
+variable can be used in an input expression, input entry and output entry of a decision table
 by its name.
 
 ```xml
@@ -365,15 +365,15 @@ its unwrapped value.
 # Expression Language Integration
 
 By default, the DMN engine uses [FEEL] as expression language for input
-expressions, input entries, output entries and literal expressions. 
+expressions, input entries, output entries and literal expressions.
 Please see the [DMN engine][expression languages] guide for more
 information about expression languages.
 
 ## Accessing Beans
 
-If the DMN engine is invoked by Camunda 7, it uses the same
-JUEL configuration as the Camunda 7 engine. Therefore, it is also
-possible to access Spring and CDI Beans from JUEL expressions in decisions. 
+If the DMN engine is invoked by Operaton, it uses the same
+JUEL configuration as the Operatonengine. Therefore, it is also
+possible to access Spring and CDI Beans from JUEL expressions in decisions.
 For more information on this integration, please see the corresponding
 section in the [Spring] and [CDI] guides.
 

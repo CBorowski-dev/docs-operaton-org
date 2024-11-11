@@ -12,15 +12,15 @@ menu:
 
 ---
 
-Camunda 7 provides a wrapper for the FEEL Scala Engine to implement Custom Functions, which can be 
-called in expressions and unary tests. 
+Operatonprovides a wrapper for the FEEL Scala Engine to implement Custom Functions, which can be
+called in expressions and unary tests.
 
 {{< note title="Custom Function Behavior" class="warning" >}}
 Please note that the Custom Function Mechanism of the Standalone FEEL Scala Engine might behave differently.
 {{< /note >}}
 
-You can add Custom Functions to the Process Engine (or the Standalone DMN Engine) only programmatically 
-through a [Process Engine Plugin]. Read more about it in the section about how to 
+You can add Custom Functions to the Process Engine (or the Standalone DMN Engine) only programmatically
+through a [Process Engine Plugin]. Read more about it in the section about how to
 [Register Custom Function Providers].
 
 ## Implement a Custom Function
@@ -30,8 +30,8 @@ To implement a Custom Function, create a sub-class of `FeelCustomFunctionProvide
 The following code example shows how to implement a Custom Function:
 
 ```java
-import org.camunda.bpm.dmn.feel.impl.scala.function.CustomFunction;
-import org.camunda.bpm.dmn.feel.impl.scala.function.FeelCustomFunctionProvider;
+import org.operaton.bpm.dmn.feel.impl.scala.function.CustomFunction;
+import org.operaton.bpm.dmn.feel.impl.scala.function.FeelCustomFunctionProvider;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,11 +45,11 @@ public class CustomFunctionProvider implements FeelCustomFunctionProvider {
   public CustomFunctionProvider() {
     CustomFunction function = CustomFunction.create()
         .setParams("x", "y")
-        .setFunction(args -> { 
+        .setFunction(args -> {
           long argX = (long) args.get(0);
           long argY = (long) args.get(1);
-          
-          return argX + argY; 
+
+          return argX + argY;
         })
         .build();
 
@@ -78,10 +78,10 @@ The builder has the following configuration options:
    * Passed arguments in FEEL must not follow a strict order when calling the parameter name explicitly: `myFunction(y: 5, x: 3)`
 * `#enableVarargs()`
     * Enables variable arguments
-    * When enabled, the function can have variable arguments for the last parameter 
+    * When enabled, the function can have variable arguments for the last parameter
     * The last argument is of type list
 * `#setFunction(Function<List<Object>, Object> function)`
-   * Passes an object of type <code>java.util.function.Function</code> with a list of objects as 
+   * Passes an object of type <code>java.util.function.Function</code> with a list of objects as
      arguments and an object as the return value
    * Cannot be used together with `#setReturnValue`
 * `#setReturnValue(Object result)`
@@ -100,22 +100,22 @@ the property [dmnFeelCustomFunctionProviders] using a [Process Engine Plugin].
 
 ### Standalone DMN Engine
 
-The DMN Engine has a property `feelCustomFunctionProviders` of type `List` in the 
+The DMN Engine has a property `feelCustomFunctionProviders` of type `List` in the
 `DefaultDmnEngineConfiguration` to register Custom Function Providers.
 
 ## Type Handling
 
-This section describes which argument types are passed into a Custom Function and which types 
+This section describes which argument types are passed into a Custom Function and which types
 you can return.
 
 ### Argument Types
 
-All Java types listed in the "Return Types" section of the [FEEL Type Handling] documentation can be 
+All Java types listed in the "Return Types" section of the [FEEL Type Handling] documentation can be
 passed into a Custom Function.
 
 ### Return Types
 
-All Java types listed in the "Return Types" section of the [FEEL Type Handling] documentation plus 
+All Java types listed in the "Return Types" section of the [FEEL Type Handling] documentation plus
 the types listed in the [FEEL Data Types] documentation can be returned by a Custom Function.
 
 [FEEL Type Handling]: {{< ref "/user-guide/dmn-engine/feel/type-handling.md#return-types" >}}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://www.example.org/bpmn" exporter="Camunda Modeler" exporterVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://www.example.org/bpmn" exporter="Operaton Modeler" exporterVersion="1.0.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <bpmn2:error id="Error_1" name="E1" errorCode="E1" />
   <bpmn2:collaboration id="Collaboration_1" name="Default Collaboration">
     <bpmn2:participant id="Process_Engine" name="Catch and Re-Throw" processRef="looping-error" />
@@ -28,7 +28,7 @@
         <bpmn2:association id="Association_1d0s92n" sourceRef="StartEvent_2" targetRef="TextAnnotation_1hm7b00" />
         <bpmn2:association id="Association_0qhwefz" sourceRef="EndEvent_2" targetRef="TextAnnotation_1u0mrx9" />
       </bpmn2:subProcess>
-      <bpmn2:serviceTask id="ServiceTask_1" name="Call some Service" camunda:class="org.camunda.bpm.engine.test.bpmn.event.error.ThrowErrorInLoopDelegate">
+      <bpmn2:serviceTask id="ServiceTask_1" name="Call some Service" camunda:class="org.operaton.bpm.engine.test.bpmn.event.error.ThrowErrorInLoopDelegate">
         <bpmn2:incoming>SequenceFlow_1dacouk</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_0zqri0n</bpmn2:outgoing>
       </bpmn2:serviceTask>

@@ -25,7 +25,7 @@ Read more about [cockpit dashboard plugins][cockpit-dashboard-plugins].
 
 # Available modules
 
-Since 7.5, the availability of modules in plugins has been changed. The following matrix shows availability of modules for plugins in the Camunda web applications:
+Since 7.5, the availability of modules in plugins has been changed. The following matrix shows availability of modules for plugins in the Operaton web applications:
 
 <table class="table table-bordered">
   <thead>
@@ -136,11 +136,11 @@ The following modules have been updated to a newer version:
 
 # Maven Dependency
 
-The dependency to the Camunda webapp core with the maven coordinates `org.camunda.bpm.webapp:camunda-webapp-core` has been renamed. Please use the following snippet in your `pom.xml`:
+The dependency to the Operaton webapp core with the maven coordinates `org.operaton.bpm.webapp:camunda-webapp-core` has been renamed. Please use the following snippet in your `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>org.camunda.bpm.webapp</groupId>
+  <groupId>org.operaton.bpm.webapp</groupId>
   <artifactId>camunda-webapp</artifactId>
   <classifier>classes</classifier>
   <version>${camunda.version}</version>

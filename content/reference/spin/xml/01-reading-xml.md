@@ -16,8 +16,8 @@ The XML dataformat supports reading XML from Strings or input streams.
 # Reading XML from a String:
 
 ```java
-import static org.camunda.spin.Spin.*;
-import static org.camunda.spin.DataFormats.*;
+import static org.operaton.spin.Spin.*;
+import static org.operaton.spin.DataFormats.*;
 
 SpinXmlElement xml = S("<order />", xml());
 ```
@@ -27,7 +27,7 @@ The second paramter `xml()` hints Spin to use the XML data format for parsing th
 Alternatively, you can directly use the `XML(...)` function:
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 SpinXmlElement xml = XML("<order />");
 ```
@@ -38,8 +38,8 @@ SpinXmlElement xml = XML("<order />");
 Spin also supports reading XML directly from a `java.io.Reader`:
 
 ```java
-import static org.camunda.spin.Spin.*;
-import static org.camunda.spin.DataFormats.*;
+import static org.operaton.spin.Spin.*;
+import static org.operaton.spin.DataFormats.*;
 
 SpinXmlElement xml = S(reader, xml());
 ```
@@ -47,7 +47,7 @@ SpinXmlElement xml = S(reader, xml());
 The `XML(...)` method also supports readers. The following example shows how to read the XML from a file (error handling ommitted):
 
 ```java
-import static org.camunda.spin.Spin.*;
+import static org.operaton.spin.Spin.*;
 
 FileInputStream fis = new FileInputStream("/tmp/incomingOrder.xml");
 InputStreamReader reader = new InputStreamReader(fis, "utf-8");

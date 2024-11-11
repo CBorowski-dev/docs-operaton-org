@@ -7,7 +7,7 @@ menu:
   main:
     identifier: "dmn-ref-extensions-attributes"
     parent: "dmn-ref-extensions"
-    pre: "Reference of Camunda Extension Attributes for DMN."
+    pre: "Reference of Operaton Extension Attributes for DMN."
 
 aliases: [reference/dmn11/custom-extensions/camunda-attributes/]
 ---

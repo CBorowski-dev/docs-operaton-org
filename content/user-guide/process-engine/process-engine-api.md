@@ -45,9 +45,9 @@ ProcessEngineConfiguration
 
 For all `activiti.cfg.xml` files, the process engine will be built in the Spring way: first the Spring application context is created and then the process engine is obtained from that application context.
 
-All services are stateless. This means that you can easily run Camunda 7 on multiple nodes in a cluster, each going to the same database, without having to worry about which machine actually executed previous calls. Any call to any service is idempotent regardless of where it is executed.
+All services are stateless. This means that you can easily run Operatonon multiple nodes in a cluster, each going to the same database, without having to worry about which machine actually executed previous calls. Any call to any service is idempotent regardless of where it is executed.
 
-The **RepositoryService** is probably the first service needed when working with the Camunda engine. This service offers operations for managing and manipulating deployments and process definitions. Without going into much detail here, a process definition is the Java counterpart of a BPMN 2.0 process. It is a representation of the structure and behavior of each of the steps of a process. A deployment is the unit of packaging within the engine. A deployment can contain multiple BPMN 2.0 XML files and any other resource. The choice of what is included in one deployment is up to the developer. It can range from a single process BPMN 2.0 XML file to a whole package of processes and relevant resources (for example the deployment 'hr-processes' could contain everything related to hr processes). The RepositoryService allows to deploy such packages. Deploying a deployment means it is uploaded to the engine, where all processes are inspected and parsed before being stored in the database. From that point on, the deployment is known to the system and any process included in the deployment can now be started.
+The **RepositoryService** is probably the first service needed when working with the Operaton engine. This service offers operations for managing and manipulating deployments and process definitions. Without going into much detail here, a process definition is the Java counterpart of a BPMN 2.0 process. It is a representation of the structure and behavior of each of the steps of a process. A deployment is the unit of packaging within the engine. A deployment can contain multiple BPMN 2.0 XML files and any other resource. The choice of what is included in one deployment is up to the developer. It can range from a single process BPMN 2.0 XML file to a whole package of processes and relevant resources (for example the deployment 'hr-processes' could contain everything related to hr processes). The RepositoryService allows to deploy such packages. Deploying a deployment means it is uploaded to the engine, where all processes are inspected and parsed before being stored in the database. From that point on, the deployment is known to the system and any process included in the deployment can now be started.
 
 Furthermore, this service allows to
 
@@ -66,7 +66,7 @@ Tasks that need to be performed by actual human users of the system are core to 
 
 The **IdentityService** is pretty simple. It allows the management (creation, update, deletion, querying, ...) of groups and users. It is important to understand that the core engine actually doesn't do any checking on users at runtime. For example, a task could be assigned to any user, but the engine does not verify if that user is known to the system. This is because the engine can also be used in conjunction with services such as LDAP, Active Directory, etc.
 
-The **FormService** is an optional service. This means that the Camunda engine can be used perfectly without it, without sacrificing any functionality. This service introduces the concept of a start form and a task form. A start form is a form that is shown to the user before the process instance is started, while a task form is the form that is displayed when a user wants to complete a task. You can define these forms in the BPMN 2.0 process definition. This service exposes this data in an easy way to work with. But again, this is optional as forms don't need to be embedded in the process definition.
+The **FormService** is an optional service. This means that the Operaton engine can be used perfectly without it, without sacrificing any functionality. This service introduces the concept of a start form and a task form. A start form is a form that is shown to the user before the process instance is started, while a task form is the form that is displayed when a user wants to complete a task. You can define these forms in the BPMN 2.0 process definition. This service exposes this data in an easy way to work with. But again, this is optional as forms don't need to be embedded in the process definition.
 
 The **HistoryService** exposes all historical data gathered by the engine. When executing processes, a lot of data can be kept by the engine (this is configurable) such as process instance start times, who did which tasks, how long it took to complete the tasks, which path was followed in each process instance, etc. This service exposes mainly query capabilities to access this data.
 
@@ -136,7 +136,7 @@ This restriction is only enforced in the following cases:
 to the maximum results limit
 * Performing a [Native Query](#native-queries) since it is not accessible via REST API or Webapps
  and therefore not likely to be exploited
- 
+
 ### Limitations
 
 * Performing a statistics query via REST API

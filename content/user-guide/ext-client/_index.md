@@ -11,7 +11,7 @@ menu:
 
 ---
 
-The **Camunda External Task Client** allows you to set up remote service tasks for your workflow. There is a supported [Java](https://github.com/camunda/camunda-bpm-platform/tree/master/clients/java)
+The **Operaton External Task Client** allows you to set up remote service tasks for your workflow. There is a supported [Java](https://github.com/camunda/camunda-bpm-platform/tree/master/clients/java)
 as well as [JavaScript](https://github.com/camunda/camunda-external-task-client-js) implementation.
 
 ## Features
@@ -28,14 +28,14 @@ as well as [JavaScript](https://github.com/camunda/camunda-external-task-client-
 
 
 The client allows to handle service tasks of type "external". In order to configure and instantiate the client, all supported implementations offer a convenient interface.
-The communication between the client and the Camunda Workflow Engine is HTTP. Hence, the respective URL of the REST API is a mandatory information.
+The communication between the client and the Operaton Workflow Engine is HTTP. Hence, the respective URL of the REST API is a mandatory information.
 
 ### Request Interceptors
 To add additional HTTP headers to the performed REST API requests, the request interceptor method can be used. This becomes necessary,
 in the context of e.g. authentication.
 
 #### Basic Authentication
-In some cases it is necessary to secure the REST API of the Camunda Workflow Engine via Basic Authentication. For such
+In some cases it is necessary to secure the REST API of the Operaton Workflow Engine via Basic Authentication. For such
 situations a Basic Authentication implementation is provided by the client. Once configured with user credentials, the basic authentication header is added to each REST API request.
 
 #### Custom Interceptor
@@ -88,15 +88,15 @@ an `unlock` method can be called. The External Task can only be unlocked, if the
 ### Reporting Failures
 If the client faces a problem that makes it impossible to complete the External Task successfully, this problem can be reported to
 the Workflow Engine. A failure can only be reported, if the External Task is currently locked by the client.
-You can find a detailed documentation about this action in the Camunda 7 [User Guide]({{<ref "/user-guide/process-engine/external-tasks.md#reporting-task-failure">}}).
+You can find a detailed documentation about this action in the Operaton[User Guide]({{<ref "/user-guide/process-engine/external-tasks.md#reporting-task-failure">}}).
 
 ### Reporting BPMN Errors
 [Error boundary events]({{<ref "/reference/bpmn20/events/error-events.md#error-boundary-event">}})
 are triggered by BPMN errors. A BPMN error can only be reported, if the External Task is currently locked by the client.
-You can find a detailed documentation about this action in the Camunda 7 [User Guide]({{<ref "/user-guide/process-engine/external-tasks.md#reporting-bpmn-error">}}).
+You can find a detailed documentation about this action in the Operaton[User Guide]({{<ref "/user-guide/process-engine/external-tasks.md#reporting-bpmn-error">}}).
 
 ### Variables
-Both external tasks clients are compatible with all data types the Camunda Engine [supports]({{<ref "/user-guide/process-engine/variables.md#supported-variable-values">}}).
+Both external tasks clients are compatible with all data types the Operaton Engine [supports]({{<ref "/user-guide/process-engine/variables.md#supported-variable-values">}}).
 Variables can be accessed/altered using typed or the untyped API.
 
 
@@ -169,7 +169,7 @@ The method accepts a `Consumer` as parameter that gives you access to the intern
 ```java
 ExternalTaskClient.create()
   .baseUrl("localhost")
-  .customizeHttpClient((HttpClientBuilder httpClientBuilder) -> 
+  .customizeHttpClient((HttpClientBuilder httpClientBuilder) ->
     httpClientBuilder.setDefaultRequestConfig(RequestConfig.custom()
       .setResponseTimeout(Timeout.ofSeconds(30))
       .build()))

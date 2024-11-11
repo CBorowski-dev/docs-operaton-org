@@ -13,7 +13,7 @@ menu:
 
 ---
 
-This document guides you through the update from Camunda `7.10.x` to `7.11.0`. It covers these use cases:
+This document guides you through the update from Operaton `7.10.x` to `7.11.0`. It covers these use cases:
 
 1. For administrators and developers: [Database Updates](#database-updates)
 1. For administrators and developers: [Full Distribution Update](#full-distribution)
@@ -28,17 +28,17 @@ This document guides you through the update from Camunda `7.10.x` to `7.11.0`. I
 1. For developers: [Updated Front End Libraries](#updated-front-end-libraries)
 1. For developers: [HTTP Header Security in Webapps](#http-header-security-in-webapps)
 
-This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Camunda 7.11.
+This guide covers mandatory migration steps as well as optional considerations for initial configuration of new functionality included in Operaton.
 
 
 # Database Updates
 
-Every Camunda installation requires a database schema update.
+Every Operaton installation requires a database schema update.
 
 ## Procedure
 
 1. Check for [available database patch scripts]({{< ref "/update/patch-level.md#database-patches" >}}) for your database that are within the bounds of your update path.
- Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Camunda Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
+ Locate the scripts at `$DISTRIBUTION_PATH/sql/upgrade` in the pre-packaged distribution (where `$DISTRIBUTION_PATH` is the path of an unpacked distribution) or in the [Operaton Artifact Repository](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/distro/camunda-sql-scripts/).
  We highly recommend to execute these patches before updating. Execute them in ascending order by version number.
  The naming pattern is `$DATABASENAME_engine_7.10_patch_?.sql`.
 
@@ -48,13 +48,13 @@ Every Camunda installation requires a database schema update.
 
     The scripts update the database from one minor version to the next, and change the underlying database structure. So make sure to backup your database in case there are any failures during the update process.
 
-3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Camunda 7, e.g., `7.11.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
+3. We highly recommend to also check for any existing patch scripts for your database that are within the bounds of the new minor version you are updating to. Execute them in ascending order by version number. _Attention_: This step is only relevant when you are using an enterprise version of Operaton, e.g., `7.11.X` where `X > 0`. The procedure is the same as in step 1, only for the new minor version.
 
 ### MySQL/MariaDB Specifics
 
 MySQL and MariaDB represent the `TIMESTAMP` data type with a signed 32-bit integer. This limits the maximum date that can be stored to `03:14:07 on 19 January 2038 (UTC)` (also referred to as the [Y2K38 problem](https://en.wikipedia.org/wiki/Year_2038_problem)).
 
-For this reason, all the `TIMESTAMP` columns that the Camunda engine uses to store future dates were migrated to the `DATETIME` data type with a much larger time range.
+For this reason, all the `TIMESTAMP` columns that the Operaton engine uses to store future dates were migrated to the `DATETIME` data type with a much larger time range.
 
 Be aware that `DATETIME` does not store time zone information. This means that, when applying the `[MySQL|MariaDB]_engine_7.10_to_7.11.sql` script, the database server time zone will be used to convert the `TIMESTAMP` into `DATETIME` values. Any future time zone changes on the database server will offset the time stored in these columns causing an incorrect operation of the engine.
 
@@ -64,12 +64,12 @@ This section is applicable if you installed the [Full Distribution]({{< ref "/in
 
 The following steps are required:
 
-1. Update the Camunda libraries and applications inside the application server
+1. Update the Operaton libraries and applications inside the application server
 2. Migrate custom process applications
 
-Before starting, make sure that you have downloaded the Camunda 7.11 distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
+Before starting, make sure that you have downloaded the Operaton distribution for the application server you use. It contains the SQL scripts and libraries required for update. This guide assumes you have unpacked the distribution to a path named `$DISTRIBUTION_PATH`.
 
-## Camunda Libraries and Applications
+## Operaton Libraries and Applications
 
 Please choose the application server you are working with from the following list:
 
@@ -80,7 +80,7 @@ Please choose the application server you are working with from the following lis
 
 ## Custom Process Applications
 
-For every process application, the Camunda dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
+For every process application, the Operaton dependencies should be updated to the new version. Which dependencies you have is application- and server-specific. Typically, the dependencies consist of any of the following:
 
 * `camunda-engine-spring`
 * `camunda-engine-cdi`
@@ -103,11 +103,11 @@ If a database other than the default H2 database is used, the following steps mu
 
 # Spring Boot Starter Update
 
-If you are using Camunda Spring Boot Starter within you Spring Boot application, then you need to:
+If you are using Operaton Spring Boot Starter within you Spring Boot application, then you need to:
 
 1. Check [Version Compatibility Matrix]({{< ref "/user-guide/spring-boot-integration/version-compatibility.md" >}})
 2. Update **Spring Boot Starter** and, when required, Spring Boot versions in your `pom.xml`.
-3. Update the Camunda 7 version in your `pom.xml` in case you override it before (e.g. when using the enterprise version or a patch releases)
+3. Update the Operatonversion in your `pom.xml` in case you override it before (e.g. when using the enterprise version or a patch releases)
 
 # camunda-engine-spring Update
 
@@ -144,7 +144,7 @@ following Spring artifacts:
 
 # External Task Client Update
 
-If you are using the **Camunda External Task Client**, please make sure to:
+If you are using the **Operaton External Task Client**, please make sure to:
 
 1. Check out the [Version Compatibility Matrix]({{< ref "/user-guide/ext-client/compatibility-matrix.md" >}})
 2. Update the version in your `pom.xml` (Java) or `package.json` (NodeJs)
@@ -198,7 +198,7 @@ In case you have at least one of these custom implementations please have a look
       </td>
     </tr>
     <tr>
-      <td>Built-in permissions are used for built-in resources in combinations other than than those defined by Camunda</td>
+      <td>Built-in permissions are used for built-in resources in combinations other than than those defined by Operaton</td>
       <td>
         <li>
           Create a dedicated `Permission` Enum that copies the permissions that you use and implement the <code>Permission#getResources()</code> method such that it returns the resource you use them with.
@@ -213,12 +213,12 @@ In case you have at least one of these custom implementations please have a look
 
 ## How to avoid a permission clash
 
-1. Check if any of your custom permissions is in conflict with one of the built-in permissions: Check the permission enums in the [org.camunda.bpm.engine.authorization](https://docs.camunda.org/javadoc/camunda-bpm-platform/7.11/index.html?org/camunda/bpm/engine/authorization/package-summary.html) package. Determine if there is any permission that applies to the same resource and has the same value as one of your custom permissions.
-1. Deactivate this built-in permission via a [process engine configuration property]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#disabledPermissions">}}). Note that in this case Camunda no longer enforces the disabled permissions.
+1. Check if any of your custom permissions is in conflict with one of the built-in permissions: Check the permission enums in the [org.operaton.bpm.engine.authorization](https://docs.camunda.org/javadoc/camunda-bpm-platform/7.11/index.html?org/camunda/bpm/engine/authorization/package-summary.html) package. Determine if there is any permission that applies to the same resource and has the same value as one of your custom permissions.
+1. Deactivate this built-in permission via a [process engine configuration property]({{< ref "/reference/deployment-descriptors/tags/process-engine.md#disabledPermissions">}}). Note that in this case Operaton no longer enforces the disabled permissions.
 
 # User Operation Log Permissions
 
-The authorization for user operation log entries has been adjusted. Entries that are created with Camunda 7.11 and higher and that are not related to process definition keys (e.g. case instances, batches, standalone tasks and standalone jobs) can no longer be read and deleted without proper authorization.
+The authorization for user operation log entries has been adjusted. Entries that are created with Operaton and higher and that are not related to process definition keys (e.g. case instances, batches, standalone tasks and standalone jobs) can no longer be read and deleted without proper authorization.
 
 Instead, permissions `READ` and `DELETE` can be granted on the new resource `UserOperationLogCategory` with resource id set to a specific operation log category or `*` for all.
 
@@ -277,7 +277,7 @@ With this release, we updated all front end libraries. Changes introduced with n
 Please find below a complete table of the updated front end libraries.
 
 If you make use of these packages in your **Embedded Task Forms** as well as your **Custom Scripts**, please make sure that your
-customizations still work as expected with the new versions used in Camunda 7.11.
+customizations still work as expected with the new versions used in Operaton.
 
 <table class="table desc-table">
   <thead>
@@ -414,15 +414,14 @@ customizations still work as expected with the new versions used in Camunda 7.11
 
 # HTTP Header Security in Webapps
 
-Starting with this release, a HTTP Header Security Servlet Filter is introduced for the Webapps. With Camunda 7.11.0 
+Starting with this release, a HTTP Header Security Servlet Filter is introduced for the Webapps. With Operaton
 we have added the XSS Protection Header to all server responses in conjunction with the Webapps.
 
 ## XSS Protection in Webapps
 
-By default, the XSS Protection HTTP Header is configured in a way that a page gets blocked as soon as the browser detects 
-a cross-site scripting attack. You can either loosen this behavior or even disable the XSS Protection Header. Learn more 
-about how to configure the [HTTP Header Security Filter]({{< ref "/webapps/shared-options/header-security.md" >}}). 
+By default, the XSS Protection HTTP Header is configured in a way that a page gets blocked as soon as the browser detects
+a cross-site scripting attack. You can either loosen this behavior or even disable the XSS Protection Header. Learn more
+about how to configure the [HTTP Header Security Filter]({{< ref "/webapps/shared-options/header-security.md" >}}).
 
-For further reading on how the XSS protection header works in detail, 
+For further reading on how the XSS protection header works in detail,
 please see [Mozillas MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection).
-

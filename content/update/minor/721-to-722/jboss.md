@@ -10,31 +10,31 @@ menu:
 
 ---
 
-The following steps describe how to update the Camunda artifacts on a Wildfly/JBoss EAP 7 in a 
+The following steps describe how to update the Operaton artifacts on a Wildfly/JBoss EAP 7 in a
 shared process engine scenario. Throughout the procedure, refer to the [update guide][update-guide].
 
 {{< note title="Reading this Guide" class="info" >}}
 This guide uses a number of variables to denote common path names and constants:
 
 * `$WILDFLY_HOME` points to the JBoss EAP/WildFly application server main directory.
-* `$WILDFLY_DISTRIBUTION` represents the downloaded pre-packaged Camunda 7 distribution for WildFly, e.g. `camunda-bpm-wildfly-$PLATFORM_VERSION.zip` or `camunda-bpm-wildfly-$PLATFORM_VERSION.tar.gz`.
-* `$PLATFORM_VERSION` denotes the version of Camunda 7 you want to install or already have installed, e.g. `7.0.0`.
+* `$WILDFLY_DISTRIBUTION` represents the downloaded pre-packaged Operatondistribution for WildFly, e.g. `camunda-bpm-wildfly-$PLATFORM_VERSION.zip` or `camunda-bpm-wildfly-$PLATFORM_VERSION.tar.gz`.
+* `$PLATFORM_VERSION` denotes the version of Operatonyou want to install or already have installed, e.g. `7.0.0`.
 {{< /note >}}
 
-If not already done, download the [Camunda 7.22 WildFly distribution](https://downloads.camunda.
+If not already done, download the [Operaton WildFly distribution](https://downloads.camunda.
 cloud/release/camunda-bpm/wildfly/7.22/)
-or [Camunda 7.22 WildFly ≤26 Modules](https://artifacts.camunda.
-com/artifactory/camunda-bpm/org/camunda/bpm/wildfly/camunda-wildfly26-modules/). 
+or [Operaton WildFly ≤26 Modules](https://artifacts.camunda.
+com/artifactory/camunda-bpm/org/camunda/bpm/wildfly/camunda-wildfly26-modules/).
 
 The update procedure takes the following steps:
 
-1. Update the Camunda 7 modules.
-2. Update optional Camunda 7 modules.
-3. Update Camunda web applications.
+1. Update the Operatonmodules.
+2. Update optional Operatonmodules.
+3. Update Operaton web applications.
 
 Whenever the instructions are to *replace* a module, delete the previous version of the module first to avoid orphan jars.
 
-# 1. Update the Camunda 7 modules
+# 1. Update the Operatonmodules
 
 Replace the following modules from the folder `$WILDFLY_HOME/modules/` with the new versions from the folder `$WILDFLY_DISTRIBUTION/modules/`:
 
@@ -69,9 +69,9 @@ Replace the following modules from the folder `$WILDFLY_HOME/modules/` with the 
 * `org/graalvm/truffle/truffle-api`
 * `com/ibm/icu/icu4j`
 
-# 2. Update optional Camunda 7 modules
+# 2. Update optional Operatonmodules
 
-In addition to the core modules, there may be optional artifacts in `$WILDFLY_HOME/modules/` for LDAP integration, Camunda Connect, Camunda Spin, and Groovy scripting.
+In addition to the core modules, there may be optional artifacts in `$WILDFLY_HOME/modules/` for LDAP integration, Operaton Connect, Operaton Spin, and Groovy scripting.
 If you use any of these extensions, the following update steps apply:
 
 ## LDAP integration
@@ -80,13 +80,13 @@ Replace the following module from the folder `$WILDFLY_HOME/modules/` with its n
 
 * `org/camunda/bpm/identity/camunda-identity-ldap`
 
-## Camunda Connect plugin
+## Operaton Connect plugin
 
 Replace the following modules from the folder `$WILDFLY_HOME/modules/` with the new versions from the folder `$WILDFLY_DISTRIBUTION/modules/`, if present:
 
 * `org/camunda/bpm/camunda-engine-plugin-connect`
 
-## Camunda Spin
+## Operaton Spin
 
 Replace the following modules from the folder `$WILDFLY_HOME/modules/` with the new versions from the folder `$WILDFLY_DISTRIBUTION/modules/`, if present:
 
@@ -109,7 +109,7 @@ Additionally, replace the following dependent modules:
 
 ## Groovy
 
-Replace the 'org/codehaus/groovy/groovy-all' module from the folder `$WILDFLY_HOME/modules/` with the following 
+Replace the 'org/codehaus/groovy/groovy-all' module from the folder `$WILDFLY_HOME/modules/` with the following
 modules from the folder `$WILDFLY_DISTRIBUTION/modules/`, if present:
 
 * `org/codehaus/groovy/groovy-all`
@@ -119,11 +119,11 @@ modules from the folder `$WILDFLY_DISTRIBUTION/modules/`, if present:
 * `org/codehaus/groovy/groovy-xml`
 * `org/codehaus/groovy/groovy-templates`
 
-# 3. Update Camunda web applications
+# 3. Update Operaton web applications
 
 ## Update REST API
 
-The following steps are required to update the Camunda REST API on a JBoss/Wildfly instance:
+The following steps are required to update the Operaton REST API on a JBoss/Wildfly instance:
 
 1. Undeploy an existing web application with a name like `camunda-engine-rest`.
 2. Download the REST API web application archive from our Maven Artifactory.
@@ -134,10 +134,10 @@ The following steps are required to update the Camunda REST API on a JBoss/Wildf
 
 ## Update Cockpit, Tasklist, and Admin
 
-The following steps are required to update the Camunda web applications Cockpit, Tasklist, and Admin on a JBoss/WildFly instance:
+The following steps are required to update the Operaton web applications Cockpit, Tasklist, and Admin on a JBoss/WildFly instance:
 
 1. Un-deploy an existing web application with a name like `camunda-webapp`.
-2. Download the Camunda web application that contains the web applications from our Maven Artifactory.
+2. Download the Operaton web application that contains the web applications from our Maven Artifactory.
    Alternatively, switch to the private repository for the enterprise version (credentials from license required).
     * For [WildFly 27+](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-wildfly/), the name of the artifact is `$PLATFORM_VERSION/camunda-webapp-wildfly-$PLATFORM_VERSION.war`.
     * For [WildFly ≤26 / JBoss EAP 7](https://artifacts.camunda.com/artifactory/camunda-bpm/org/camunda/bpm/webapp/camunda-webapp-jboss/), the name of the artifact is `$PLATFORM_VERSION/camunda-webapp-jboss-$PLATFORM_VERSION.war`.

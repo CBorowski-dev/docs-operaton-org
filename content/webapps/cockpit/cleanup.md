@@ -12,7 +12,7 @@ menu:
 
 ---
 {{< enterprise >}}
-  Please note that this feature is only included in the enterprise edition of Camunda 7, it is not available in the community edition.
+  Please note that this feature is only included in the enterprise edition of Operaton, it is not available in the community edition.
 {{< /enterprise >}}
 
 {{< img src="../img/cockpit-cleanup-page.png" title="Cockpit Cleanup View" >}}
@@ -23,7 +23,7 @@ Moreover, the page allows to manually perform various operations related to the 
 
 # Cleanup State
 
-Information and operations related to the history cleanup vary on its state. 
+Information and operations related to the history cleanup vary on its state.
 
 If a history cleanup window is configured and scheduled, you can check out the remaining time for its start. Whether a window is scheduled or not, it is always possible to manually trigger a cleanup job.
 
@@ -40,7 +40,7 @@ the most relevant data to history cleanup first, i.e. the rows with the most fin
 {{< img src="../img/cockpit-cleanup-ttl.png" title="Cockpit History Time To Live Modification in Cleanup Page" >}}
 
 Moreover, it's also possible to modify the history time to live directly from the table for a specific definition version.
- 
+
 
 # Deleted Data Metrics
 

@@ -23,24 +23,24 @@ In order to set up LDAP for the IBM WebSphere distribution, you have to perform 
 
 ### Add the LDAP Library
 
-Make sure the `camunda-identity-ldap-$PLATFORM_VERSION.jar` is present in the shared library 'Camunda' folder.
+Make sure the `camunda-identity-ldap-$PLATFORM_VERSION.jar` is present in the shared library 'Operaton' folder.
 
 
 ### Adjust the Process Engine Configuration
 
-Edit the file `bpm-platform.xml` located inside the Camunda enterprise archive at `camunda-ibm-websphere-ear-$VERSION.ear/camunda-ibm-websphere-service.jar/META-INF/` and add the [LDAP Identity Provider Plugin]({{< ref "/user-guide/process-engine/identity-service.md#the-ldap-identity-service" >}}) and the [Administrator Authorization Plugin]({{< ref "/user-guide/process-engine/authorization-service.md#the-administrator-authorization-plugin" >}}).
+Edit the file `bpm-platform.xml` located inside the Operaton enterprise archive at `camunda-ibm-websphere-ear-$VERSION.ear/camunda-ibm-websphere-service.jar/META-INF/` and add the [LDAP Identity Provider Plugin]({{< ref "/user-guide/process-engine/identity-service.md#the-ldap-identity-service" >}}) and the [Administrator Authorization Plugin]({{< ref "/user-guide/process-engine/authorization-service.md#the-administrator-authorization-plugin" >}}).
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<bpm-platform xmlns="http://www.camunda.org/schema/1.0/BpmPlatform"
+<bpm-platform xmlns="http://www.operaton.org/schema/1.0/BpmPlatform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.camunda.org/schema/1.0/BpmPlatform http://www.camunda.org/schema/1.0/BpmPlatform ">
+  xsi:schemaLocation="http://www.operaton.org/schema/1.0/BpmPlatform http://www.operaton.org/schema/1.0/BpmPlatform ">
   ...
   <process-engine name="default"> ...
     <properties>...</properties>
     <plugins>
       <plugin>
-        <class>org.camunda.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin</class>
+        <class>org.operaton.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin</class>
         <properties>
 
           <property name="serverUrl">ldap://localhost:4334/</property>
@@ -68,7 +68,7 @@ Edit the file `bpm-platform.xml` located inside the Camunda enterprise archive a
         </properties>
       </plugin>
       <plugin>
-        <class>org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
+        <class>org.operaton.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
         <properties>
           <property name="administratorUserName">admin</property>
         </properties>
@@ -86,8 +86,8 @@ See our user guide for complete documentation on the [LDAP Identity Provider Plu
 ## HAL Resource Caching
 
 If you use LDAP as Indentity Provider, you should consider [activating caching]({{< ref "/reference/rest/overview/hal.md#caching-of-hal-relations" >}}) of
-Users and Groups in the Camunda webapplication. In order to activate this, add the following
-configuration to the `web.xml` file of Camunda webapplication
+Users and Groups in the Operaton webapplication. In order to activate this, add the following
+configuration to the `web.xml` file of Operaton webapplication
 (`camunda-webapp-was-$PLATFORM_VERSION.war/WEB-INF/web.xml`):
 
 ```xml
@@ -99,20 +99,20 @@ configuration to the `web.xml` file of Camunda webapplication
   <!-- ... -->
 
   <listener>
-    <listener-class>org.camunda.bpm.engine.rest.hal.cache.HalRelationCacheBootstrap</listener-class>
+    <listener-class>org.operaton.bpm.engine.rest.hal.cache.HalRelationCacheBootstrap</listener-class>
   </listener>
 
   <context-param>
-    <param-name>org.camunda.bpm.engine.rest.hal.cache.config</param-name>
+    <param-name>org.operaton.bpm.engine.rest.hal.cache.config</param-name>
     <param-value>
       {
-        "cacheImplementation": "org.camunda.bpm.engine.rest.hal.cache.DefaultHalResourceCache",
+        "cacheImplementation": "org.operaton.bpm.engine.rest.hal.cache.DefaultHalResourceCache",
         "caches": {
-          "org.camunda.bpm.engine.rest.hal.user.HalUser": {
+          "org.operaton.bpm.engine.rest.hal.user.HalUser": {
             "capacity": 100,
             "secondsToLive": 900
           },
-          "org.camunda.bpm.engine.rest.hal.group.HalGroup": {
+          "org.operaton.bpm.engine.rest.hal.group.HalGroup": {
             "capacity": 100,
             "secondsToLive": 900
           }
@@ -135,7 +135,7 @@ In WebSphere Liberty, you can configure the **Session Cookie** per Liberty serve
 
 ```xml
 <server>
-  <httpSession 
+  <httpSession
      cookieName="JSESSIONID"
      cookieHttpOnly="true"
      cookieMaxAge="-1"
@@ -145,18 +145,18 @@ In WebSphere Liberty, you can configure the **Session Cookie** per Liberty serve
 
 * To ensure session cookies are `HTTPOnly`, set the `httpSession#cookieHttpOnly` attribute to `true`.
 * To restrict session cookies to HTTPS sessions, set the `httpSession#cookieSecure` attribute to `true`.
-* To confgiure the session cookies' SameSite policy, set the `httpSession#cookieSameSite` attribute to one of the 
-  [available policies](https://www.ibm.com/docs/en/was-liberty/core?topic=configuration-httpsession). 
+* To confgiure the session cookies' SameSite policy, set the `httpSession#cookieSameSite` attribute to one of the
+  [available policies](https://www.ibm.com/docs/en/was-liberty/core?topic=configuration-httpsession).
   The default policy is `Disabled`.
-* To ensure the session cookie expires once the current browser session ends, set the `httpSession#cookieMaxAge` 
+* To ensure the session cookie expires once the current browser session ends, set the `httpSession#cookieMaxAge`
   attribute to -1.
 
-You can find more details in the [Liberty configuring cookies](https://www.ibm.com/docs/en/was-liberty/core?topic=configuration-httpsession) 
+You can find more details in the [Liberty configuring cookies](https://www.ibm.com/docs/en/was-liberty/core?topic=configuration-httpsession)
 documentation page.
 
 ## Security-related HTTP headers in Webapps
 
-To customize the configuration of security-related HTTP headers in the web applications its deployment descriptor needs 
+To customize the configuration of security-related HTTP headers in the web applications its deployment descriptor needs
 to be adjusted. You can find it under `WEB-INF/web.xml`.
 
 Please watch out for the following section:
@@ -165,7 +165,7 @@ Please watch out for the following section:
 <filter>
   <filter-name>HttpHeaderSecurity</filter-name>
   <filter-class>
-    org.camunda.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
+    org.operaton.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
   </filter-class>
 </filter>
 
@@ -183,9 +183,9 @@ You can change the default behavior by adding configuration parameters to the se
 <filter>
   <filter-name>HttpHeaderSecurity</filter-name>
   <filter-class>
-    org.camunda.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
+    org.operaton.bpm.webapp.impl.security.filter.headersec.HttpHeaderSecurityFilter
   </filter-class>
-  
+
   <init-param>
     <param-name>contentSecurityPolicyValue</param-name>
     <param-value>
@@ -193,10 +193,10 @@ You can change the default behavior by adding configuration parameters to the se
       default-src 'self' 'unsafe-inline'
     </param-value>
   </init-param>
-  
+
 </filter>
 ...
 ```
 
-Please also see the detailed overview about the 
+Please also see the detailed overview about the
 [HTTP Header Security configuration settings]({{< ref "/webapps/shared-options/header-security.md#how-to-configure" >}}).

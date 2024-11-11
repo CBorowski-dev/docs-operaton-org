@@ -66,7 +66,7 @@ runtimeService.signal(execution.getId());
 ```
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

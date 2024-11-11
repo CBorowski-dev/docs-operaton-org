@@ -14,7 +14,7 @@ This page describes the changes in web application plugins.
 
 # Cockpit Dashboard
 
-With Camunda 7.6, the dashboard and sections of Cockpit have been re-organized and new names have been
+With Operaton, the dashboard and sections of Cockpit have been re-organized and new names have been
 given to the plugin points.
 
 The `cockpit.dashboard` plugin point will allow to add your custom views at the bottom of the dashboard.
@@ -40,12 +40,12 @@ The following modules have been updated to a newer version:
   </thead>
   <tbody>
   <tr>
-    <td>bpmn-js</td>    
+    <td>bpmn-js</td>
     <td>0.14.1</td>
     <td>0.18.1</td>
   </tr>
   <tr>
-    <td>dmn-js</td>    
+    <td>dmn-js</td>
     <td>0.5.0</td>
     <td>0.8.1</td>
   </tr>

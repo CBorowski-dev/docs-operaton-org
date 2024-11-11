@@ -11,9 +11,9 @@ menu:
 ---
 
 
-Camunda is a Java-based framework. The main components are written in Java and we have a general focus on providing Java developers with the tools they need for designing, implementing and running business processes and workflows on the JVM. Nevertheless, we also want to make the process engine technology available to non-Java developers. This is why Camunda also provides a REST API which allows you to build applications connecting to a remote process engine.
+Operaton is a Java-based framework. The main components are written in Java and we have a general focus on providing Java developers with the tools they need for designing, implementing and running business processes and workflows on the JVM. Nevertheless, we also want to make the process engine technology available to non-Java developers. This is why Operaton also provides a REST API which allows you to build applications connecting to a remote process engine.
 
-Camunda can be used both as a standalone process engine server or embedded inside custom Java applications. The embeddability requirement is at the heart of many architectural decisions within Camunda. For instance, we work hard to make the process engine component a lightweight component with as little dependencies on [third-party libraries]({{< ref "/introduction/third-party-libraries/_index.md" >}}) as possible. Furthermore, the embeddability motivates programming model choices such as the capabilities of the process engine to participate in Spring Managed or JTA [transactions and the threading model]({{< ref "/user-guide/process-engine/transactions-in-processes.md" >}}).
+Operaton can be used both as a standalone process engine server or embedded inside custom Java applications. The embeddability requirement is at the heart of many architectural decisions within Operaton. For instance, we work hard to make the process engine component a lightweight component with as little dependencies on [third-party libraries]({{< ref "/introduction/third-party-libraries/_index.md" >}}) as possible. Furthermore, the embeddability motivates programming model choices such as the capabilities of the process engine to participate in Spring Managed or JTA [transactions and the threading model]({{< ref "/user-guide/process-engine/transactions-in-processes.md" >}}).
 
 
 # Process Engine Architecture
@@ -31,9 +31,9 @@ Camunda can be used both as a standalone process engine server or embedded insid
 See the section on [third-party libraries]({{< ref "/introduction/third-party-libraries/_index.md" >}}).
 
 
-# Camunda Architecture
+# Operaton Architecture
 
-Camunda is a flexible framework which can be deployed in different scenarios. This section provides an overview of the most common deployment scenarios.
+Operaton is a flexible framework which can be deployed in different scenarios. This section provides an overview of the most common deployment scenarios.
 
 
 ## Embedded Process Engine
@@ -67,7 +67,7 @@ The individual process engine instances do not maintain session state across tra
 
 ## Session State in a Clustered Environment
 
-Camunda doesn't provide load-balancing capabilities or session replication capabilities out of the box. The load-balancing function would need to be provided by a third-party system, and session replication would need to be provided by the host application server.
+Operaton doesn't provide load-balancing capabilities or session replication capabilities out of the box. The load-balancing function would need to be provided by a third-party system, and session replication would need to be provided by the host application server.
 
 In a clustered setup, if users are going to login to the web applications, an extra step will need to be taken to ensure that users aren't asked to login multiple times. Two options exist:
 
@@ -87,20 +87,20 @@ The are some limitations on [time zone usage in a cluster]({{< ref "/user-guide/
 
 # Multi-Tenancy Models
 
-To serve multiple, independent parties with one Camunda installation, the process engine supports
+To serve multiple, independent parties with one Operaton installation, the process engine supports
 multi-tenancy. The following multi tenancy models are supported:
 
 * Table-level data separation by using different database schemas or databases
 * Row-level data separation by using a tenant marker
 
-Users should choose the model which fits their data separation needs. Camunda's APIs provide access
+Users should choose the model which fits their data separation needs. Operaton's APIs provide access
 to processes and related data specific to each tenant.
 More details can be found in the [multi-tenancy section]({{< ref "/user-guide/process-engine/multi-tenancy.md" >}}).
 
 
 # Web Application Architecture
 
-The Camunda web applications are based on a RESTful architecture.
+The Operaton web applications are based on a RESTful architecture.
 
 Frameworks used:
 
@@ -110,8 +110,8 @@ Frameworks used:
 * [jQuery](http://jquery.com)
 * [Twitter Bootstrap](http://getbootstrap.com)
 
-Additional custom frameworks developed by Camunda hackers:
+Additional custom frameworks developed by Operaton hackers:
 
-* [camunda-bpmn.js](https://github.com/camunda/camunda-bpmn.js): Camunda BPMN 2.0 JavaScript libraries
+* [camunda-bpmn.js](https://github.com/camunda/camunda-bpmn.js): Operaton BPMN 2.0 JavaScript libraries
 * [ngDefine](https://github.com/Nikku/requirejs-angular-define): integration of AngularJS into RequireJS powered applications
 * [angular-data-depend](https://github.com/Nikku/angular-data-depend): toolkit for implementing complex, data heavy AngularJS applications

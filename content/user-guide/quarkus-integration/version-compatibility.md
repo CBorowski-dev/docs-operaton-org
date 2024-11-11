@@ -11,12 +11,12 @@ menu:
 
 ---
 
-Each version of the Camunda Engine Quarkus Extension is bound to a specific version of Camunda 7 and Quarkus. 
-Only these default combinations are recommended (and supported) by Camunda.
+Each version of the Operaton Engine Quarkus Extension is bound to a specific version of Operatonand Quarkus.
+Only these default combinations are recommended (and supported) by Operaton.
 
 <table class="table table-striped">
   <tr>
-    <th>Camunda 7 version</th>
+    <th>Operatonversion</th>
     <th>Quarkus version</th>
   </tr>
   <tr>
@@ -46,7 +46,7 @@ Only these default combinations are recommended (and supported) by Camunda.
 </table>
 
 In case a certain Quarkus version has a bug, you can override the existing Quarkus version by adding the following
-inside your `pom.xml`. Note that this new Camunda/Quarkus version combination should also be supported by Camunda.
+inside your `pom.xml`. Note that this new Operaton/Quarkus version combination should also be supported by Operaton.
 
 ```xml
 <dependencyManagement>

@@ -11,30 +11,30 @@ menu:
 
 ---
 
-The `bpm-platform.xml` file is part of the Camunda 7 distribution and can be used for configuration of process engines and the job executor.
-It is used to configure Camunda 7 in the following distributions:
+The `bpm-platform.xml` file is part of the Operatondistribution and can be used for configuration of process engines and the job executor.
+It is used to configure Operatonin the following distributions:
 
 *   [Apache Tomcat]({{< ref "/installation/full/tomcat/_index.md" >}})
 *   [IBM WebSphere Application Server]({{< ref "/installation/full/was/_index.md" >}})
 *   [Oracle WebLogic Application Server]({{< ref "/installation/full/wls/_index.md" >}})
 
 {{< note title="Wildfly" class="warning">}}
-The <code>bpm-platform.xml</code> file is not used in the Camunda 7 distribution for Wildfly. There, the configuration is added to the central application server configuration file (<code>standalone.xml</code> or <code>domain.xml</code>). The XML schema is the same (i.e., the same elements and properties can be used). See the <a href="{{< ref "/user-guide/runtime-container-integration/jboss.md" >}}">The Camunda Wildfly Subsystem</a> section of the <a href="{{< ref "/user-guide/_index.md" >}}">User Guide</a> for more details.
+The <code>bpm-platform.xml</code> file is not used in the Operatondistribution for Wildfly. There, the configuration is added to the central application server configuration file (<code>standalone.xml</code> or <code>domain.xml</code>). The XML schema is the same (i.e., the same elements and properties can be used). See the <a href="{{< ref "/user-guide/runtime-container-integration/jboss.md" >}}">The Operaton Wildfly Subsystem</a> section of the <a href="{{< ref "/user-guide/_index.md" >}}">User Guide</a> for more details.
 {{< /note >}}
 
 
 # Xml Schema Namespace
 
-The namespace for the `bpm-platform.xml` file is `http://www.camunda.org/schema/1.0/BpmPlatform`. The XSD file can be found in the `camunda-engine.jar` file.
+The namespace for the `bpm-platform.xml` file is `http://www.operaton.org/schema/1.0/BpmPlatform`. The XSD file can be found in the `camunda-engine.jar` file.
 
 
 ## Example
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<bpm-platform xmlns="http://www.camunda.org/schema/1.0/BpmPlatform"
+<bpm-platform xmlns="http://www.operaton.org/schema/1.0/BpmPlatform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.camunda.org/schema/1.0/BpmPlatform http://www.camunda.org/schema/1.0/BpmPlatform ">
+  xsi:schemaLocation="http://www.operaton.org/schema/1.0/BpmPlatform http://www.operaton.org/schema/1.0/BpmPlatform ">
 
   <job-executor>
     <job-acquisition name="default" />
@@ -42,7 +42,7 @@ The namespace for the `bpm-platform.xml` file is `http://www.camunda.org/schema/
 
   <process-engine name="default">
     <job-acquisition>default</job-acquisition>
-    <configuration>org.camunda.bpm.engine.impl.cfg.JtaProcessEngineConfiguration</configuration>
+    <configuration>org.operaton.bpm.engine.impl.cfg.JtaProcessEngineConfiguration</configuration>
     <datasource>jdbc/ProcessEngine</datasource>
 
     <properties>
@@ -89,7 +89,7 @@ The namespace for the `bpm-platform.xml` file is `http://www.camunda.org/schema/
 
 # Configure Location of the bpm-platform.xml File
 
-You can configure the location of the `bpm-platform.xml`, so the file can be stored externally to allow an easy update path of camunda-bpm-platform.ear. This negates the work of unpacking / repackaging the ear when you need to change the configuration.  
+You can configure the location of the `bpm-platform.xml`, so the file can be stored externally to allow an easy update path of camunda-bpm-platform.ear. This negates the work of unpacking / repackaging the ear when you need to change the configuration.
 
 This feature is available for:
 
@@ -122,7 +122,7 @@ Complex operations are not supported, but you may combine more than one expressi
 ```xml
 <!-- ... -->
 <plugin>
-  <class>org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
+  <class>org.operaton.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin</class>
   <properties>
     <property name="administratorUserName">${camunda.administratorUserName}</property>
   </properties>

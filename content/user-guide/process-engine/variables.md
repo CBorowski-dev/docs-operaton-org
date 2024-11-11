@@ -89,7 +89,7 @@ Here is example usage with script executionListener:
         <camunda:script scriptFormat="groovy"><![CDATA[execution.setVariable("aVariable", "aValue","aSubProcess");]]></camunda:script>
 </camunda:executionListener>
 ```
-Another usage example would be input\output mapping using `DelegateVariableMapping` implementation 
+Another usage example would be input\output mapping using `DelegateVariableMapping` implementation
 
 ```java
 public class SetVariableToScopeMappingDelegate implements DelegateVariableMapping {
@@ -103,7 +103,7 @@ public class SetVariableToScopeMappingDelegate implements DelegateVariableMappin
   }
 }
 ```
-here variable will be set locally in "aSubProcess" and not propagated to the parent scope even if variable was not set beforehand locally in "aSubProcess". 
+here variable will be set locally in "aSubProcess" and not propagated to the parent scope even if variable was not set beforehand locally in "aSubProcess".
 
 # Supported Variable Values
 
@@ -131,12 +131,12 @@ The value type `object` represents custom Java objects. When such a variable is 
 
 {{< note title="String length restriction" class="warning" >}}
 `string` values are stored in the database in a column of type `(n)varchar`, with a length restriction of 4000 (2000 for Oracle). Depending on the database in use and the
-configured charset, this length restriction can result in different quantities of real characters. Variable value length is not validated inside the Camunda engine, but
- the values are sent to the database 'as is' and, in case the length restriction is exceeded, a database level exception will be thrown. If validation is needed, 
- it may be implemented separately and must happen before the Camunda API to set the variables is called.
+configured charset, this length restriction can result in different quantities of real characters. Variable value length is not validated inside the Operaton engine, but
+ the values are sent to the database 'as is' and, in case the length restriction is exceeded, a database level exception will be thrown. If validation is needed,
+ it may be implemented separately and must happen before the Operaton API to set the variables is called.
 {{< /note >}}
 
-Process variables can be stored in formats like JSON and XML provided by the [Camunda Spin plugin]({{< ref "/user-guide/data-formats/_index.md" >}}). Spin provides serializers for the variables of type `object` such that Java variables can be persisted in these formats to the database. Furthermore, it is possible to store JSON and XML documents directly as a Spin object by the value types `xml` and `json`. Opposed to plain `string` variables, Spin objects provide a fluent API to perform common operations on such documents like reading and writing properties.
+Process variables can be stored in formats like JSON and XML provided by the [Operaton Spin plugin]({{< ref "/user-guide/data-formats/_index.md" >}}). Spin provides serializers for the variables of type `object` such that Java variables can be persisted in these formats to the database. Furthermore, it is possible to store JSON and XML documents directly as a Spin object by the value types `xml` and `json`. Opposed to plain `string` variables, Spin objects provide a fluent API to perform common operations on such documents like reading and writing properties.
 
 
 ## Object Value Serialization
@@ -164,7 +164,7 @@ execution.setVariable("someVariable", customerDataValue);
 {{< /note >}}
 
 {{< note title="Serializing Objects to XML and JSON" class="info" >}}
-  The [Camunda Spin plugin]({{< ref "/user-guide/data-formats/_index.md" >}}) provides serializers that are capable of serializing object values to XML and JSON. They can be used when it is desired that the serialized objects values can be interpreted by humans or when the serialized value should be meaningful without having the corresponding Java class. When using a pre-built Camunda distribution, Camunda Spin is already preconfigured and you can try these formats without further configuration.
+  The [Operaton Spin plugin]({{< ref "/user-guide/data-formats/_index.md" >}}) provides serializers that are capable of serializing object values to XML and JSON. They can be used when it is desired that the serialized objects values can be interpreted by humans or when the serialized value should be meaningful without having the corresponding Java class. When using a pre-built Operaton distribution, Operaton Spin is already preconfigured and you can try these formats without further configuration.
 {{< /note >}}
 
 
@@ -197,7 +197,7 @@ Whenever a variable is set in its Java representation, the process engine automa
 
 In cases in which it is important to access a variable's serialized representation or in which the engine has to be hinted to serialize a value in a certain format, the typed-value-based API can be used. In comparison to the Java-Object-based API, it wraps a variable value in a so-called *Typed Value*. Such a typed value allows richer representation of variable values.
 
-In order to easily construct typed values, Camunda 7 offers the class `org.camunda.bpm.engine.variable.Variables`. This class contains static methods that allow creation of single typed values as well as creation of a map of typed values in a fluent way.
+In order to easily construct typed values, Operatonoffers the class `org.operaton.bpm.engine.variable.Variables`. This class contains static methods that allow creation of single typed values as well as creation of a map of typed values in a fluent way.
 
 
 ## Primitive Values
@@ -243,7 +243,7 @@ To change or update a `file` value, you have to create a new `FileValue` with th
 
 ```java
 InputStream newContent = new FileInputStream("path/to/the/new/file.txt");
-FileValue fileVariable = execution.getVariableTyped("addresses.txt");  
+FileValue fileVariable = execution.getVariableTyped("addresses.txt");
 Variables.fileValue(fileVariable.getName()).file(newContent).encoding(fileVariable.getEncoding()).mimeType(fileVariable.getMimeType()).create();
 ```
 
@@ -319,7 +319,7 @@ com.example.Order retrievedOrder = (com.example.Order) retrievedTypedObjectValue
 
 ## JSON and XML Values
 
-The Camunda Spin plugin provides an abstraction for JSON and XML documents that facilitate their processing and manipulation. This is often more convenient than storing such documents as plain `string` variables. See the documentation on Camunda SPIN for [storing JSON documents]({{< ref "/user-guide/data-formats/json.md#native-json-variable-value" >}}) and [storing XML documents]({{< ref "/user-guide/data-formats/xml.md#native-xml-variable-value" >}}) for details.
+The Operaton Spin plugin provides an abstraction for JSON and XML documents that facilitate their processing and manipulation. This is often more convenient than storing such documents as plain `string` variables. See the documentation on Operaton SPIN for [storing JSON documents]({{< ref "/user-guide/data-formats/json.md#native-json-variable-value" >}}) and [storing XML documents]({{< ref "/user-guide/data-formats/xml.md#native-xml-variable-value" >}}) for details.
 
 ## Transient variables
 
@@ -341,7 +341,7 @@ TypedValue typedTransientFileValue = Variables.fileValue("file.txt", true)
   .mimeType("text/plain")
   .encoding("UTF-8")
   .create();
-``` 
+```
 
 Transient variables can be used via REST API, e.g. {{< restref page="startProcessInstance" text="when starting a new process instance" tag="Process-Definition" >}}.
 
@@ -370,10 +370,10 @@ Which API should you use? The one that fits your purpose best. When you are cert
 
 # Input/Output Variable Mapping
 
-To improve the reusability of source code and business logic, Camunda 7 offers input/output
+To improve the reusability of source code and business logic, Operatonoffers input/output
 mapping of process variables. This can be used for tasks, events and subprocesses.
 
-In order to use the variable mapping, the Camunda extension element [inputOutput][] has to be added
+In order to use the variable mapping, the Operaton extension element [inputOutput][] has to be added
 to the element. It can contain multiple [inputParameter][] and [outputParameter][] elements that
 specify which variables should be mapped. The `name` attribute of an [inputParameter][] denotes
 the variable name inside the activity (a local variable to be created), whereas the `name` attribute of an [outputParameter][]
@@ -432,13 +432,13 @@ An input mapping is used to map the different process variables to
 the required input parameters of the complex calculation activity. Accordingly, an output mapping allows to utilize the
 calculation result in the further process execution.
 
-In more detail, let us assume such a calculation is implemented by a Java Delegate class `org.camunda.bpm.example.ComplexCalculation`.
+In more detail, let us assume such a calculation is implemented by a Java Delegate class `org.operaton.bpm.example.ComplexCalculation`.
 This delegate requires a `userId` and a `costSum` variable as input
 parameters. It then calculates three values, `pessimisticForecast`, `realisticForecast` and `optimisticForecast`,
 which are different forecasts of the future costs a customer faces. In a first process, both input variables are available as process variables but with different names (`id`, `sum`). From the three results, the process only uses `realisticForecast` which it depends on by the name `forecast` in follow-up activities. A corresponding input/output mapping looks as follows:
 
 ```xml
-<serviceTask camunda:class="org.camunda.bpm.example.ComplexCalculation">
+<serviceTask camunda:class="org.operaton.bpm.example.ComplexCalculation">
   <extensionElements>
     <camunda:inputOutput>
       <camunda:inputParameter name="userId">${id}</camunda:inputParameter>
@@ -453,7 +453,7 @@ In a second process, let us assume the `costSum` variable has to be calculated f
 depends on a variable `avgForecast` as the average value of the three forecasts. In this case, the mapping looks as follows:
 
 ```xml
-<serviceTask camunda:class="org.camunda.bpm.example.ComplexCalculation">
+<serviceTask camunda:class="org.operaton.bpm.example.ComplexCalculation">
   <extensionElements>
     <camunda:inputOutput>
       <camunda:inputParameter name="userId">${id}</camunda:inputParameter>

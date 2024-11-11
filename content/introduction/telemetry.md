@@ -7,7 +7,7 @@ menu:
     parent: "user-guide-introduction"
 ---
 
-The feature has been [removed][telemetry-removed] in Camunda `7.22.0+`.
+The feature has been [removed][telemetry-removed] in Operaton `7.22.0+`.
 
 Documentation about diagnostics data can be found in the [User Guide]({{< ref "/user-guide/process-engine/diagnostics-data.md" >}}).
 

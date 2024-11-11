@@ -12,14 +12,14 @@ menu:
 
 
 {{< note title="Spin Dataformat Reference" class="info" >}}
-  This section explains how to work with data formats such as XML or JSON in Camunda 7. The
+  This section explains how to work with data formats such as XML or JSON in Operaton. The
   [Spin Dataformat Reference]({{< ref "/reference/spin/_index.md" >}}) provides a complete reference of
   all data manipulation features available.
 {{< /note >}}
 
-While Camunda 7 is a Java platform, process data is not always represented by Java objects. When interacting with external systems, serialized formats such as JSON or XML are often used. While such process variables can be treated by the engine as plain String objects, there is a significant effort required to process such data like parsing, manipulating or mapping from/to Java objects. Thus, Camunda 7 offers an optional component that eases the work with this kind of data in the process engine.
+While Operatonis a Java platform, process data is not always represented by Java objects. When interacting with external systems, serialized formats such as JSON or XML are often used. While such process variables can be treated by the engine as plain String objects, there is a significant effort required to process such data like parsing, manipulating or mapping from/to Java objects. Thus, Operatonoffers an optional component that eases the work with this kind of data in the process engine.
 
-The [Camunda Spin](https://github.com/camunda/camunda-bpm-platform/tree/master/spin) project provides data format functionality and can be plugged into the engine. It is a wrapper around well-known libraries for processing data formats like XML and JSON and integrates with the engine's data handling functionality. Spin is designed to be extensible so that custom data formats can be added to those provided out of the box.
+The [Operaton Spin](https://github.com/camunda/camunda-bpm-platform/tree/master/spin) project provides data format functionality and can be plugged into the engine. It is a wrapper around well-known libraries for processing data formats like XML and JSON and integrates with the engine's data handling functionality. Spin is designed to be extensible so that custom data formats can be added to those provided out of the box.
 
 As an introductory example, assume a process instance that retrieves a customer's profile by invoking a RESTful XML web service and that stores the result in a variable called `customer`. Let the `customer` variable have the following content:
 
@@ -39,7 +39,7 @@ With Spin integrated into the engine, the following expression can be used to ev
 ${XML(customer).xPath("/customer/address/postcode").element().textContent() == "1234"}
 ```
 
-Camunda Spin provides the following engine functionality:
+Operaton Spin provides the following engine functionality:
 
 * Fluent APIs for reading, manipulating and writing text-based data formats like JSON and XML wherever code is plugged into a process
 * Integration of the Spin API functions into the expression language

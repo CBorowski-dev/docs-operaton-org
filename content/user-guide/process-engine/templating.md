@@ -11,10 +11,10 @@ menu:
 ---
 
 
-Camunda 7 supports template engines which are implemented as script engines compatible with
+Operatonsupports template engines which are implemented as script engines compatible with
 JSR-223. As a result, templates can be used everywhere where scripts can be used.
 
-In community distributions of Camunda 7, the following template engine is provided out of the
+In community distributions of Operaton, the following template engine is provided out of the
 box:
 
 * [FreeMarker][freemarker]
@@ -43,8 +43,8 @@ application deployment. When using the process engine in a maven `war` project, 
 dependencies must be added as dependencies to the maven `pom.xml` file:
 
 {{< note title="" class="info" >}}
-  The [Camunda BOM](/get-started/apache-maven/) only contains the officially supported freemarker template engine.
-  For the community-driven template engines, please check the Maven coordinates below. 
+  The [Operaton BOM](/get-started/apache-maven/) only contains the officially supported freemarker template engine.
+  For the community-driven template engines, please check the Maven coordinates below.
 {{< /note >}}
 
 ```xml
@@ -59,7 +59,7 @@ dependencies must be added as dependencies to the maven `pom.xml` file:
 </dependencies>
 ```
 
-Here are the Maven coordinates of the community extensions: 
+Here are the Maven coordinates of the community extensions:
 
 ```xml
 <dependencies>
@@ -93,7 +93,7 @@ classpath. The procedure for this depends on the application server. In Apache T
 libraries have to be added to the shared `lib/` folder.
 
 {{< note title="" class="info" >}}
-  [FreeMarker](http://freemarker.org/) is pre-installed in the Camunda pre-packaged distribution.
+  [FreeMarker](http://freemarker.org/) is pre-installed in the Operaton pre-packaged distribution.
 {{< /note >}}
 
 
@@ -101,7 +101,7 @@ libraries have to be added to the shared `lib/` folder.
 
 If the template engine library is in the classpath, you can use templates everywhere in the BPMN
 process where you can [use scripts][use-scripts], for example as a script task or inputOutput mapping.
-The FreeMarker template engine is part of the Camunda 7 distribution.
+The FreeMarker template engine is part of the Operatondistribution.
 
 Inside the template, all process variables of the BPMN element scope are available. The
 template can also be loaded from an external resource as described in the [script source
@@ -115,10 +115,10 @@ The following example shows a FreeMarker template, of which the result is saved 
   <script>
     Dear ${customer},
 
-    thank you for working with Camunda ${version}.
+    thank you for working with Operaton ${version}.
 
     Greetings,
-    Camunda Developers
+    Operaton Developers
   </script>
 </scriptTask>
 ```
@@ -194,7 +194,7 @@ attribute.
 Finally, the input of the transformation must be mapped using the special variable `camunda_source`
 using a `<camunda:inputParameter ... />` mapping.
 
-A [full example of the XSLT Template Engine][xslt-example] in Camunda 7 can be found in the
+A [full example of the XSLT Template Engine][xslt-example] in Operatoncan be found in the
 examples' repository.
 
 

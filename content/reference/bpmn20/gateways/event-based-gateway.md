@@ -65,7 +65,7 @@ The corresponding xml looks like this:
 ```
 
 
-# Camunda Extensions
+# Operaton Extensions
 
 <table class="table table-striped">
   <tr>

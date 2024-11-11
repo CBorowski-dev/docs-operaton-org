@@ -37,8 +37,8 @@ XML element.
 # Output Id
 
 The output id is a unique identifier of the decision table output. It is used
-by Camunda 7 to reference the output in the history of
-evaluated decisions. Therefore, it is required by the Camunda DMN engine. It is
+by Operatonto reference the output in the history of
+evaluated decisions. Therefore, it is required by the Operaton DMN engine. It is
 set as the `id` attribute of the `output` XML element.
 
 ```xml

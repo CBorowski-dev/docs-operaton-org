@@ -31,7 +31,7 @@ Note that the actual mechanics behind the context switch are platform dependent.
 A context switch is guaranteed in the following cases:
 
 * **Delegation Code Invocation**: Whenever delegation code like Java Delegates, execution/task listeners (Java code or scripts), etc. is called by the process engine
-* **Explicit Process Application Context Declaration**: For every engine API invocation, when a process application was declared using the utility class `org.camunda.bpm.application.ProcessApplicationContext`
+* **Explicit Process Application Context Declaration**: For every engine API invocation, when a process application was declared using the utility class `org.operaton.bpm.application.ProcessApplicationContext`
 
 # Declare Process Application Context
 
@@ -39,7 +39,7 @@ Process application context must be declared whenever custom code uses the engin
 
 ## Example
 
-To clarify the use case, we assume that a process application employs the [feature to serialize object-type variables in the JSON format]({{< ref "/user-guide/data-formats/json.md#serializing-process-variables" >}}). However, for that application JSON serialization shall be customized (think about the numerous ways to serialize a date as a JSON string). The process application therefore contains a Camunda Spin data format configurator implementation that configures the Spin JSON data format in the desired way. In turn, the process engine manages a Spin data format for that specific process application to serialize object values with. Now, we assume that a Java servlet calls the process engine API to submit a Java object and serialize it with the JSON format. The code might look as follows:
+To clarify the use case, we assume that a process application employs the [feature to serialize object-type variables in the JSON format]({{< ref "/user-guide/data-formats/json.md#serializing-process-variables" >}}). However, for that application JSON serialization shall be customized (think about the numerous ways to serialize a date as a JSON string). The process application therefore contains a Operaton Spin data format configurator implementation that configures the Spin JSON data format in the desired way. In turn, the process engine manages a Spin data format for that specific process application to serialize object values with. Now, we assume that a Java servlet calls the process engine API to submit a Java object and serialize it with the JSON format. The code might look as follows:
 
 ```java
 public class ObjectValueServlet extends HttpServlet {
@@ -59,7 +59,7 @@ public class ObjectValueServlet extends HttpServlet {
 
 Note that the engine API is not called from within delegation code but from a servlet instead. The process engine is therefore not aware of the process application context and cannot perform a context switch to use the correct JSON data format for variable serialization. In consequence, the process application-specific JSON configuration does not apply.
 
-In such a case, the process application context can be declared by using the static methods that the class `org.camunda.bpm.application.ProcessApplicationContext` provides. In particular, the method  `#setCurrentProcessApplication` declares the process application to switch into for following engine API invocations. The method `#clear` resets this declaration. In the example, we wrap the `#setVariable` invocation accordingly:
+In such a case, the process application context can be declared by using the static methods that the class `org.operaton.bpm.application.ProcessApplicationContext` provides. In particular, the method  `#setCurrentProcessApplication` declares the process application to switch into for following engine API invocations. The method `#clear` resets this declaration. In the example, we wrap the `#setVariable` invocation accordingly:
 
 ```java
 try {

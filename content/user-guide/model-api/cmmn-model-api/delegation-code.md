@@ -16,7 +16,7 @@ If you use [Delegation Code]({{< ref "/user-guide/process-engine/delegation-code
 
 # Case Execution Listener
 
-If your class implements the `org.camunda.bpm.engine.delegate.CaseExecutionListener` interface, you can access the CMMN model instance
+If your class implements the `org.operaton.bpm.engine.delegate.CaseExecutionListener` interface, you can access the CMMN model instance
 and the plan item element. As a Case Execution Listener can be added to several elements like case plan model, human task, etc., it can
 not be guaranteed which type the flow element will be.
 
