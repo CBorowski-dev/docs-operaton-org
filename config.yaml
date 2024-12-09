@@ -1,5 +1,5 @@
 ---
-baseURL: "/"
+baseURL: "https://docs.operaton.org"
 languageCode: "en-us"
 title: "Operaton documentation"
 theme: "operaton"
@@ -8,7 +8,7 @@ blackfriday:
   plainIDAnchors: true
 
 params:
-  canonicalBasePath: "https://docs.operaton.org"
+  canonicalBasePath: ""
   sections:
     - id: "get-started"
       name: "Get Started"
@@ -21,37 +21,15 @@ params:
       url: "/security"
   section:
     id: "manual"
-    version: "develop"
-    versionAlias: "7.23"
+    version: "latest"
+    versionAlias: "1.0.0-beta-2"
     versions:
       - "latest"
-      - "7.22"
-      - "7.21"
-      - "7.20"
-      - "7.19"
-      - "7.18"
-      - "7.17"
-      - "7.16"
-      - "7.15"
-      - "7.14"
-      - "7.13"
-      - "7.12"
-      - "7.11"
-      - "7.10"
-      - "7.9"
-      - "7.8"
-      - "7.7"
-      - "7.6"
-      - "7.5"
-      - "7.4"
-      - "7.3"
-      - "7.2"
-      - "7.1"
-      - "7.0"
-      - "develop"
+      - "1.0.0-beta-1"
+      - "1.0.0-beta-2"
   github:
     repositoryName: "operaton/docs-operaton-org"
-    branch: "master"
+    branch: "main"
 
 outputs:
   home:
@@ -59,6 +37,19 @@ outputs:
     - "RSS"
   section:
     - "HTML"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      definitionList: true
+      footnote: true
+      linkify: true
+      strikethrough: true
+      table: true
+      taskList: true
+      typographer: true
 
 disableKinds:
 - taxonomy
