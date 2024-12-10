@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width" />
 
   <meta name="description" content="documentation of Operaton" />
-  <meta name="keywords" content="operaton, open source, free, Apache License, Apache 2.0, workflow, BPMN, BPMN 2.0, camunda.org, bpm, BPMS, engine, platform, process, automation, community, documentation" />
+  <meta name="keywords" content="operaton, open source, free, Apache License, Apache 2.0, workflow, BPMN, BPMN 2.0, operaton.org, bpm, BPMS, engine, platform, process, automation, community, documentation" />
   <meta name="author" content="Operaton community" />
   {{ if ($.Site.Params.section.versions)}}
     {{ if (not (eq (index $.Site.Params.section.versions 1) $.Site.Params.section.version))}}
@@ -40,7 +40,7 @@
   <div class="navbar-container">
     <div class="navbar-header">
       <a href="{{ if $.Site.Params.section.version }}{{.Site.BaseURL}}{{else}}/{{end}}">
-      <img src="{{.Site.BaseURL}}img/logo_square.png" style="width:35;height:35px; padding:0 5px 7px 0;">
+      <img src="{{.Site.BaseURL}}img/logo-square.png" style="width:35;height:35px; padding:0 5px 7px 0;">
         <span class="brand-name">Operaton</span>
         <span class="site-name">Docs</span>
       </a>
@@ -48,7 +48,8 @@
 
     <ul class="header-menu">
       {{range $.Site.Params.sections }}
-      <li {{ if eq $.Site.Params.section.id .id }} class="active" {{ end }} ><a href="{{.url}}">{{.name}}</a></li>
+      <li {{ if eq $.Page.Section .id }} class="active" {{ end }} >
+        <a href="{{.url}}">{{.name}}</a></li>
       {{ end }}
     </ul><!-- / .header-menu -->
 
@@ -63,7 +64,7 @@
     </div><!-- / .search-field -->
 
     <ul class="external-menu">
-      <li class="external"><a href="https://camunda.org">Operaton.org</a></li>
+      <li class="external"><a href="https://operaton.org">Operaton.org</a></li>
     </ul><!-- / .external-menu -->
   </div>
 </nav>
